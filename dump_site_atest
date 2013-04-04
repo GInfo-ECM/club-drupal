@@ -1,0 +1,29 @@
+#!/bin/sh
+
+##############
+# nlehuby - 27 novembre 2011
+# ce script permet de sauvegarder toutes les tables d'un site. Il faut passer en paramètre le préfixe utilisé pour les tables du site en question. 
+# ATTENTION : Il faut penser à déplacer cette sauvegarde dans un endroit perenne car un script de purge supprime périodiquement les sauvegardes individuelles.
+##############
+
+cd /users/guest/assos/Desktop/dump_d7/
+
+#récupération des tables du site dans le fichier liste_tables.temp
+tables='_%'
+liste="$1$tables"
+
+/usr/local/bin/mysql -h myweb.serv.int -u webassos --password=HBVH2ljgyZCA0AP251DY -BNe "show tables like '"$liste"'" webatest | tr '\r\n' ' ' > liste_tables.temp
+
+#transformation de cette liste en une variable
+var=$(cat liste_tables.temp)
+
+
+#sauvegarde de toutes ces tables
+madate=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
+suffixe="_dump$madate.sql"
+fichier="$1$suffixe"
+
+/usr/local/bin/mysqldump webatest -h myweb.serv.int -u webassos --password=HBVH2ljgyZCA0AP251DY $var > /users/guest/assos/Desktop/dump_individuels/$fichier
+
+#suppression du fichier utilisé
+rm liste_tables.temp

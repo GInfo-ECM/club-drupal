@@ -1,0 +1,30 @@
+#!/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+
+#if user didn't pass the argument to script, help them know how to use the script
+if [ $# -lt 1 ]; then
+  echo "usage: $0 <drush args>"
+  exit 1
+fi
+
+cd /users/guest/assos/html/sites
+
+#Only be intersted in a drupal site folder 
+for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
+
+#if it's actually a directory and it's not a symbolic link 
+  if [ -d $x -a ! -L $x ]; then
+    cd $x;
+
+	#list all non core projects that are enabled for the site, then filter the display to only show the status of the project we're interested in
+	#if the project is not enabled then we couldn't even see a line corresponding to it as the drush command specifies --status=enabled
+	#if the project is enabled, then it appears in drush command output, we then count the number of lines the output prints. this number could only
+	#be 1 or 0
+	#if it's 1, then the project is enabled on the being tested folder, the name of the so called folder is printed !
+	#Shame on me and my ugly code !
+	    if [ 1 = `drush pml --no-core --status=enabled | grep $1 | wc -l` ]; then
+             echo $x; 
+            fi
+    cd -;
+  fi
+done

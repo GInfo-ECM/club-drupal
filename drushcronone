@@ -1,0 +1,11 @@
+#!/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+
+if [ $# -lt 1 ]; then
+  echo "usage: $0 <site's folder name>"
+  exit 1
+fi
+
+cd /users/guest/assos/html/sites/$*;
+pwd;
+drush cron;

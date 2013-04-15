@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #Ce script est une automatisation de ce qui est détaillé ici :
-#http://ginfo.centrale-marseille.fr/wiki/index.php?title=Utilisation_de_Drupal_multi-site#M.C3.A9thode_Drupal_7
+#https://forge.centrale-marseille.fr/projects/clubdrupal/wiki/Utilisation_de_Drupal_multi-site#Cr%C3%A9ation-du-site-drupal-7
 #Ce script ne crée que des sites sur le sous domaine assos.
 
 
@@ -54,9 +54,15 @@ done
 
 
 #on génère le mdp
-#        *avec des caractères spéciaux*
+#        *avec des caractères spéciaux*. On se protège du caractère / qui
+#signifie que l’expression régulière de sed est finie (voir plus bas). On boucle
+#tant que le mot de passe contient /
+mdp_site='/'
 taille_mdp=20
-mdp_site=`dd if=/dev/urandom count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$taille_mdp`
+while echo "$mdp_site" | grep -Fq '/'
+do
+    mdp_site=`dd if=/dev/urandom count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$taille_mdp`
+done
 
 #On ajoute des précaution :
 # - On teste si le dossier existe déjà, s’il n’existe pas, on s’arrête

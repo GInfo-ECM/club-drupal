@@ -1,0 +1,4 @@
+curl -v -H "Content-Type: application/json" -X PUT --data "@388.json" -u login:password http://redmine/issues/388.json
+curl -v -H "Content-Type: application/json" -X PUT --data "@388.json" -H "X-Redmine-API-Key: xxxx" http://redmine/issues/388.json
+curl -v -H "Content-Type: application/json" -X PUT --data "@3.1.json" -H "X-Redmine-API-Key: ea899643ddbefaa17aea572d5df8de20dcb7b490" http://localhost/redmine/issues/3.json
+curl -X POST -v --data "@is.json" -H "Content-Type: application/json" -H "X-Redmine-API-Key: TACLE" https://forge.centrale-marseille.fr/issues.json

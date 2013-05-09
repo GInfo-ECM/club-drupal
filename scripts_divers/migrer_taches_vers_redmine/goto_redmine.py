@@ -2,7 +2,6 @@ import node_parser
 import comments_parser
 import submiters_parser
 import url_parser
-import urllib.request
 import httplib2
 import json
 import re
@@ -23,10 +22,10 @@ urls = url_parser.give_urls(nids)
 
 h = httplib2.Http()
 
-for url in urls:
-    nid = nids[urls.index(url)]
-
-    page = urllib.request.urlopen('url')
+for post_url in urls:
+    nid = nids[urls.index(post_url)]
+    resp, page = h.request(post_url, 'GET')
+    page = page.decode('utf-8')
     txt = page.read()
     #tout les scripts fonctionnent en lisant ligne à ligne le fichier.
     #la liste input permet de mimer ce comportement
@@ -49,12 +48,22 @@ for url in urls:
 
     iid = re.findall(r',"id":([0-9]*),', content.decode('utf-8'))[0]
 
+    #on a besoin de l’url à laquelle on met les commentaires, pour changer le status
+    put_url = ''
     for index, comment in enumerate(comments):
-       submiter = submiters[index + 1]  #le premier est celui qui a soumis le node
-       Headers['X-Redmine-API-Key'] = give_api_key(submiters[0])
-
-       h.request(URL + '/' + iid + '.json', 'PUT', body=data, headers=Headers)
+        submiter = submiters[index + 1]  #le premier est celui qui a soumis le node
+        Headers['X-Redmine-API-Key'] = give_api_key(submiter)
+        #si la personne n’a pas sa clé, on modifie le commentaire
+        if not submiter in SUBMITERS:
+            comment = "{} a dit que {}".format(submiter, comment)
+        update = {}
+        update['issue'] = {'notes': comment}
+        data = json.dumps(update)
+        put_url = URL + '/' + iid + '.json'
+        h.request(put_url, 'PUT', body=data, headers=Headers)
 
     #Les taches sont crées avec le status nouveau peu importe ce qu’il y a dans le json
     #on modifie le status après coup
-    update_status = '{"issue": {"status_id":' + node['status_id'] + '}}'
+    update_status = {'issue': {'status_id': node['status_id']}}
+    data = json.dumps(update_status)
+    h.request(put_url, 'PUT', body=data, headers=Headers)

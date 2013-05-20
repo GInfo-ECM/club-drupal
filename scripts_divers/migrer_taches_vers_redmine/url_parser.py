@@ -1,8 +1,8 @@
 #!/usr/share/env python3
 
 from html.parser import HTMLParser
+import httplib2
 
-SITE_URL = 'http://assos.centrale-marseille.fr'
 
 class LinksParser(HTMLParser):
     def __init__(self):
@@ -31,15 +31,19 @@ class LinksParser(HTMLParser):
         if self.recording:
             self.data.append(data)
 
-def give_nids():
+def give_nids(url):
     p = LinksParser()
+    h = httplib2.Http()
 
-    with open('tache.html', 'r') as input:
-        p.feed(input.read())
+    resp, content = h.request(url, 'GET')
+    text = content.decode('utf-8')
+
+    p.feed(text)
     return p.data
 
-def give_urls(nids):
+def give_json_urls(url, base_url):
+    nids = give_nids(url)
     tache_urls = []
     for nid in nids:
-        tache_urls.append(SITE_URL + '/node/' + nid)
-    return tache_urls
+        tache_urls.append(base_url + '/node/' + nid + '.json')
+    return nids, tache_urls

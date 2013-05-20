@@ -32,7 +32,7 @@ class LinksParser(HTMLParser):
         if self.recording:
             self.data.append(data)
 
-def parse_tache(input):
+def parse_node(input):
     p = LinksParser()
     output = ""
     drupal_title = ''

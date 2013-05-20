@@ -34,6 +34,7 @@ def parse_submiters(input):
 
     for ligne in input:
         output += ligne
+    print(output)
     p.feed(output)
 
     #le premier est celui qui a créé la tache et le dernier est potentiellement celui qui n’a pas encore posté de commentaires

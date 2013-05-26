@@ -1,0 +1,16 @@
+{
+    "issue": {
+        "tracker_id": 2, 
+        "project_id": 1, 
+        "custom_fields": [
+            {
+                "value": "1", 
+                "id": 1
+            }
+        ], 
+        "done_ratio": 20, 
+        "subject": "Streaming - module \u00e0 tester | Portail du Projet Multi-Assos", 
+        "priority_id": 5, 
+        "description": "*\u00c0 REPRENDRE TRANQUILLEMENT APR\u00c8S LE PASSAGE \u00c0 D7 en tenant compte du premier commentaire*\n href=\"http://drupal.org/project/vls\">http://drupal.org/project/vls\nmodule \u00e0 tester pour voir si \u00e7a correspond aux besoins du PhyTV dans le cadre du projet VideoLAN."
+    }
+}

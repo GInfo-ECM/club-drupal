@@ -9,12 +9,12 @@ import json
 import re
 import os
 
-SUBMITERS = {'jenselme': 'a7630a1244be353424cc0f56a49657c3fa9dbcc6'}
+SUBMITERS = {'jenselme': '464c7c05b9bb53fb136092f1b9807ad91ec51321'}
 Headers = {'content-type': 'application/json', 'X-Redmine-API-Key': ''}
-URL = 'http://localhost/redmine/issues'
+URL = 'https://forge.centrale-marseille.fr/issues'
 LIST_TODO = 'http://localhost/portail/liste-tache'
 BASE_URL = 'http://localhost/portail'
-PROJECT_ID = 2
+PROJECT_ID = 30
 TRACKER_ID = 2
 DONE_RATIO = {'En pause': 50, 'À commencer': 0, 'Entamée': 20, 'Bien avancée': 80, 'Terminée (success)': 100, 'Fermée (won\'t fix)': 100}
 PRIORITY = {'5 - Très basse': 3, '4 - Basse': 3, '3 - Moyenne': 4, '2 - Haute': 5, '1 - Très haute': 6,\
@@ -22,7 +22,7 @@ PRIORITY = {'5 - Très basse': 3, '4 - Basse': 3, '3 - Moyenne': 4, '2 - Haute':
         '0': 3, '1': 3, '2': 4, '3': 5, '4': 6}
 STATUS = {'En cours': 2, 'Fermée': 5, 'Rejetée': 6, 'En pause': 7}
 #NB : 17 : drupal6, 18 : drupal7
-DRUPAL_VERSION = {'17': 4, '18': 5}
+DRUPAL_VERSION = {'17': 2, '18': 1}
 
 def give_api_key(submiter):
     if submiter in SUBMITERS:

@@ -5,6 +5,7 @@ import httplib2
 
 
 class LinksParser(HTMLParser):
+    "Classe permettant de parser du html"
     def __init__(self):
         HTMLParser.__init__(self)
         self.recording = 0
@@ -46,4 +47,4 @@ def give_json_urls(url, base_url):
     tache_urls = []
     for nid in nids:
         tache_urls.append(base_url + '/node/' + nid + '.json')
-    return nids, tache_urls
+    return nids, tache_urls #on a besoin des nids pour après.

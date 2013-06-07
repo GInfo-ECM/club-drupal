@@ -3,28 +3,45 @@ Pandoc est requis pour convertir le html en textile !
 """
 
 import url_parser  #permet de connaître les id des taches
-import urllib.request
-import httplib2
+import urllib.request #permet de récupérer une page web
+import httplib2 #pour faire des requêtes http
 import json
-import re
-import os
+import re #pour les expressions régulières
+import os #pour pouvoir faire appel à pandoc (commande system)
 
+######## NB : cid : comment id, nid : node id, urls : urls des tâches
+
+#Dictionnaire des gens dont on a la clé API
+#id: clé
 SUBMITERS = {'jenselme': '464c7c05b9bb53fb136092f1b9807ad91ec51321'}
+
+#les entêtes des requêtes POST et PUT
 Headers = {'content-type': 'application/json', 'X-Redmine-API-Key': ''}
+
+#là où on poste les tâches
 URL = 'https://forge.centrale-marseille.fr/issues'
+
+#là où sont les tâches
 LIST_TODO = 'http://localhost/portail/liste-tache'
+
+#url de base de l’emplacement du contenu
 BASE_URL = 'http://localhost/portail'
 PROJECT_ID = 30
 TRACKER_ID = 2
+
+
+########## dictionnaires de correspondance
 DONE_RATIO = {'En pause': 50, 'À commencer': 0, 'Entamée': 20, 'Bien avancée': 80, 'Terminée (success)': 100, 'Fermée (won\'t fix)': 100}
 PRIORITY = {'5 - Très basse': 3, '4 - Basse': 3, '3 - Moyenne': 4, '2 - Haute': 5, '1 - Très haute': 6,\
         'Très basse': 3, 'Basse': 3, 'Moyenne': 4, 'Haute': 5, 'Très haute':6,\
         '0': 3, '1': 3, '2': 4, '3': 5, '4': 6}
 STATUS = {'En cours': 2, 'Fermée': 5, 'Rejetée': 6, 'En pause': 7}
-#NB : 17 : drupal6, 18 : drupal7
+#NB sur le portail, on a les équivalences suivantes
+#pour le champ version de drupal : 17 : drupal6, 18 : drupal7
 DRUPAL_VERSION = {'17': 2, '18': 1}
 
 def give_api_key(submiter):
+    "Donne la clé API de submiter ou celle de jenselme si c’est la seule"
     if submiter in SUBMITERS:
         return SUBMITERS[submiter]
     else:
@@ -32,6 +49,7 @@ def give_api_key(submiter):
 
 
 def give_comments_ids(nid):
+    "permet de récupérer les id des commentaires de la tâche nid"
     page = urllib.request.urlopen(BASE_URL + '/entity_json/node/' + nid).read()
     page_json = json.loads(page.decode('utf-8'))
     comments_json = page_json['comments']
@@ -45,6 +63,7 @@ def give_comments_ids(nid):
 
 
 def give_comments(cids):
+    "Donne la liste du texte des commentaires pour chaque cid in cids"
     comments = list()
     for cid in cids:
         comment = urllib.request.urlopen(BASE_URL + '/comment/' + cid + '.json').read()
@@ -53,6 +72,7 @@ def give_comments(cids):
 
 
 def format(txt):
+    "prend le texte en html et le renvoie en textile"
     txt.replace('\n', '')
     txt.replace('\t', '')
     with open('tmp.html', 'w') as f:
@@ -100,6 +120,8 @@ def give_redmine_issue(tache):
     issue['fixed_version_id'] = DRUPAL_VERSION[tache['taxonomy_vocabulary_8']['id']]
     return issue
 
+
+######### Main
 
 nids, urls = url_parser.give_json_urls(LIST_TODO, BASE_URL)
 

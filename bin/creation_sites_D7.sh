@@ -24,6 +24,14 @@ askpasswd() {
 #on se place dans le home de asso en début de script
 #les fichiers par défaut sont sur le bureau de assos
 
+#On vérifie que la longueur du nom du site est <= 16 caractères. Sinon mysql ne peut pas créer l’utilisateur
+if [ $(echo $1 | wc -n) -le 16 ]
+then
+    echo 'Le nom du site ne peut exéder 16 caractères'
+    exit 1
+fi
+
+
 vers_home="/users/guest/assos"
 cd $vers_home
 

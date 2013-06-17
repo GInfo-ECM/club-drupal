@@ -19,10 +19,18 @@ askpasswd() {
 }
 
 
-#Prend comme paramètre (facultatif) le nom du site et éventuellement le mot de passe de la base de donnée associée.
-#Si le mdp n’est pas spécifié, on le génère
+#Prend comme paramètre le nom du site
+#On génère le mot de passe
 #on se place dans le home de asso en début de script
 #les fichiers par défaut sont sur le bureau de assos
+
+#On vérifie que le nom du site est bien passé en argument.
+if [ -z $1 ]
+then
+    echo 'Le nom du site doit être donné en paramètre'
+    echo 'creation_site_D7.sh NOM_SITE'
+    exit 1
+fi
 
 #On vérifie que la longueur du nom du site est <= 16 caractères. Sinon mysql ne peut pas créer l’utilisateur
 if [ $(echo $1 | wc -n) -le 16 ]
@@ -128,6 +136,10 @@ then
         # on active le module
 	drush -y en piwik
 
+	#On met les bons droits unix
+	chmod -R 755 $site_rep
+	chmod 400 $site_settings
+
 	#On donne les dernières instructions
 	echo "Quelques dernières instructions :"
 	echo "- Conseiller à l'administrateur de ne pas laisser les inscriptions ouvertes à son site"
@@ -136,9 +148,12 @@ then
 	echo "Référencement du site"
 	echo "- créer un contenu de type \"Site\" sur la page du projet multiassos"
 	echo "- demander à l'administrateur du site de s’inscrire sur la liste de diffusion webmasters@listes.centrale-marseille.fr (l’inscription est automatique)"
+
     else
 	echo "Le dossier $site_rep existe déjà"
+	exit 1
     fi
 else
     echo "La base de donnée existe déjà"
+    exit 1
 fi

@@ -1,22 +1,20 @@
 #!/bin/sh
 PATH=/usr/local/bin:/usr/bin:/bin:/users/guest/assos/bin
 
-##############
-# nlehuby - 16 décembre 2011
-# ce script permet de sauvegarder les bdd des sites d'atest individuellement (à l'aide du script dump_site_atest). Il fait aussi, au cas où, une sauvegarde complète de la bdd webatest
-##############
+#!/bin/sh
+sites_dir=~/htmltest/sites
+backup_dir=~/Desktop/dump_d7
 
+date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 
+cd $sites_dir
 
-### étape 1 : récupérer les noms des sites à sauvegarder
-# mettre la liste des sites (juste leur ptit nom, pas le nom complet du dossier), sans les liens symboliques, dans le fichier nommé liste
-ls -F /users/guest/assos/htmltest/sites | grep -v @ | grep -v 'all' | grep -v 'liste.temp' | grep -v 'default'|  cut -c29- | sed "s/.$//"  > liste.temp
-# ajouter default, qui n'a pas été pris en compte par la commande précédente
-echo 'default' >> liste.temp
-
-### étape 2 : sauvegarder tous ces sites
-for line in $(cat liste.temp); do dump_site_atest "$line" ; done  
-
-### étape 3 : au cas-où, sauvegarde de toute la bdd
-madate=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
-mysqldump --single-transaction webatest -h myweb.serv.int -u webassos --password=HBVH2ljgyZCA0AP251DY > /users/guest/assos/Desktop/dump_d7/webatest.dump$madate.sql
+for dir in $(ls)
+do
+    if [ -d $dir -a ! $dir="test" ]
+    then
+	cd $dir
+	drush sql-dump > "$backup_dir/$dir.dump$date.sql"
+	cd -
+    fi
+done

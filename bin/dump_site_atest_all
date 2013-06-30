@@ -9,12 +9,11 @@ date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 
 cd $sites_dir
 
-for dir in $(ls)
+#Cheche dans le sous répertoire du répertoire courant sauf dans le sous répertoire
+# all et dans les liens.
+for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all )
 do
-    if [ -d $dir -a ! $dir="test" ]
-    then
 	cd $dir
-	drush sql-dump > "$backup_dir/$dir.dump$date.sql"
+	drush sql-dump --result-file="$backup_dir/$dir.dump$date.sql"
 	cd -
-    fi
 done

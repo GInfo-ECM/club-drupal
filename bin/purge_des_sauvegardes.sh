@@ -45,18 +45,17 @@ else
 fi
 echo `ls -l | wc -l `
 ######## sauvegardes complètes d7 ########
-#va dans le site des sauvegardes complètes d7
 cd /users/guest/assos/htmltest/sites
 let "nbsitesd7 = `ls -lF | grep -v 'all' | grep -v @ | wc -l`" >/dev/null ;
 #explications : l'option -F dans le ls permet de marquer les liens symboliques avec un @ ; le "grep -v @" permet donc d'ignorer les liens symboliques dans la liste fournie par ls. La commande wc permet de compter le nombre de lignes retournées. Le let permet de définir une variable qui soit un nombre (et pas une chaine de caractères)
 
-#va dans le dossier des sauvegardes individuelles
+#va dans le dossier des sauvegardes complÃ¨tes
 cd /users/guest/assos/Desktop/dump_d7
 
 #s'il y a plus de 3 x (le nombre de site d7)
-let "c=2*$nbsitesd7" >/dev/null  ;
+let "c=3*$nbsitesd7" >/dev/null  ;
 if [ $(ls -l | wc -l)  -gt  $c ] ; then
-    echo "je supprime des sauvegardes isolées"
+    echo "je supprime des sauvegardes complÃ¨tes"
 #supprime (le nombre de site d7) plus vieux fichiers
     ls -tr | head -$nbsitesd7 | xargs rm;
 

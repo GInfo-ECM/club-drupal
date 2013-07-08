@@ -4,48 +4,21 @@ PATH=/usr/local/bin:/usr/bin:/bin
 ##############
 # nlehuby - 2 décembre 2011
 # ce script permet de changer le mot de passe de la base de données dans les fichiers settings.php de l'installation drupal 6 et drupal 7.
-# ce script rétablit également les droits d'accès aux fichiers settings.php et aux dossiers des sites aux valeurs réglementaires assurant la sécurité de l'installation
 ##############
-
+#prend l’ancien et le nouveau mpd en paramètre
 #drupal 6
 cd /users/guest/assos/html/sites
 
 for x in $(ls -1 | grep -v 'all'); do
-	chmod 755 $x
 	cd $x;
-	echo $x
-	fichier="settings.php" 
+	fichier="settings.php"
 	chmod 600 $fichier
 	mv $fichier $fichier.old
 	 #remplacer la première chaine après le / par l'ancien mot de passe, et la seconde chaine (après le deuxième /) par le nouveau mot de passe
-	sed 's/ancien_mdp/nvo_mdp/g' < $fichier.old > $fichier
+	sed "s/$1/$2/g" < $fichier.old > $fichier
 	chmod 400 $fichier
-	 #les deux lignes suivantes peuvent être commentées pour gagner en rapidité (mais attention : vérifier que les sites fonctionnent après cette étape reste primordial)
-	#echo "Verifier que le site fonctionne et appuyer sur la touche Entree pour continuer"
-	#read fake_variable
+	echo "Verifier que le site fonctionne et appuyer sur la touche Entree pour continuer"
+	read fake_variable
 	rm $fichier.old
 	cd ..
-	done
-
-#drupal 7
-cd /users/guest/assos/htmltest/sites
-
-for x in $(ls -1 | grep -v 'all'); do
-	chmod 755 $x
-	cd $x;
-	echo $x
-	fichier="settings.php" 
-	chmod 600 $fichier
-	mv $fichier $fichier.old
-	 #remplacer la première chaine après le / par l'ancien mot de passe, et la seconde chaine (après le deuxième /) par le nouveau mot de passe
-	sed 's/ancien_mdp/nvo_mdp/g' < $fichier.old > $fichier
-	chmod 400 $fichier
-	 #les deux lignes suivantes peuvent être commentées pour gagner en rapidité (mais attention : vérifier que les sites fonctionnent après cette étape reste primordial)
-	#echo "Verifier que le site fonctionne et appuyer sur la touche Entree pour continuer"
-	#read fake_variable
-	rm $fichier.old
-	cd ..
-	done
-
-#Deal with custom scripts permissions
-chmod 700 -R /users/guest/assos/bin
+done

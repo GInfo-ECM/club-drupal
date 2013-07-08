@@ -96,8 +96,8 @@ then
 	#mysql (besoin du mot de passe assos)
 	mysql -h $nom_serveurbdd -u $user_bdd -e "CREATE DATABASE $nom_site" -p$mdp_assos
 
-#la ligne suivante vient de http://www.siteduzero.com/tutoriel-3-613143-syntaxe-sql-et-premieres-commandes.html
-#voir là-bas pour les explications
+        #la ligne suivante vient de http://www.siteduzero.com/tutoriel-3-613143-syntaxe-sql-et-premieres-commandes.html
+        #voir là-bas pour les explications
 	mysql -h $nom_serveurbdd -u $user_bdd -e "GRANT ALL PRIVILEGES ON $1.* TO '$nom_site'@'%' IDENTIFIED BY '$mdp_site'" -p$mdp_assos
 
 

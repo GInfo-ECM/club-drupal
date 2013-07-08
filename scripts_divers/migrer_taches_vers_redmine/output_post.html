@@ -1,0 +1,30 @@
+* About to connect() to localhost port 80 (#0)
+*   Trying ::1...
+* connected
+* Connected to localhost (::1) port 80 (#0)
+> POST /redmine/issues.json HTTP/1.1
+> User-Agent: curl/7.26.0
+> Host: localhost
+> Accept: */*
+> Content-Type: application/json
+> X-Redmine-API-Key: a7630a1244be353424cc0f56a49657c3fa9dbcc6
+> Content-Length: 255
+> 
+* upload completely sent off: 255 out of 255 bytes
+* additional stuff not fine transfer.c:1037: 0 0
+* HTTP 1.1 or later with persistent connection, pipelining supported
+< HTTP/1.1 201 Created
+< Date: Tue, 02 Jul 2013 10:18:03 GMT
+< Server: Apache/2.2.22 (Debian)
+< X-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.13
+< Cache-Control: no-cache
+< X-Runtime: 173
+< Set-Cookie: autologin=; path=/; expires=Thu, 01-Jan-1970 00:00:00 GMT
+< Set-Cookie: _redmine_default=BAh7BjoPc2Vzc2lvbl9pZCIlOWMyMDE3ZjUyOWMwYzFhNzkzODk3NzkwMzcxMDI0Njg%3D--53d46d1fb4e9684381a35ad0951b669869dde966; path=/redmine; HttpOnly
+< Location: http://localhost/redmine/issues/7
+< Content-Length: 433
+< Status: 201
+< Content-Type: application/json; charset=utf-8
+< 
+* Connection #0 to host localhost left intact
+{"issue":{"status":{"name":"New","id":1},"done_ratio":100,"subject":"tache 8","updated_on":"2013/07/02 11:18:03 +0100","tracker":{"name":"Feature","id":2},"spent_hours":0.0,"description":"J'\u00e9cris plein de chose\r\nPour ma premi\u00e8re tache","start_date":"2013/07/02","author":{"name":"Redmine Admin","id":1},"created_on":"2013/07/02 11:18:03 +0100","project":{"name":"test","id":1},"id":7,"priority":{"name":"Urgent","id":6}}}* Closing connection #0

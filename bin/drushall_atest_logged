@@ -1,0 +1,30 @@
+#!/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+
+##############
+# nlehuby - 16 décembre 2011
+# ceci est une copie quasi conforme du script initial drushall créé pour d6
+##############
+
+
+if [ $# -lt 1 ]; then
+  echo "usage: $0 <drush args>"
+  exit 1
+fi
+
+cd /users/guest/assos/htmltest/sites
+
+for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
+  if [ -d $x -a ! -L $x ]; then
+    cd $x;
+    echo $x
+    #Sauvegarde datée du log
+    madate=`date "+%Y-%m-%d_%Hh:%Mm"`
+    echo "======$madate======" >> /users/guest/assos/Desktop/log/d7/$x.log
+    echo "Arguments are: $* " >> /users/guest/assos/Desktop/log/d7/$x.log
+    drush $* >> /users/guest/assos/Desktop/log/d7/$x.log
+    #To have the same caracters limit we needed 'end' that have 4 caracters, we used the Croate language for this ! LOL 
+    echo -e "=============KRAJ=============\n" >> /users/guest/assos/Desktop/log/d7/$x.log
+    cd -;
+  fi
+done

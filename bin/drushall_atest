@@ -6,6 +6,7 @@ PATH=/usr/local/bin:/usr/bin:/bin
 # ceci est une copie quasi conforme du script initial drushall créé pour d6
 ##############
 
+init_scripts.sh
 
 if [ $# -lt 1 ]; then
   echo "usage: $0 <drush args>"
@@ -14,11 +15,17 @@ fi
 
 cd /users/guest/assos/htmltest/sites
 
-for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
-  if [ -d $x -a ! -L $x ]; then
-    cd $x;
-    echo $x
-    drush $*
-    cd -;
-  fi
+for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all)
+do
+    if [ $1 = init ]
+    then
+	cd $dir
+	/users/guest/assos/bin/init_var.sh
+	cd -
+    else
+	cd $x;
+	echo $x
+	drush $*
+	cd -;
+    fi
 done

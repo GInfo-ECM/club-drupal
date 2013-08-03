@@ -1,12 +1,14 @@
 #!/bin/sh
 PATH=/usr/local/bin:/usr/bin:/bin
 
+init_scripts.sh
+
 if [ $# -lt 1 ]; then
   echo "usage: $0 <drush args>"
   exit 1
 fi
 
-cd /users/guest/assos/html/sites
+cd $d7_sites_dir
 
 for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
   if [ -d $x -a ! -L $x ]; then

@@ -1,14 +1,19 @@
-#!/bin/bash
 #!/bin/sh
 PATH=/usr/local/bin:/usr/bin:/bin
 ##############
-# Sets hidden captcha configuration for all D7 websites. 
+# Sets hidden captcha configuration for all D7 websites.
 ##############
-cd /users/guest/assos/htmltest/sites
-for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
-  if [ -d $x -a ! -L $x ]; then
-    cd $x;
-      echo "Configuration hidden captcha pour "$x
+
+init_scripts.sh
+
+cd $d7_sites_dir
+
+for dir in $(ls)
+do
+  if [ -d $dir -a ! -L $dir ]
+  then
+      cd $dir;
+      echo "Configuration hidden captcha pour $x"
       # Enable hidden_captcha module.
       drush -y en hidden_captcha
       # Log wrong answers.
@@ -19,6 +24,6 @@ for x in $(ls -1 | grep -v 'all' | grep -v file-*); do
       drush -y vdel captcha_placement_map_cache
       # Randomely generate a math question as the label of the hidden captcha field.
       drush -y vset hidden_captcha_label "$RANDOM + $RANDOM"
-    cd -;
+      cd -;
   fi
 done

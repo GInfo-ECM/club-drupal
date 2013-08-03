@@ -15,6 +15,6 @@ for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all )
 do
 	cd $dir
 	drush cc all
-	drush sql-dump --result-file="$backup_dir/$dir.dump$date.sql"
+	drush sql-dump --result-file="$backup_dir/$dir/$date.sql"
 	cd -
 done

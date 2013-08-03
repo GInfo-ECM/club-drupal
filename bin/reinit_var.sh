@@ -10,20 +10,10 @@ PATH=/usr/local/bin:/usr/bin:/bin
 ##############
 
 #installation drupal 7
-cd /users/guest/assos/htmltest/sites
 /users/guest/assos/bin/drushall_atest init #lance le script init_var pour toute l'installation d7
-
-	#gestion des exceptions d7
-for x in $(ls -1 | grep 'nonotest\|superadmin' ); do
-	if [ -d $x -a ! -L $x ]; then
-		echo $x
-		drush $x php-eval variable_set\(\'allow_authorize_operations\',TRUE\)\; 
-	fi
-done
 
 #installation drupal 6
 cd /users/guest/assos/html/sites
 /users/guest/assos/bin/drushall vset --always-set reverse_proxy TRUE
 /users/guest/assos/bin/drushall vset --always-set --format=json reverse_proxy_addresses '["147.94.19.16","147.94.19.17"]'
 drush @sites ev "variable_set('update_notify_emails', array('assos@centrale-marseille.fr'));" --yes
-

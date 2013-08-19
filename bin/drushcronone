@@ -1,5 +1,6 @@
 #!/bin/sh
-PATH=/usr/local/bin:/usr/bin:/bin
+
+. /users/guest/assos/bin/scripts-config.sh
 
 if [ $# -lt 1 ]; then
   echo "usage: $0 <site's folder name>"

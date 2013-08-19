@@ -1,3 +1,0 @@
-#!/bin/sh
-
-find /users/guest/assos/* -name '*\~' -delete

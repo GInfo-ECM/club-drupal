@@ -11,7 +11,7 @@ my $identifiant = 'root';      # identifiant
 my $motdepasse	= 'tata';
 my $port	= '';
 
-my ($prefix) = $ARGV[10];
+my ($prefix) = $ARGV[1];
 
 my $dbh = DBI->connect( "DBI:mysql:database=$bd;host=$serveur;port=$port", $identifiant, $motdepasse, { RaiseError => 1, } ) or die "Connection impossible à la base de données $bd !\n $! \n $@\n$DBI::errstr";
 

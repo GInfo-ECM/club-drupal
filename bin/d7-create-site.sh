@@ -51,6 +51,7 @@ current_date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql
 touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql2
 touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql3
+touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql4
 
 # Create and grant privileges on database
 mysql -h $db_server -u $db_user -e "CREATE DATABASE $d7_site_name" -p$db_password

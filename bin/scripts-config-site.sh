@@ -20,3 +20,4 @@ scripts_config_site='imported'
 d7_site_name=$1
 d7_site_dir="$d7_dir_sites/assos.centrale-marseille.fr.$d7_site_name"
 d7_site_settings="$d7_site_dir/settings.php"
+d7_site_settings_local="$d7_site_dir/settings.local.php"

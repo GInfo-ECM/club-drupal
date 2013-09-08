@@ -1,8 +1,8 @@
 #!/bin/sh
 
 . /users/guest/assos/bin/scripts-config.sh
-. scripts-config-site.sh $1
-. scripts-utils.sh
+. /users/guest/assos/bin/scripts-config-site.sh $1
+. /users/guest/assos/bin/scripts-utils.sh
 
 help="# ARGS: site name"
 
@@ -58,7 +58,8 @@ mysql -h $db_server -u $db_user -e "CREATE DATABASE $d7_site_name" -p$db_passwor
 mysql -h $db_server -u $db_user -e "GRANT ALL PRIVILEGES ON $d7_site_name.* TO '$d7_site_name'@'%' IDENTIFIED BY '$site_password'" -p$db_password
 
 # Create settings.php
-sed "s/\%\%DBUSER\%\%/$d7_site_name/ ; s/\%\%DBNAME\%\%/$d7_site_name/ ; s/\%\%DBPASS\%\%/$site_password/ ; s/\%\%nomsite\%\%/$d7_site_name/" < $d7_settings_template > $d7_site_settings
+cp $d7_settings $d7_site_settings
+generate_settings_local $d7_site_name $site_password $d7_settings_local_template $d7_site_settings_local
 
 # Create symbolic link
 cd $d7_dir

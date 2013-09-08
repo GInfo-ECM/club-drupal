@@ -14,6 +14,7 @@ done
 for dir in `find $d7_dir_sites -type d -maxdepth 1 -mindepth 1 ! -name all` ; do
     chmod 755 $dir
     chmod 400 $dir/settings.php
+    chmod 400 $dir/settings.local.php
 done
 
 ####### bin

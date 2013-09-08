@@ -64,3 +64,15 @@ check_arguments() {
         exit 1
     fi
 }
+
+generate_settings_local() {
+    # ARGS: site_name, site_password, d7_settings_local_template, d7_site_settings_local
+    sed "s/\%\%DBUSER\%\%/$1/ ; s/\%\%DBNAME\%\%/$1/ ; s/\%\%DBPASS\%\%/$2/ ; s/\%\%SITE_NAME\%\%/$1/" < $3 > $4
+}
+
+give_dir(){
+    # ARG: file
+    # Return the abosulte directory path of a file or a dir
+    settings_location=`realpath $1`
+    echo `dirname $settings_location`
+}

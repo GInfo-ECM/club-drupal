@@ -72,7 +72,7 @@ generate_settings_local() {
 
 give_dir(){
     # ARG: file
-    # Return the abosulte directory path of a file or a dir
+    # Return the abosulte directory path of a file or a dir.
     settings_location=`realpath $1`
     echo `dirname $settings_location`
 }

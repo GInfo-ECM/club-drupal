@@ -18,7 +18,7 @@ for settings in $(find $d7_dir_sites -mindepth 2 -maxdepth 2 -name settings.php)
 
     rm $settings
 
-    # We go into the settings.php directory
+    # We go into the settings.php directory.
     cd $settings_dir
 
     cp $d7_settings settings.php

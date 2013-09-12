@@ -13,4 +13,6 @@ d7-all-drush.sh -y updb
 
 d7-all-drush.sh -y dis update
 
+d7-all-drush.sh cc all
+
 d7-all-drush.sh cron

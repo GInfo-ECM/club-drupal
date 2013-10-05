@@ -9,4 +9,4 @@ fi
 
 cd "$d6_dir_sites/$*"
 pwd;
-drush cron;
+drush -q cron;

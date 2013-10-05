@@ -20,6 +20,7 @@ drush -y vset --always-set --format=json reverse_proxy_addresses '["147.94.19.16
 drush -y ev "variable_set('update_notify_emails', array('$email_multi_assos'));"
 drush -y vset error_level 0
 drush -y vset dblog_row_limit 1000
+drush -y vset cron_safe_threshold 0
 
 ###### Hidden captcha
 drush -y en hidden_captcha

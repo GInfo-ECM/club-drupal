@@ -56,6 +56,7 @@ drush -y vset piwik_site_search 1
 # 3: administrator
 drush -y en security_review
 drush -y ev "variable_set('security_review_untrusted_roles', array('1'));"
+drush vset security_review_base_url_method include
 # Used to initialise entries in the database schema.
 drush security-review --store
 # Security review can't check for files permissions on multi_assos if launched within the web interface.

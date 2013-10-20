@@ -65,6 +65,9 @@ generate_settings_local $d7_site_name $site_password $d7_settings_local_template
 cd $d7_dir
 ln -s . $d7_site_name
 
+# Update sites.php
+echo "assos.centrale-marseille.fr.$d7_site_name" >> $sites_php
+
 # Next Instructions
 echo "Go to http://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
 echo "Press enter when ready to go on."

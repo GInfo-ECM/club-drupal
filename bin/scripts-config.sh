@@ -31,6 +31,7 @@ dir_individual_auto_backup="$dir_individual_backup/auto"
 ###### D7 variables
 d7_dir="$dir_multi_assos/htmltest"
 d7_dir_sites="$d7_dir/sites"
+sites_php="$d7_dir_sites/sites.php"
 
 ### Log
 d7_dir_log="$dir_log/d7"

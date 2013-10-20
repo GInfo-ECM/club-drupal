@@ -23,6 +23,18 @@ rm -r $d7_site_dir
 # Delete symbolic link.
 rm $d7_dir/$d7_site_name
 
+# Remove site line from sites.php
+echo '<?php' > $d7_dir_sites/sites.tmp.php
+while read line ; do
+    if grep -sv "^\$.*forumentreprises';$" $line ; then
+	echo $line >> sites.tmp.php
+    fi
+done
+chmod +w $sites_php
+rm $sites_php
+mv $d7_dir_sites/sites.tmp.php $sites_php
+chmod 400 $sites_php
+
 # Delete database backups.
 rm -r $d7_dir_individual_auto_backup/assos.centrale-marseille.fr.$d7_site_name
 rm -r $d7_dir_individual_manual_backup/assos.centrale-marseille.fr.$d7_site_name

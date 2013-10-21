@@ -7,6 +7,6 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
-cd "$d6_dir_sites/$*"
+cd "$d6_dir_sites/$1"
 pwd;
 drush -q cron;

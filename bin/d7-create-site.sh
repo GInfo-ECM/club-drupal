@@ -25,6 +25,7 @@ fi
 cd $d7_dir
 db_password=`ask_password_db $db_server $db_user`
 site_password=`generate_password`
+site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 
 # Check if site database already exists.
 if mysql -h $db_server -u $db_user -e "USE $d7_site_name" -p$db_password 2>/dev/null ; then
@@ -66,7 +67,7 @@ cd $d7_dir
 ln -s . $d7_site_name
 
 # Update sites.php
-echo "assos.centrale-marseille.fr.$d7_site_name" >> $sites_php
+echo $site_line_sites_php >> $sites_php
 
 # Next Instructions
 echo "Go to http://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
@@ -86,3 +87,4 @@ echo "- Advice the webmaster to close account creation on the website"
 echo "- Give the webmaster a link to the club Drupal's tutorials "
 echo "- Create a node of type \"Site\" on default"
 echo "- Register the webmaster on webmasters@listes.centrale-marseille.fr"
+echo -e "- If line to add to sites.php differs from the line below, please correct it\n\t$site_line_sites_php"

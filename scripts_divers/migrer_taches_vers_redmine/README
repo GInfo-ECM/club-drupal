@@ -1,0 +1,22 @@
+* Migrate
+Simply use the following commands in a clean environment: the folder in which
+you launch these commands must not contains any csv or txt files from a previous
+migration otherwise fix-db.rb won't work.
+- python3 post_redmine.py
+- ruby fix-db.rb
+
+* Clean
+Use in a python3 interpreter
+
+#BEGIN_SRC python
+import post_redmine
+redmine = post_redmine.Redmine()
+redmine.sweep()
+#END_SRC
+
+* Export as html
+The export-issues-html.sh script allows you to export issues for a projet as
+html files. It requires access to the database of redmine and only work for
+mysql.
+
+export-issues-html.sh PROJECT_ID

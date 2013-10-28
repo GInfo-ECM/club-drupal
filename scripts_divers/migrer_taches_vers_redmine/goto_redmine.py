@@ -38,12 +38,11 @@ def handle_image(txt):
     has_image = False
     # In textile, images are between !
     images = REGEXP_FIND_IMG.findall(txt)
-    print(images)
     if images:
         has_image = True
         for image in images:
             img_name = REGEXP_NAME_IMG.sub(r'!\1!', image)
-            txt.replace(image, img_name)
+            txt = txt.replace(image, img_name)
     return txt, has_image
 
 def html2textile(txt):

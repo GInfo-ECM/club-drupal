@@ -26,10 +26,8 @@ rm $d7_dir/$d7_site_name
 # Remove site line from sites.php
 echo '<?php' > $d7_dir_sites/sites.tmp.php
 while read line ; do
-    if grep -sv "^\$.*$d7_site_name';$" $line ; then
-	echo $line >> sites.tmp.php
-    fi
-done
+    grep -sv "^\$.*$d7_site_name';$" $line >> $d7_dir_sites/sites.tmp.php
+done < $sites_php
 chmod +w $sites_php
 rm $sites_php
 mv $d7_dir_sites/sites.tmp.php $sites_php

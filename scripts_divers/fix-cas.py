@@ -3,12 +3,14 @@
 # This script is intended to fix the cas_user table. Just give the database name.
 
 import argparse
+from getpass import getpass
 
 def fix_cas(db, host, user, password, prefix, roles):
     import pymysql as mysql
 
     while not password:
-        password = input('Please enter the password: ')
+        password = getpass('Please enter the password: ')
+    password = password.strip()
 
     conn = mysql.connect(host=host, user=user, passwd=password, db=db, charset='utf8')
     with conn:
@@ -21,6 +23,9 @@ def fix_cas(db, host, user, password, prefix, roles):
             tables[key] = elt.format(prefix)
 
         # We take into account the roles to modify
+        for role in roles:
+            i = roles.index(role)
+            roles[i] = "'" + role + "'"
         format_dict = {'roles_to_modify': ', '.join(roles)}
 
         # We are ready to format queries
@@ -54,8 +59,8 @@ parser.add_argument('database', metavar='database', help='name of the database t
 parser.add_argument('--host', dest='host', default='localhost')
 parser.add_argument('--user', '-u', dest='user', default='root')
 parser.add_argument('--password', '--passwd', '-p', dest='password')
-parser.add_argument('--prefix', dest='prefix')
+parser.add_argument('--prefix', dest='prefix', default='')
 parser.add_argument('--roles', '-r', dest='roles', nargs='+', default=['authenticated user'])
 
 args = parser.parse_args()
-fix_cas(args.database, args.host, args.user, args.passwd, args.prefix, args.roles)
+fix_cas(args.database, args.host, args.user, args.password, args.prefix, args.roles)

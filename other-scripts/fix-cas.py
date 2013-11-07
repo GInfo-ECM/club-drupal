@@ -23,24 +23,29 @@ def fix_cas(db, host, user, password, prefix, roles):
             tables[key] = elt.format(prefix)
 
         # We take into account the roles to modify
-        for role in roles:
-            i = roles.index(role)
-            roles[i] = "'" + role + "'"
-        format_dict = {'roles_to_modify': ', '.join(roles)}
+        # If 'authenticated user' is among them, then we modify all users
+        if 'authenticated user' not in roles:
+            for role in roles:
+                i = roles.index(role)
+                roles[i] = "'" + role + "'"
+            format_dict = {'roles_to_modify': ', '.join(roles)}
 
-        # We are ready to format queries
-        format_dict.update(tables)
+            # We are ready to format queries
+            format_dict.update(tables)
 
-        select = """SELECT {users}.name, {users}.uid FROM {users}
-        JOIN {users_roles} ON {users_roles}.uid = {users}.uid
-        JOIN {role} ON {role}.rid = {users_roles}.rid
-        WHERE {role}.name IN ({roles_to_modify}) AND {users}.uid NOT IN
-        (SELECT uid FROM {cas_user})
-        """.format(**format_dict)
+            select = """SELECT {users}.name, {users}.uid FROM {users}
+            JOIN {users_roles} ON {users_roles}.uid = {users}.uid
+            JOIN {role} ON {role}.rid = {users_roles}.rid
+            WHERE {role}.name IN ({roles_to_modify}) AND {users}.uid NOT IN
+            (SELECT uid FROM {cas_user})
+            """.format(**format_dict)
+        else:
+            select = """SELECT {users}.name, {users}.uid FROM {users}
+            WHERE {users}.uid NOT IN (SELECT uid FROM {cas_user})""".format(**tables)
 
         insert = """INSERT INTO {cas_user} (uid, cas_name)
         VALUES (%s, %s)
-        """.format(**format_dict)
+        """.format(**tables)
 
         cur.execute(select)
         rows = cur.fetchall()

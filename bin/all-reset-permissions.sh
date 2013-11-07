@@ -25,3 +25,6 @@ chmod -R 700 $dir_backup
 
 ####### log
 chmod -R 700 $dir_log
+
+####### private
+chmod -R 700 $dir_private

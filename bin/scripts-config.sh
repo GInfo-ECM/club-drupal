@@ -10,6 +10,7 @@ email_multi_assos="assos@centrale-marseille.fr"
 dir_multi_assos='/users/guest/assos'
 dir_scripts="$dir_multi_assos/bin"
 dir_template="$dir_multi_assos/template"
+dir_private="$dir_multi_assos/private"
 
 ###### Database
 db_server="myassos.serv.int"

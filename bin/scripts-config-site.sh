@@ -3,6 +3,7 @@
 # Sets useful variables of a site.
 # ARGS: site_name
 # Requires scripts-config.sh
+# check_argumements is not used to avoid multiple imports
 
 # Check if scripts-config.sh is imported.
 if [ -z $scripts_config ] ; then

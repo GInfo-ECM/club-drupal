@@ -1,7 +1,9 @@
 #!/bin/sh
 
 help="# ARGS: number of files to keep, [email address]\n
-# usage: flush files from a folder except a number equal to argument."
+# usage: flush files from a folder except a number equal to argument.\n
+It only prints a warning if scripts-utils.sh is not imported in order to be used
+from the terminal."
 
 # Check if scripts-utils.sh is imported.
 if [ -z $scripts_utils ] ; then

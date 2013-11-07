@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Deprecated in drupal 7
+# Ce script permet de lancer les tâches planifiées sur un site Drupal 6. En effet, sous Drupal 6 les webmasters ne peuvent choisir via l’interface d’administration de Drupal.
+
 . /users/guest/assos/bin/scripts-config.sh
 
 if [ $# -lt 1 ]; then

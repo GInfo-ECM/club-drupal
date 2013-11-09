@@ -16,9 +16,18 @@ def custom_chomp(string)
 end
 
 
-def fix_issues_link(text, name2iid)
+def fix_issues_comment_link(name, cid2iid, cid2post_nb)
+  # Fix links like : task-name#comment-789
+  scan_regex = /.*#comment-(\d+)/
+  cid = name.scan(scan_regex).flatten[0]
+  post_nb = custom_chomp(cid2post_nb[cid])
+  return "##{cid2iid[cid]}#note-#{post_nb}"
+end
+
+
+def fix_issues_link(text, name2iid, cid2iid, cid2post_nb)
   # Find all links in text
-  scan_regex =  /:http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t%C3%A2che)?|node)\/([^ \n)]*)/
+  scan_regex =  /:http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t(?:%C3%A2|â)che)?|node)\/([^ \n.,\/)]*)/
 
   # Non flattened output is [['some'], ['text']]
   # flattened output is ['some', 'text']
@@ -27,10 +36,33 @@ def fix_issues_link(text, name2iid)
   if not names.empty?
     names.each do |name|
       name = custom_chomp(name)
+      if name.include? 'é' or name.include? 'è' or name.include? 'ê' or name.include? 'à' or name.include? 'ô' or name.include? 'â' or name.include? 'ù' or name.include? 'û'
+        name = URI.escape(name)
+      end
       unescaped_name = URI.unescape(name)
-      gsub_regex = /"http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t%C3%A2che)?|node)\/[^ ]*":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t%C3%A2che)?|node)\/#{name}/
-      remplace_regex = "#{unescaped_name} : ##{name2iid[name]}"
-      text.gsub!(gsub_regex, remplace_regex)
+      gsub_regex = /"http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t(?:%C3%A2|â)che)?|node)\/[^ ]*":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t(?:%C3%A2|â)che)?|node)\/#{name}/
+      # Some link may have a description between "…"
+      if (text =~ gsub_regex)
+        # Some comments are like this : task-name#comment-nb.
+        # We fix them here
+        if name.include? '#comment-'
+          remplace_regex = fix_issues_comment_link(name, cid2iid, cid2post_nb)
+        else
+          remplace_regex = "#{unescaped_name} : ##{name2iid[name]}"
+        end
+        text.gsub!(gsub_regex, remplace_regex)
+      else
+        scan_regex = /"([^"]*)":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t(?:%C3%A2|â)che)?|node)\/(?:[^ \n)]*)/
+        description = text.scan(scan_regex).flatten[0]
+        gsub_regex = /"#{description}":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)(?:content(?:\/t(?:%C3%A2|â)che)?|node)\/#{name}/
+        if name.include? '#comment-'
+          remplace_regex = fix_issues_comment_link(name, cid2iid, cid2post_nb)
+          remplace_regex = "#{description} (" + remplace_regex + ')'
+        else
+          remplace_regex = "#{description} (##{name2iid[name]})"
+        end
+        text.gsub!(gsub_regex, remplace_regex)
+      end
     end
   end
   return text
@@ -47,8 +79,17 @@ def fix_comments_link(text, cid2iid, cid2post_nb)
       cid = custom_chomp(cid)
       gsub_regex = /"http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)comment\/.*":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)comment\/#{cid}#comment-\d+/
       post_nb = custom_chomp(cid2post_nb[cid])
-      remplace_regex = "##{cid2iid[cid]}#note-#{post_nb}"
-      text.gsub!(gsub_regex, remplace_regex)
+      # Some link may have a description between "…"
+      if (text =~ gsub_regex)
+        remplace_regex = "##{cid2iid[cid]}#note-#{post_nb}"
+        text.gsub!(gsub_regex, remplace_regex)
+      else
+        scan_regex = /"([^"]*)":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/|\/portail\/)comment\/(?:\d+)/
+        description = text.scan(scan_regex).flatten[0]
+        gsub_regex = /"#{description}":http:\/\/assos\.centrale-marseille\.fr(?:\/|\/lessive\/)comment\/#{cid}#comment-\d+/
+        remplace_regex = "#{description} (##{cid2iid[cid]}#note-#{post_nb})"
+        text.gsub!(gsub_regex, remplace_regex)
+      end
     end
   end
   return text
@@ -68,7 +109,6 @@ begin
 
   ###### Initialisation of hashes needed to fix URL
   name2iid = Hash.new
-  nid2iid = Hash.new
   cid2iid = Hash.new
   cid2post_nb = Hash.new
 
@@ -76,8 +116,8 @@ begin
   fix_url_issues_csv.each do |line|
     line = line.chomp
     nid, name, iid = line.split(',')
-    name2iid[name] = nid
-    nid2iid[nid] = iid
+    name2iid[name] = iid
+    name2iid[nid] = iid
   end
   fix_url_issues_csv.close
 
@@ -113,7 +153,7 @@ begin
     req_select_description.execute(iid)
 
     description = req_select_description.fetch[0]
-    description = fix_issues_link(description, name2iid)
+    description = fix_issues_link(description, name2iid, cid2iid, cid2post_nb)
 
     # Comments
     description = fix_comments_link(description, cid2iid, cid2post_nb)
@@ -168,7 +208,7 @@ begin
     # issues
     req_select_notes.execute(id)
     notes = req_select_notes.fetch[0]
-    notes = fix_issues_link(notes, name2iid)
+    notes = fix_issues_link(notes, name2iid, cid2iid, cid2post_nb)
 
     # Comments
     notes = fix_comments_link(notes, cid2iid, cid2post_nb)

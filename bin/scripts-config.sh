@@ -17,6 +17,10 @@ dir_scripts="$dir_multi_assos/bin"
 dir_template="$dir_multi_assos/template"
 dir_private="$dir_multi_assos/private"
 
+###### Aliases
+. $dir_multi_assos/.aliases
+shopt -s expand_aliases
+
 ###### Database
 db_server="myassos.serv.int"
 db_user="assos"

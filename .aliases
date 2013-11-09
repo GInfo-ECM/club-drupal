@@ -1,0 +1,7 @@
+alias drush='./drush-6.1.0/drush'
+# alias drush='/usr/local/bin/drush'
+alias drush6='./drush-6.1.0/drush'
+alias drush5='/usr/local/bin/drush'
+alias ll='ls -al'
+alias lll='ls -alL'
+alias nano='nano -w'

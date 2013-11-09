@@ -56,9 +56,11 @@ drush -y vset piwik_site_search 1
 # 3: administrator
 drush -y en security_review
 drush -y ev "variable_set('security_review_untrusted_roles', array('1'));"
+# The default method to check settings.php do not work because we include a global and local settings.php
 drush vset security_review_base_url_method include
 # Used to initialise entries in the database schema.
 drush security-review --store
-# Security review can't check for files permissions on multi_assos if launched within the web interface.
-drush -y sqlq --db-prefix "UPDATE {security_review} SET skip = '1', skiptime = $current_timestamp, skipuid = '1' WHERE reviewcheck IN ('file_perms');"
-drush -y sqlq --db-prefix "UPDATE {security_review} SET skip = '0', skiptime = '0', skipuid = NULL WHERE reviewcheck NOT IN ('file_perms');"
+# file_perms : Security Review can't check for files permissions on multi_assos if launched within the web interface.
+# private_files : we have chosen a private path in the files repository and Security Review raise errors but this path is secure.
+drush -y sqlq --db-prefix "UPDATE {security_review} SET skip = '1', skiptime = $current_timestamp, skipuid = '1' WHERE reviewcheck IN ('file_perms', 'private_files');"
+drush -y sqlq --db-prefix "UPDATE {security_review} SET skip = '0', skiptime = '0', skipuid = NULL WHERE reviewcheck NOT IN ('file_perms', 'private_files');"

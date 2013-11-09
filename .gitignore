@@ -2,3 +2,7 @@
 *#
 .#*
 __*
+
+# Ignore Eclipse's files.
+/.project
+/.buildpath

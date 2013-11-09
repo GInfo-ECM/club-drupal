@@ -22,7 +22,7 @@ for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages
 	# Print site_dir if listed.
 
     cd $dir;
-	if [ 1 -eq `drush pml --no-core --status=$2 | grep $3 | wc -l` ] ; then
+	if [ 1 -le `drush pml --no-core --status=$2 | grep $3 | wc -l` ] ; then
         echo $dir;
     fi
     cd -

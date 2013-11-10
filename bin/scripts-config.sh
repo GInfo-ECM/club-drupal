@@ -20,7 +20,6 @@ dir_private="$dir_multi_assos/private"
 ###### Aliases
 ### Bash
 . $dir_multi_assos/.aliases
-shopt -s expand_aliases
 
 ### Drush
 dot_drush="$dir_multi_assos/.drush"

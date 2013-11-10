@@ -18,8 +18,13 @@ dir_template="$dir_multi_assos/template"
 dir_private="$dir_multi_assos/private"
 
 ###### Aliases
+### Bash
 . $dir_multi_assos/.aliases
 shopt -s expand_aliases
+
+### Drush
+dot_drush="$dir_multi_assos/.drush"
+aliases_drushrc_php="$dot_drush/aliases.drushrc.php"
 
 ###### Database
 db_server="myassos.serv.int"

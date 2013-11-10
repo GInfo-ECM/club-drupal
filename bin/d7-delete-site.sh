@@ -33,6 +33,9 @@ rm $sites_php
 mv $d7_dir_sites/sites.tmp.php $sites_php
 chmod 400 $sites_php
 
+# Remove site alias from aliases.drushrc.php
+grep -sv "$d7_site_name'" $aliases_drushrc_php > $aliases_drushrc_php
+
 # Delete database backups.
 rm -r $d7_dir_individual_auto_backup/assos.centrale-marseille.fr.$d7_site_name
 rm -r $d7_dir_individual_manual_backup/assos.centrale-marseille.fr.$d7_site_name

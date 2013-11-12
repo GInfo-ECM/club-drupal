@@ -6,7 +6,12 @@
 
 if [ ! -z $1 ] ; then
     . scripts-config-site.sh $1
-    cd $d7_site_dir
+    # default is an exception to the rule
+    if echo $dir | grep default > /dev/null ; then
+	    cd $d7_dir_sites/default
+    else
+	cd $d7_site_dir
+    fi
 fi
 
 current_timestamp=`date "+%s"`
@@ -35,19 +40,7 @@ drush -y vset hidden_captcha_label "$random_1 + $random_2"
 
 
 ####### Piwik
-drush -y en piwik
-drush -y vset piwik_site_id "101"
-drush -y vset piwik_url_http "http://piwik.centrale-marseille.fr/"
-drush -y vset piwik_url_https "https://piwik.centrale-marseille.fr/"
-# Piwik cache.
-drush -y vset piwik_cache 1
-drush -y vset piwik_visibility_roles "1"
-# Piwik is enable for everyone except the administrator
-drush -y vset --format=json piwik_roles '[3]'
-drush -y vset piwik_page_title_hierarchy 1
-# Activate local search.
-drush -y vset piwik_site_search 1
-
+d7-all-reset-piwik-variables.sh $d7_site_name
 
 ###### Security review
 # For untrusted roles:

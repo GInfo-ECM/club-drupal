@@ -23,14 +23,8 @@ rm -r $d7_site_dir
 # Delete symbolic link.
 rm $d7_dir/$d7_site_name
 
-# Remove site line from sites.php
-echo '<?php' > $d7_dir_sites/sites.tmp.php
-while read line ; do
-    grep -sv "^\$.*$d7_site_name';$" $line >> $d7_dir_sites/sites.tmp.php
-done < $sites_php
 chmod +w $sites_php
-rm $sites_php
-mv $d7_dir_sites/sites.tmp.php $sites_php
+grep -sv "^\$.*$d7_site_name';$" $sites_php > $sites_php
 chmod 400 $sites_php
 
 # Remove site alias from aliases.drushrc.php

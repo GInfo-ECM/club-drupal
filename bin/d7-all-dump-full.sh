@@ -5,9 +5,13 @@
 
 help="ARG: database password"
 
-check_arguments $# 1 "$help"
-
 current_date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 
+if [ -z $1 ] ; then
+    db_password=`ask_password_db $db_server $db_user`
+else
+    db_password=$1
+fi
+
 # Dump D7 databases at once.
-mysqldump -h $db_server -u $db_user -p$1 --all-databases > $d7_dir_full_backup/myassos/$current_date.d7_full.sql
+mysqldump -h $db_server -u $db_user -p$db_password --all-databases > $d7_dir_full_backup/myassos/$current_date.d7_full.sql

@@ -58,4 +58,4 @@ DRUPAL_VERSION = {'17': 2, '18': 1}
 
 
 ###### Other
-REGEXP_NAME = 'http://debian/portail/content/t%C3%A2che/(.*)'
+REGEXP_NAME = 'http://debian/portail/(?:content/t%C3%A2che|node)/(.*)'

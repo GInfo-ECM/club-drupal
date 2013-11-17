@@ -1,17 +1,17 @@
 #!/bin/sh
 
 ###### Common to all sites
-drush -y en piwik
-drush -y vset piwik_url_http "http://piwik.centrale-marseille.fr/"
-drush -y vset piwik_url_https "https://piwik.centrale-marseille.fr/"
+drush -yq en piwik
+drush -yq vset piwik_url_http "http://piwik.centrale-marseille.fr/"
+drush -yq vset piwik_url_https "https://piwik.centrale-marseille.fr/"
 # Piwik cache.
-drush -y vset piwik_cache 1
-drush -y vset piwik_visibility_roles "1"
+drush -yq vset piwik_cache 1
+drush -yq vset piwik_visibility_roles "1"
 # Piwik is enable for everyone except the administrator
-drush -y vset --format=json piwik_roles '[3]'
-drush -y vset piwik_page_title_hierarchy 1
+drush -yq vset --format=json piwik_roles '[3]'
+drush -yq vset piwik_page_title_hierarchy 1
 # Activate local search.
-drush -y vset piwik_site_search 1
+drush -yq vset piwik_site_search 1
 
 ##### Specific
 # Note: you can read the piwik site id from the url in piwik
@@ -29,4 +29,4 @@ else
     piwik_id=101
 fi
 
-drush -y vset piwik_site_id $piwik_id
+drush -yq vset piwik_site_id $piwik_id

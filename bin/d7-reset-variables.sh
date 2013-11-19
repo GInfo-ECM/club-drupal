@@ -40,7 +40,7 @@ drush -yq vset hidden_captcha_label "$random_1 + $random_2"
 
 
 ####### Piwik
-d7-all-reset-piwik-variables.sh $d7_site_name
+d7-reset-piwik-variables.sh $d7_site_name
 
 ###### Security review
 # For untrusted roles:

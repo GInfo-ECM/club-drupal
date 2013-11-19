@@ -3,7 +3,7 @@
 # This script contains all the variables that are required to execute other scrits
 # (database server, backup directories,…). It is design to make other scripts
 # indendant of the current configuration and to change it without editing them.
-# *These variables must be used in scirpts*
+# *These variables must be used in scripts*
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/users/guest/assos/bin
 PATH=$PATH:/usr/guest/assos/bin

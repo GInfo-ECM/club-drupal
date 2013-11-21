@@ -10,7 +10,7 @@ PATH=$PATH:/usr/guest/assos/bin
 
 scripts_config='imported'
 
-email_multi_assos="assos@centrale-marseille.fr"
+email_multi_assos="assos+update@centrale-marseille.fr"
 
 dir_multi_assos='/users/guest/assos'
 dir_scripts="$dir_multi_assos/bin"

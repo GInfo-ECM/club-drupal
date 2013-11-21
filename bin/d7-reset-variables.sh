@@ -7,7 +7,7 @@
 if [ ! -z $1 ] ; then
     . scripts-config-site.sh $1
     # default is an exception to the rule
-    if echo $dir | grep default > /dev/null ; then
+    if echo $1 | grep default > /dev/null ; then
 	    cd $d7_dir_sites/default
     else
 	cd $d7_site_dir

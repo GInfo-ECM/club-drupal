@@ -22,7 +22,7 @@ random_2=`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" "`
 ####### General variables
 drush -yq vset --always-set reverse_proxy TRUE
 drush -yq vset --always-set --format=json reverse_proxy_addresses '["147.94.19.16","147.94.19.17"]'
-drush -yq ev "variable_set('update_notify_emails', array('$email_multi_assos'));"
+drush -yq ev "variable_set('update_notify_emails', array('$email_multi_assos_update'));"
 drush -yq vset error_level 0
 drush -yq vset dblog_row_limit 1000
 drush -yq vset cron_safe_threshold 0

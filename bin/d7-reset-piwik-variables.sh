@@ -15,17 +15,74 @@ drush -yq vset piwik_site_search 1
 
 ##### Specific
 # Note: you can read the piwik site id from the url in piwik
-if [ $1 = forumentreprises ] ; then
-    piwik_id=270
-elif [ $1 = fablab ] ; then
-    piwik_id=151
-elif [ $1 = agora ] ; then
-    piwik_id=116
-elif [ $1 = mdv ] ; then
-    piwik_id=99
-elif [ $1 = tvp ] ; then
-    piwik_id=110
-else
+case $1 in
+    forumentreprises)
+	piwik_id=270
+	;;
+    fablab)
+	piwik_id=151
+	;;
+    agora)
+	piwik_id=116
+	;;
+    mdv)
+	piwik_id=99
+	;;
+    tvp)
+	piwik_id=110
+	;;
+    bda)
+	piwik_id=273
+	;;
+    bde)
+	piwik_id=274
+	;;
+    bds)
+	piwik_id=275
+	;;
+    cac13)
+	piwik_id=276
+	;;
+    cheer-up)
+	piwik_id=277
+	;;
+    clubfinance)
+	piwik_id=278
+	;;
+    clubrobot)
+	piwik_id=279
+	;;
+    echangesphoceens)
+	piwik_id=280
+	;;
+    eluseleves)
+	piwik_id=281
+	;;
+    ercm)
+	piwik_id=282
+	;;
+    ginfo)
+	piwik_id=283
+	;;
+    icm)
+	piwik_id=284
+	;;
+    isf)
+	piwik_id=285
+	;;
+    ksi)
+	piwik_id=209
+	;;
+    accueil)
+	piwik_id=286
+	;;
+    *)
+	piwik_id=287
+	;;
+esac
+
+# Default is an exception and cannot be treated in the case
+if echo $1 | grep default ; then
     piwik_id=101
 fi
 

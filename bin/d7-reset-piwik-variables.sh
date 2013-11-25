@@ -16,21 +16,12 @@ drush -yq vset piwik_site_search 1
 ##### Specific
 # Note: you can read the piwik site id from the url in piwik
 case $1 in
-    forumentreprises)
-	piwik_id=270
-	;;
-    fablab)
-	piwik_id=151
-	;;
+    accueil)
+    piwik_id=286
+    ;;
     agora)
-	piwik_id=116
-	;;
-    mdv)
-	piwik_id=99
-	;;
-    tvp)
-	piwik_id=110
-	;;
+    piwik_id=116
+    ;;
     bda)
 	piwik_id=273
 	;;
@@ -61,6 +52,12 @@ case $1 in
     ercm)
 	piwik_id=282
 	;;
+	fablab)
+    piwik_id=151
+    ;;
+    forumentreprises)
+    piwik_id=270
+    ;;
     ginfo)
 	piwik_id=283
 	;;
@@ -73,9 +70,12 @@ case $1 in
     ksi)
 	piwik_id=209
 	;;
-    accueil)
-	piwik_id=286
-	;;
+	mdv)
+    piwik_id=99
+    ;;
+    tvp)
+    piwik_id=110
+    ;;
     *)
 	piwik_id=287
 	;;

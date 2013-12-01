@@ -17,6 +17,7 @@ dir_multi_assos='/users/guest/assos'
 dir_scripts="$dir_multi_assos/bin"
 dir_template="$dir_multi_assos/template"
 dir_private="$dir_multi_assos/private"
+dir_tmp="$dir_multi_assos/tmp"
 
 ###### Aliases
 ### Bash

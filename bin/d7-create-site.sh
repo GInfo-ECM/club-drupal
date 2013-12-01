@@ -26,8 +26,7 @@ cd $d7_dir
 db_password=`ask_password_db $db_server $db_user`
 site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
-site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$site_name', 'root' => '/users/guest/assos/htmltest/', );"
-d7_line_aliases_drushrc_php="s/'site-list' => array(/'site-list' => array(%'assos.centrale-marseille.fr/$d7_site_name',/"
+site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/htmltest/', );"
 
 # Check if site database already exists.
 if mysql -h $db_server -u $db_user -e "USE $d7_site_name" -p$db_password 2>/dev/null ; then
@@ -69,13 +68,16 @@ cd $d7_dir
 ln -s . $d7_site_name
 
 # Update sites.php
+chmod +w $sites_php
 echo $site_line_sites_php >> $sites_php
+chmod 400 $sites_php
 
 ### Update aliases.drushrc.php
 # For site
 echo $site_line_aliases_drushrc_php >> $aliases_drushrc_php
 # @d7
-sed $d7_line_aliases_drushrc_php < $aliases_drushrc_php | tr '%' '\n' > $aliases_drushrc_php
+sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.fr\/$d7_site_name',"/ < $aliases_drushrc_php | tr '%' '\n    ' > $dir_tmp/aliases.tmp
+mv $dir_tmp/aliases.tmp $aliases_drushrc_php
 
 # Next Instructions
 echo "Go to http://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."

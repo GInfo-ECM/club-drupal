@@ -25,11 +25,13 @@ rm $d7_dir/$d7_site_name
 
 echo 'Remove site line from sites.php'
 chmod +w $sites_php
-grep -sv "^\$.*$d7_site_name';$" $sites_php > $sites_php
+grep -sv "^\$.*$d7_site_name';$" $sites_php > $dir_tmp/sites.php
+mv $dir_tmp/sites.php $sites_php
 chmod 400 $sites_php
 
 echo 'Remove site alias from aliases.drushrc.php'
-grep -sv "$d7_site_name'" $aliases_drushrc_php > $aliases_drushrc_php
+grep -sv "$d7_site_name'" $aliases_drushrc_php > $dir_tmp/aliases.php
+mv $dir_tmp/aliases.php $aliases_drushrc_php
 
 echo 'Delete database backups.'
 rm -r $d7_dir_individual_auto_backup/assos.centrale-marseille.fr.$d7_site_name

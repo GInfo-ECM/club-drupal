@@ -43,6 +43,8 @@ dir_individual_backup="$dir_backup/individual"
 dir_individual_manual_backup="$dir_individual_backup/manual"
 dir_individual_auto_backup="$dir_individual_backup/auto"
 
+myassos_cnf="$dir_private/myassos.cnf"
+webassos_cnf="$dir_private/webassos.cnf"
 
 ###### D7 variables
 d7_dir="$dir_multi_assos/htmltest"

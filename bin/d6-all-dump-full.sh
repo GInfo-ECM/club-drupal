@@ -3,8 +3,6 @@
 . /users/guest/assos/bin/scripts-config.sh
 . /users/guest/assos/bin/scripts-utils.sh
 
-help="ARG: [database password]"
-
 current_date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 
 # Dump D6 database with webassos user.

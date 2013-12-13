@@ -33,7 +33,7 @@ ask_password_db() {
     echo $db_password
 }
 
-generate_password(){
+generate_password() {
     # ARGS: [password_length]
     # The password contains special characters. '/' must be excluded to avoid sed malfunction.
 
@@ -52,7 +52,7 @@ generate_password(){
     echo $site_password
 }
 
-count_d7_sites(){
+count_d7_sites() {
     find $d7_dir_sites -type d ! -name all -maxdepth 1 | wc -l
 }
 
@@ -70,7 +70,7 @@ generate_settings_local() {
     sed "s/\%\%DBUSER\%\%/$1/ ; s/\%\%DBNAME\%\%/$1/ ; s/\%\%DBPASS\%\%/$2/ ; s/\%\%SITE_NAME\%\%/$1/" < $3 > $4
 }
 
-give_dir(){
+give_dir() {
     # ARG: file
     # Return the abosulte directory path of a file or a dir.
     settings_location=`realpath $1`

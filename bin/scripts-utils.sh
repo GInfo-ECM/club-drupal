@@ -76,3 +76,36 @@ give_dir() {
     settings_location=`realpath $1`
     echo `dirname $settings_location`
 }
+
+work_tree_clean() {
+    git_status_output=`git status --porcelain`
+    if [ -z $git_status_output ] ; then
+	exit 0
+    else
+	exit 1
+    fi
+}
+
+mail_unclean_work_tree() {
+    cd $dir_multi_assos
+    git_status_output=`git status`
+    echo $git_status_output | mail -s $1 $email_multi_assos
+}
+
+commit_if_unclean() {
+    if ! work_tree_clean ; then
+	commit_message="COMMIT OF UNCLEAN STUFF"
+	commit -a -m $commit_message
+	mail_unclean_work_tree "[git] $commit_message"
+    fi
+}
+
+commit() {
+    # ARG: commit message
+    if [ -z $1 ] ; then
+	echo "Empty commit message. Nothing was commited."
+	exit 2
+    fi
+    cd $dir_multi_assos
+    git commit -a -m $1
+}

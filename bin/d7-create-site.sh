@@ -9,6 +9,11 @@ help="# ARGS: site name"
 ######## Exceptions
 check_arguments $# 1 "$help"
 
+if ! work_tree_clean ; then
+    echo "Your work tree is not clean. Solve this before $0 can continue."
+    exit 2
+fi
+
 # "-" is forbidden because it provokes database error.
 if [ `echo $1 | grep -` ] ; then
     echo '"-" is forbidden in the site name'
@@ -98,3 +103,5 @@ echo "- Give the webmaster a link to the club Drupal's tutorials "
 echo "- Create a node of type \"Site\" on default"
 echo "- Register the webmaster on webmasters@listes.centrale-marseille.fr"
 echo -e "- If line to add to sites.php differs from the line below, please correct it\n\t$site_line_sites_php"
+
+commit "Creation of site: $d7_site_name"

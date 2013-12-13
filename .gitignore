@@ -2,6 +2,15 @@
 *#
 .#*
 __*
+private/*
+sites/*
+backup/*
+log/*
+Maildir/*
+tmp/*
+Desktop/*
+html/*
+.*
 
 # Ignore Eclipse's files.
 /.project

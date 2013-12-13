@@ -1,6 +1,9 @@
 #!/bin/sh
 
 . /users/guest/assos/bin/scripts-config.sh
+. /users/guest/assos/bin/scripts-utils.sh
+
+commit_if_unclean
 
 d7-all-drush.sh -y en update
 # Launch cron to check for updates.
@@ -14,3 +17,5 @@ d7-all-drush.sh -y updb
 d7-all-drush.sh -y dis update
 
 d7-all-drush.sh cron
+
+commit "Weekly update of contrib modules"

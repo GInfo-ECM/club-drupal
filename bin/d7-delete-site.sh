@@ -8,6 +8,11 @@ help="# ARGS: site name."
 
 check_arguments $# 1 "$help"
 
+if ! work_tree_clean ; then
+    echo "Your work tree is not clean. Solve this before $0 can continue."
+    exit 2
+fi
+
 db_password=`ask_password_db $db_server $db_user`
 
 echo 'Delete database.'
@@ -40,3 +45,5 @@ rm -r $d7_dir_individual_manual_backup/assos.centrale-marseille.fr.$d7_site_name
 echo "Don't forget to:"
 echo "- Refresh node site on default"
 echo "- Check particular behavior (normally detailed on site node)"
+
+commit "Deletion of site: $d7_site_name"

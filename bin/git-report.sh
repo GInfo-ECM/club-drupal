@@ -11,3 +11,6 @@ git_log=`git log -p --after=yesterday`
 if [ -n $git_log ] ; then
     echo $git_log | mail -s "[git] Report"
 fi
+
+git pull --rebase
+git push

@@ -3,7 +3,8 @@
 .#*
 __*
 private/*
-sites/*
+htmltest/sites/assos.*
+htmltest/sites/default
 backup/*
 log/*
 Maildir/*

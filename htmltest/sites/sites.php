@@ -115,5 +115,4 @@ $sites['assos.centrale-marseille.fr'] = 'default';
 $sites['assos.centrale-marseille.fr.aagbokpat'] = 'assos.centrale-marseille.fr.aagbokpat';
 $sites['assos.centrale-marseille.fr.greigniertest'] = 'assos.centrale-marseille.fr.greigniertest';
 
-$sites['assos.centrale-marseille.fr.nzabeetest'] = 'assos.centrale-marseille.fr.nzabeetest';
 $sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.charlist';

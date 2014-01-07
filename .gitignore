@@ -11,6 +11,7 @@ Maildir/*
 tmp/*
 Desktop/*
 html/*
+drush-backups
 .*
 
 # Ignore Eclipse's files.

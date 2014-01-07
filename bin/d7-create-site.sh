@@ -9,7 +9,7 @@ help="# ARGS: site name"
 ######## Exceptions
 check_arguments $# 1 "$help"
 
-if ! work_tree_clean ; then
+if ! `work_tree_clean` ; then
     echo "Your work tree is not clean. Solve this before $0 can continue."
     exit 2
 fi

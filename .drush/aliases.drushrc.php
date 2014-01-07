@@ -41,7 +41,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/foceentest',
         'assos.centrale-marseille.fr/forumentreprises',
         'assos.centrale-marseille.fr/ftorregrosa',
-        'assos.centrale-marseille.fr/ftorregrosatest',
         'assos.centrale-marseille.fr/gala',
         'assos.centrale-marseille.fr/ggaydier',
         'assos.centrale-marseille.fr/ginfo',
@@ -112,7 +111,6 @@ $aliases['fablab'] = array('uri' => 'assos.centrale-marseille.fr/fablab', 'root'
 $aliases['foceentest'] = array('uri' => 'assos.centrale-marseille.fr/foceentest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['forumentreprises'] = array('uri' => 'assos.centrale-marseille.fr/forumentreprises', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ftorregrosa'] = array('uri' => 'assos.centrale-marseille.fr/ftorregrosa', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['ftorregrosatest'] = array('uri' => 'assos.centrale-marseille.fr/ftorregrosatest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['gala'] = array('uri' => 'assos.centrale-marseille.fr/gala', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ggaydier'] = array('uri' => 'assos.centrale-marseille.fr/ggaydier', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ginfo'] = array('uri' => 'assos.centrale-marseille.fr/ginfo', 'root' => '/users/guest/assos/htmltest/', );

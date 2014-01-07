@@ -85,7 +85,6 @@ $sites['assos.centrale-marseille.fr.etorri'] = 'assos.centrale-marseille.fr.etor
 $sites['fablab.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.fablab';
 $sites['www.forum-foceen.fr'] = 'assos.centrale-marseille.fr.forumentreprises';
 $sites['assos.centrale-marseille.fr.ftorregrosa'] = 'assos.centrale-marseille.fr.ftorregrosa';
-$sites['assos.centrale-marseille.fr.ftorregrosatest'] = 'assos.centrale-marseille.fr.ftorregrosatest';
 $sites['assos.centrale-marseille.fr.gala'] = 'assos.centrale-marseille.fr.gala';
 $sites['assos.centrale-marseille.fr.ggaydier'] = 'assos.centrale-marseille.fr.ggaydier';
 $sites['atest.centrale-marseille.fr.ginfo'] = 'assos.centrale-marseille.fr.ginfo';

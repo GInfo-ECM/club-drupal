@@ -1,0 +1,12 @@
+name = Highlight JS Filter
+description = Provides a filter to process and display code using highlight js.
+dependencies[] = highlight_js
+dependencies[] = filter
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-12-29
+version = "7.x-1.0"
+core = "7.x"
+project = "highlightjs"
+datestamp = "1356797547"
+

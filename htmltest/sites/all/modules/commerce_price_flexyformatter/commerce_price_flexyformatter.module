@@ -1,0 +1,218 @@
+<?php
+/**
+ * @file
+ * Add a new Price formatter that allow more options on how
+ * to display prices. 
+ */
+ 
+/**
+ * Implements hook_theme().
+ */
+function commerce_price_flexyformatter_theme() {
+  return array(
+    'commerce_price_flexyformatter_selected_amount' => array(
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function commerce_price_flexyformatter_field_formatter_info() {
+  return array(
+    'commerce_price_flexyformatter_selected_amount' => array(
+      'label' => t('Formatted amount with selected components'),
+      'field types' => array('commerce_price'),
+      'settings' => array(
+        'selection' => array('base_price' => 'base_price'),
+        'reference' => array(),
+        // need this to load all price components, hoping will not be changed
+        'calculation' => 'calculated_sell_price',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function commerce_price_flexyformatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $settings = $instance['display'][$view_mode]['settings'];
+
+  $element = array();
+  $defaults = array();
+  $reference_defaults = array();
+
+  // Get all the price component types
+  $options = commerce_price_component_titles();
+  
+  foreach ($settings['selection'] as $key => $value) {
+    if ($value != '0') { $defaults[] = $key; }
+  }
+  foreach ($settings['reference']['selection'] as $key => $value) {
+    if ($value != '0') { $reference_defaults[] = $key; }
+  }
+
+  $element['selection'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#default_value' => $defaults,
+  );
+  $element['reference'] = array (
+    '#type' => 'fieldset',
+    '#title' => t('Reference amount'),
+    '#collapsible' => TRUE,
+    '#collapsed' => ($settings['reference']['enabled']? FALSE : TRUE),
+  );
+  $element['reference']['enabled'] = array(
+    '#title' => t('Enable'),
+    '#type' => 'checkbox',
+    '#default_value' => $settings['reference']['enabled'],
+  );
+  $element['reference']['selection'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#default_value' => $reference_defaults,
+  );
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function commerce_price_flexyformatter_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $summary = array();
+  $types = commerce_price_component_titles();
+  $components['list'] = '';
+  $components['count'] = 0;
+  foreach($settings['selection'] as $key => $value) {
+    if ($value != '0') {
+      $components['count']++;
+      if ($components['count'] > 1) {$components['list'] .= ', ';}
+      $components['list'] .= $types[$key];
+    }
+  }
+  if ($components['count'] == 0) {
+    $summary[] = t('No components selected');
+  }
+  else {
+    $summary[] = format_plural($components['count'], 'Selected component is !list.', 'Selected components are !list.', array('!list' => $components['list']));
+    if ($settings['reference']['enabled']) {
+      $reference['list'] = '';
+      $reference['count'] = 0;
+      foreach($settings['reference']['selection'] as $key => $value) {
+        if ($value != '0') {
+          $reference['count']++;
+          if ($reference['count'] > 1) {$reference['list'] .= ', ';}
+          $reference['list'] .= $types[$key];
+        }
+      }
+      $summary[] = t('Reference amount enabled with !list.', array('!list' => $reference['list']));
+    }
+    else {
+      $summary[] = t('Reference amount not enabled.');
+    }
+  }
+  
+  return implode('<br />', $summary);
+}
+/**
+ * Implements hook_field_formatter_prepare_view().
+ */
+function commerce_price_flexyformatter_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  // why I need to repeat all that ???
+
+  // Allow other modules to prepare the item values prior to formatting.
+  foreach(module_implements('commerce_price_field_formatter_prepare_view') as $module) {
+    $function = $module . '_commerce_price_field_formatter_prepare_view';
+    $function($entity_type, $entities, $field, $instances, $langcode, $items, $displays);
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function commerce_price_flexyformatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  // Loop through each price value in this field.
+  foreach ($items as $delta => $item) {
+    // Do not render a price if the amount is NULL (i.e. non-zero empty value).
+    if (is_null($item['amount'])) {
+      // TODO: Consider if we should render as N/A or something indicating a
+      // price was not available as opposed to just leaving a blank.
+      continue;
+    }
+
+    // Theme the display of the price based on the display type.
+    switch ($display['type']) {
+
+      case 'commerce_price_flexyformatter_selected_amount':
+        // Build an array of component display titles and their prices.
+        $components = array();
+        $amount = $reference_amount = 0;
+        $difference = $reference_difference = 0;        
+        foreach ($item['data']['components'] as $key => $component) {
+          if ($display['settings']['selection'][$component['name']] != '0') {
+            $amount += $component['price']['amount'];
+            if (isset($component['price']['data']['tax_rate'])) {
+              $amount -= $component['price']['data']['tax_rate']['rate'] * $difference;
+            }
+          }
+          else {
+            $difference += $component['price']['amount'];
+          }
+        }
+        // Check if reference amount is ebabled
+        if ($display['settings']['reference']['enabled']) {
+          $components = array();
+          // reset($item['data']['components']);
+          foreach ($item['data']['components'] as $key => $component) {
+            if ($display['settings']['reference']['selection'][$component['name']] != '0') {
+              $reference_amount += $component['price']['amount'];
+              if (isset($component['price']['data']['tax_rate'])) {
+                $reference_amount -= $component['price']['data']['tax_rate']['rate'] * $reference_difference;
+              }
+            }
+            else {
+              $reference_difference += $component['price']['amount'];
+            }
+          }
+        }
+        $element[$delta] = array(
+          '#markup' => theme('commerce_price_flexyformatter_selected_amount', 
+            array('amount' => $amount,
+              'reference_enabled' => $display['settings']['reference']['enabled'],
+              'reference_amount' => $reference_amount,
+              'currency_code' => $item['currency_code'],
+              )
+            ),
+        );
+      break;
+    }
+  }
+  return $element;
+}
+
+/**
+ * Themes flexyformatted price.
+ *
+ * @param $variables
+ */
+function theme_commerce_price_flexyformatter_selected_amount($variables) {
+  if ($variables['reference_enabled'] && ($variables['amount'] != $variables['reference_amount'])) {
+  // Add the CSS styling.
+  drupal_add_css(drupal_get_path('module', 'commerce_price_flexyformatter') . '/commerce_price_flexyformatter.css');
+    $output = '<span class="flexy-reference">' . commerce_currency_format($variables['reference_amount'], $variables['currency_code']) . '</span> ';
+    $output .= '<span class="flexy-amount has-reference">' . commerce_currency_format($variables['amount'], $variables['currency_code']) . '</span>';
+  }
+  else {
+    $output = '<span class="flexy-amount has-no-reference">' . commerce_currency_format($variables['amount'], $variables['currency_code']) . '</span>';
+  }
+  return $output; 
+}

@@ -1,0 +1,121 @@
+<?php
+/**
+ * @file
+ * Configuration file for Drupal's multi-site directory aliasing feature.
+ *
+ * This file allows you to define a set of aliases that map hostnames, ports, and
+ * pathnames to configuration directories in the sites directory. These aliases
+ * are loaded prior to scanning for directories, and they are exempt from the
+ * normal discovery rules. See default.settings.php to view how Drupal discovers
+ * the configuration directory when no alias is found.
+ *
+ * Aliases are useful on development servers, where the domain name may not be
+ * the same as the domain of the live server. Since Drupal stores file paths in
+ * the database (files, system table, etc.) this will ensure the paths are
+ * correct when the site is deployed to a live server.
+ *
+ * To use this file, copy and rename it such that its path plus filename is
+ * 'sites/sites.php'. If you don't need to use multi-site directory aliasing,
+ * then you can safely ignore this file, and Drupal will ignore it too.
+ *
+ * Aliases are defined in an associative array named $sites. The array is
+ * written in the format: '<port>.<domain>.<path>' => 'directory'. As an
+ * example, to map http://www.drupal.org:8080/mysite/test to the configuration
+ * directory sites/example.com, the array should be defined as:
+ * @code
+ * $sites = array(
+ *   '8080.www.drupal.org.mysite.test' => 'example.com',
+ * );
+ * @endcode
+ * The URL, http://www.drupal.org:8080/mysite/test/, could be a symbolic link or
+ * an Apache Alias directive that points to the Drupal root containing
+ * index.php. An alias could also be created for a subdomain. See the
+ * @link http://drupal.org/documentation/install online Drupal installation guide @endlink
+ * for more information on setting up domains, subdomains, and subdirectories.
+ *
+ * The following examples look for a site configuration in sites/example.com:
+ * @code
+ * URL: http://dev.drupal.org
+ * $sites['dev.drupal.org'] = 'example.com';
+ *
+ * URL: http://localhost/example
+ * $sites['localhost.example'] = 'example.com';
+ *
+ * URL: http://localhost:8080/example
+ * $sites['8080.localhost.example'] = 'example.com';
+ *
+ * URL: http://www.drupal.org:8080/mysite/test/
+ * $sites['8080.www.drupal.org.mysite.test'] = 'example.com';
+ * @endcode
+ *
+ * @see default.settings.php
+ * @see conf_path()
+ * @see http://drupal.org/documentation/install/multi-site
+ */
+$sites['assos.centrale-marseille.fr.accueil'] = 'assos.centrale-marseille.fr.accueil';
+$sites['assos.centrale-marseille.fr.adeprey'] = 'assos.centrale-marseille.fr.adeprey';
+$sites['forum.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.agora';
+$sites['assos.centrale-marseille.fr.annales'] = 'assos.centrale-marseille.fr.annales';
+$sites['assos.centrale-marseille.fr.anomaliste'] = 'assos.centrale-marseille.fr.anomaliste';
+$sites['assos.centrale-marseille.fr.aoudad'] = 'assos.centrale-marseille.fr.aoudad';
+$sites['assos.centrale-marseille.fr.apocaliste'] = 'assos.centrale-marseille.fr.apocaliste';
+$sites['assos.centrale-marseille.fr.bcoissac'] = 'assos.centrale-marseille.fr.bcoissac';
+$sites['assos.centrale-marseille.fr.bda'] = 'assos.centrale-marseille.fr.bda';
+$sites['assos.centrale-marseille.fr.bde'] = 'assos.centrale-marseille.fr.bde';
+$sites['assos.centrale-marseille.fr.bds'] = 'assos.centrale-marseille.fr.bds';
+$sites['assos.centrale-marseille.fr.bphanluong'] = 'assos.centrale-marseille.fr.bphanluong';
+$sites['assos.centrale-marseille.fr.bsanchez-pin'] = 'assos.centrale-marseille.fr.bsanchez-pin';
+$sites['assos.centrale-marseille.fr.bspeziale'] = 'assos.centrale-marseille.fr.bspeziale';
+$sites['atest.centrale-marseille.fr.cac13'] = 'assos.centrale-marseille.fr.cac13';
+$sites['assos.centrale-marseille.fr.camara'] = 'assos.centrale-marseille.fr.camara';
+$sites['assos.centrale-marseille.fr.cdechy'] = 'assos.centrale-marseille.fr.cdechy';
+$sites['assos.centrale-marseille.fr.centralefightclub'] = 'assos.centrale-marseille.fr.centralefightclub';
+$sites['assos.centrale-marseille.fr.chaasfrangi'] = 'assos.centrale-marseille.fr.chaasfrangi';
+$sites['assos.centrale-marseille.fr.cheer-up'] = 'assos.centrale-marseille.fr.cheer-up';
+$sites['assos.centrale-marseille.fr.clubfinance'] = 'assos.centrale-marseille.fr.clubfinance';
+$sites['assos.centrale-marseille.fr.clubrobot'] = 'assos.centrale-marseille.fr.clubrobot';
+$sites['assos.centrale-marseille.fr.echangesphoceens'] = 'assos.centrale-marseille.fr.echangesphoceens';
+$sites['assos.centrale-marseille.fr.ecmnext'] = 'assos.centrale-marseille.fr.ecmnext';
+$sites['assos.centrale-marseille.fr.election'] = 'assos.centrale-marseille.fr.election';
+$sites['assos.centrale-marseille.fr.eluseleves'] = 'assos.centrale-marseille.fr.eluseleves';
+$sites['assos.centrale-marseille.fr.emath'] = 'assos.centrale-marseille.fr.emath';
+$sites['assos.centrale-marseille.fr.eptest'] = 'assos.centrale-marseille.fr.eptest';
+$sites['atest.centrale-marseille.fr.ercm'] = 'assos.centrale-marseille.fr.ercm';
+$sites['assos.centrale-marseille.fr.etorri'] = 'assos.centrale-marseille.fr.etorri';
+$sites['fablab.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.fablab';
+$sites['www.forum-foceen.fr'] = 'assos.centrale-marseille.fr.forumentreprises';
+$sites['assos.centrale-marseille.fr.ftorregrosa'] = 'assos.centrale-marseille.fr.ftorregrosa';
+$sites['assos.centrale-marseille.fr.ftorregrosatest'] = 'assos.centrale-marseille.fr.ftorregrosatest';
+$sites['assos.centrale-marseille.fr.gala'] = 'assos.centrale-marseille.fr.gala';
+$sites['assos.centrale-marseille.fr.ggaydier'] = 'assos.centrale-marseille.fr.ggaydier';
+$sites['atest.centrale-marseille.fr.ginfo'] = 'assos.centrale-marseille.fr.ginfo';
+$sites['assos.centrale-marseille.fr.icm'] = 'assos.centrale-marseille.fr.icm';
+$sites['assos.centrale-marseille.fr.isf'] = 'assos.centrale-marseille.fr.isf';
+$sites['assos.centrale-marseille.fr.izus'] = 'assos.centrale-marseille.fr.izus';
+$sites['assos.centrale-marseille.fr.jenselme'] = 'assos.centrale-marseille.fr.jenselme';
+$sites['assos.centrale-marseille.fr.jenselmetest'] = 'assos.centrale-marseille.fr.jenselmetest';
+$sites['assos.centrale-marseille.fr.jpennec'] = 'assos.centrale-marseille.fr.jpennec';
+$sites['assos.centrale-marseille.fr.ksi'] = 'assos.centrale-marseille.fr.ksi';
+$sites['assos.centrale-marseille.fr.ldp'] = 'assos.centrale-marseille.fr.ldp';
+$sites['assos.centrale-marseille.fr.lessive'] = 'assos.centrale-marseille.fr.lessive';
+$sites['assos.centrale-marseille.fr.lintecestlefeu'] = 'assos.centrale-marseille.fr.lintecestlefeu';
+$sites['assos.centrale-marseille.fr.listerik'] = 'assos.centrale-marseille.fr.listerik';
+$sites['assos.centrale-marseille.fr.listonic'] = 'assos.centrale-marseille.fr.listonic';
+$sites['assos.centrale-marseille.fr.lpomot'] = 'assos.centrale-marseille.fr.lpomot';
+$sites['assos.centrale-marseille.fr.mdv'] = 'assos.centrale-marseille.fr.mdv';
+$sites['assos.centrale-marseille.fr.mmenossi'] = 'assos.centrale-marseille.fr.mmenossi';
+$sites['assos.centrale-marseille.fr.nonotest'] = 'assos.centrale-marseille.fr.nonotest';
+$sites['assos.centrale-marseille.fr.phytv'] = 'assos.centrale-marseille.fr.phytv';
+$sites['assos.centrale-marseille.fr.pjury'] = 'assos.centrale-marseille.fr.pjury';
+$sites['assos.centrale-marseille.fr.qharbulot'] = 'assos.centrale-marseille.fr.qharbulot';
+$sites['assos.centrale-marseille.fr.rbraun'] = 'assos.centrale-marseille.fr.rbraun';
+$sites['assos.centrale-marseille.fr.shauville'] = 'assos.centrale-marseille.fr.shauville';
+$sites['assos.centrale-marseille.fr.testmassiliades'] = 'assos.centrale-marseille.fr.testmassiliades';
+$sites['assos.centrale-marseille.fr.tjanvier'] = 'assos.centrale-marseille.fr.tjanvier';
+$sites['tvp.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.tvp';
+$sites['assos.centrale-marseille.fr'] = 'default';
+$sites['assos.centrale-marseille.fr.aagbokpat'] = 'assos.centrale-marseille.fr.aagbokpat';
+$sites['assos.centrale-marseille.fr.greigniertest'] = 'assos.centrale-marseille.fr.greigniertest';
+
+$sites['assos.centrale-marseille.fr.nzabeetest'] = 'assos.centrale-marseille.fr.nzabeetest';
+$sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.charlist';

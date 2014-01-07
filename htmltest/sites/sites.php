@@ -113,6 +113,5 @@ $sites['assos.centrale-marseille.fr.tjanvier'] = 'assos.centrale-marseille.fr.tj
 $sites['tvp.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.tvp';
 $sites['assos.centrale-marseille.fr'] = 'default';
 $sites['assos.centrale-marseille.fr.aagbokpat'] = 'assos.centrale-marseille.fr.aagbokpat';
-$sites['assos.centrale-marseille.fr.greigniertest'] = 'assos.centrale-marseille.fr.greigniertest';
 
 $sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.charlist';

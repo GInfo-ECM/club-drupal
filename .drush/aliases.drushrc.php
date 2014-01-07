@@ -43,7 +43,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/gala',
         'assos.centrale-marseille.fr/ggaydier',
         'assos.centrale-marseille.fr/ginfo',
-        'assos.centrale-marseille.fr/greigniertest',
         'assos.centrale-marseille.fr/icm',
         'assos.centrale-marseille.fr/isf',
         'assos.centrale-marseille.fr/izus',
@@ -111,7 +110,6 @@ $aliases['ftorregrosa'] = array('uri' => 'assos.centrale-marseille.fr/ftorregros
 $aliases['gala'] = array('uri' => 'assos.centrale-marseille.fr/gala', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ggaydier'] = array('uri' => 'assos.centrale-marseille.fr/ggaydier', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ginfo'] = array('uri' => 'assos.centrale-marseille.fr/ginfo', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['greigniertest'] = array('uri' => 'assos.centrale-marseille.fr/greigniertest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['icm'] = array('uri' => 'assos.centrale-marseille.fr/icm', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['isf'] = array('uri' => 'assos.centrale-marseille.fr/isf', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['izus'] = array('uri' => 'assos.centrale-marseille.fr/izus', 'root' => '/users/guest/assos/htmltest/', );

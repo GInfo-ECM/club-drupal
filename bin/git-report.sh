@@ -12,5 +12,5 @@ if [ -n "$git_log" ] ; then
     echo $git_log | mail -s "[git] Report" $email_multi_assos
 fi
 
-git pull --rebase
-git push
+git pull --rebase > /dev/null
+git push > /dev/null

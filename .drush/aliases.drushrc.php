@@ -4,7 +4,6 @@ $aliases['d7'] = array(
 'assos.centrale-marseille.fr/annalestest',
         'assos.centrale-marseille.fr',
         'assos.centrale-marseille.fr/accueil',
-        'assos.centrale-marseille.fr/adeprey',
         'assos.centrale-marseille.fr/agora',
         'assos.centrale-marseille.fr/annales',
         'assos.centrale-marseille.fr/anomaliste',
@@ -70,7 +69,6 @@ $aliases['d7'] = array(
 );
 $aliases['default'] = array('uri' => 'assos.centrale-marseille.fr', 'root' => '/users/guest/assos/htmltest', );
 $aliases['accueil'] = array('uri' => 'assos.centrale-marseille.fr/accueil', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['adeprey'] = array('uri' => 'assos.centrale-marseille.fr/adeprey', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['agora'] = array('uri' => 'assos.centrale-marseille.fr/agora', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['annales'] = array('uri' => 'assos.centrale-marseille.fr/annales', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['anomaliste'] = array('uri' => 'assos.centrale-marseille.fr/anomaliste', 'root' => '/users/guest/assos/htmltest/', );

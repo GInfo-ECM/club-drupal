@@ -53,7 +53,6 @@
  * @see http://drupal.org/documentation/install/multi-site
  */
 $sites['assos.centrale-marseille.fr.accueil'] = 'assos.centrale-marseille.fr.accueil';
-$sites['assos.centrale-marseille.fr.adeprey'] = 'assos.centrale-marseille.fr.adeprey';
 $sites['forum.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.agora';
 $sites['assos.centrale-marseille.fr.annales'] = 'assos.centrale-marseille.fr.annales';
 $sites['assos.centrale-marseille.fr.anomaliste'] = 'assos.centrale-marseille.fr.anomaliste';

@@ -14,7 +14,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/bde',
         'assos.centrale-marseille.fr/bds',
         'assos.centrale-marseille.fr/bphanluong',
-        'assos.centrale-marseille.fr/bsanchez-pin',
         'assos.centrale-marseille.fr/bspeziale',
         'assos.centrale-marseille.fr/cac13',
         'assos.centrale-marseille.fr/camara',
@@ -79,7 +78,6 @@ $aliases['bda'] = array('uri' => 'assos.centrale-marseille.fr/bda', 'root' => '/
 $aliases['bde'] = array('uri' => 'assos.centrale-marseille.fr/bde', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['bds'] = array('uri' => 'assos.centrale-marseille.fr/bds', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['bphanluong'] = array('uri' => 'assos.centrale-marseille.fr/bphanluong', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['bsanchez-pin'] = array('uri' => 'assos.centrale-marseille.fr/bsanchez-pin', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['bspeziale'] = array('uri' => 'assos.centrale-marseille.fr/bspeziale', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['cac13'] = array('uri' => 'assos.centrale-marseille.fr/cac13', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['camara'] = array('uri' => 'assos.centrale-marseille.fr/camara', 'root' => '/users/guest/assos/htmltest/', );

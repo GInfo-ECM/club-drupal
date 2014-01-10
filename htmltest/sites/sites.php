@@ -63,7 +63,6 @@ $sites['assos.centrale-marseille.fr.bda'] = 'assos.centrale-marseille.fr.bda';
 $sites['assos.centrale-marseille.fr.bde'] = 'assos.centrale-marseille.fr.bde';
 $sites['assos.centrale-marseille.fr.bds'] = 'assos.centrale-marseille.fr.bds';
 $sites['assos.centrale-marseille.fr.bphanluong'] = 'assos.centrale-marseille.fr.bphanluong';
-$sites['assos.centrale-marseille.fr.bspeziale'] = 'assos.centrale-marseille.fr.bspeziale';
 $sites['atest.centrale-marseille.fr.cac13'] = 'assos.centrale-marseille.fr.cac13';
 $sites['assos.centrale-marseille.fr.camara'] = 'assos.centrale-marseille.fr.camara';
 $sites['assos.centrale-marseille.fr.centralefightclub'] = 'assos.centrale-marseille.fr.centralefightclub';

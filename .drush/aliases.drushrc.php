@@ -15,7 +15,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/bds',
         'assos.centrale-marseille.fr/bphanluong',
         'assos.centrale-marseille.fr/cac13',
-        'assos.centrale-marseille.fr/camara',
         'assos.centrale-marseille.fr/centralefightclub',
         'assos.centrale-marseille.fr/chaasfrangi',
         'assos.centrale-marseille.fr/charlist',
@@ -78,7 +77,6 @@ $aliases['bde'] = array('uri' => 'assos.centrale-marseille.fr/bde', 'root' => '/
 $aliases['bds'] = array('uri' => 'assos.centrale-marseille.fr/bds', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['bphanluong'] = array('uri' => 'assos.centrale-marseille.fr/bphanluong', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['cac13'] = array('uri' => 'assos.centrale-marseille.fr/cac13', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['camara'] = array('uri' => 'assos.centrale-marseille.fr/camara', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['centralefightclub'] = array('uri' => 'assos.centrale-marseille.fr/centralefightclub', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['chaasfrangi'] = array('uri' => 'assos.centrale-marseille.fr/chaasfrangi', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['charlist'] = array('uri' => 'assos.centrale-marseille.fr/charlist', 'root' => '/users/guest/assos/htmltest/', );

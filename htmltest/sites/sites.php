@@ -96,7 +96,6 @@ $sites['assos.centrale-marseille.fr.listerik'] = 'assos.centrale-marseille.fr.li
 $sites['assos.centrale-marseille.fr.listonic'] = 'assos.centrale-marseille.fr.listonic';
 $sites['assos.centrale-marseille.fr.mdv'] = 'assos.centrale-marseille.fr.mdv';
 $sites['assos.centrale-marseille.fr.mmenossi'] = 'assos.centrale-marseille.fr.mmenossi';
-$sites['assos.centrale-marseille.fr.nonotest'] = 'assos.centrale-marseille.fr.nonotest';
 $sites['assos.centrale-marseille.fr.phytv'] = 'assos.centrale-marseille.fr.phytv';
 $sites['assos.centrale-marseille.fr.pjury'] = 'assos.centrale-marseille.fr.pjury';
 $sites['assos.centrale-marseille.fr.qharbulot'] = 'assos.centrale-marseille.fr.qharbulot';

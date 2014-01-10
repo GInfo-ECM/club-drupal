@@ -50,7 +50,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/listonic',
         'assos.centrale-marseille.fr/mdv',
         'assos.centrale-marseille.fr/mmenossi',
-        'assos.centrale-marseille.fr/nonotest',
         'assos.centrale-marseille.fr/phytv',
         'assos.centrale-marseille.fr/pjury',
         'assos.centrale-marseille.fr/qharbulot',
@@ -110,7 +109,6 @@ $aliases['listerik'] = array('uri' => 'assos.centrale-marseille.fr/listerik', 'r
 $aliases['listonic'] = array('uri' => 'assos.centrale-marseille.fr/listonic', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['mdv'] = array('uri' => 'assos.centrale-marseille.fr/mdv', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['mmenossi'] = array('uri' => 'assos.centrale-marseille.fr/mmenossi', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['nonotest'] = array('uri' => 'assos.centrale-marseille.fr/nonotest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['phytv'] = array('uri' => 'assos.centrale-marseille.fr/phytv', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['pjury'] = array('uri' => 'assos.centrale-marseille.fr/pjury', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['qharbulot'] = array('uri' => 'assos.centrale-marseille.fr/qharbulot', 'root' => '/users/guest/assos/htmltest/', );

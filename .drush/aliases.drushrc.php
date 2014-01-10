@@ -39,7 +39,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/ginfo',
         'assos.centrale-marseille.fr/icm',
         'assos.centrale-marseille.fr/isf',
-        'assos.centrale-marseille.fr/izus',
         'assos.centrale-marseille.fr/jenselme',
         'assos.centrale-marseille.fr/jenselmetest',
         'assos.centrale-marseille.fr/jpennec',
@@ -98,7 +97,6 @@ $aliases['ggaydier'] = array('uri' => 'assos.centrale-marseille.fr/ggaydier', 'r
 $aliases['ginfo'] = array('uri' => 'assos.centrale-marseille.fr/ginfo', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['icm'] = array('uri' => 'assos.centrale-marseille.fr/icm', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['isf'] = array('uri' => 'assos.centrale-marseille.fr/isf', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['izus'] = array('uri' => 'assos.centrale-marseille.fr/izus', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['jenselme'] = array('uri' => 'assos.centrale-marseille.fr/jenselme', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['jenselmetest'] = array('uri' => 'assos.centrale-marseille.fr/jenselmetest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['jpennec'] = array('uri' => 'assos.centrale-marseille.fr/jpennec', 'root' => '/users/guest/assos/htmltest/', );

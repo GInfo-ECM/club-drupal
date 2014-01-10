@@ -100,7 +100,6 @@ $sites['assos.centrale-marseille.fr.pjury'] = 'assos.centrale-marseille.fr.pjury
 $sites['assos.centrale-marseille.fr.rbraun'] = 'assos.centrale-marseille.fr.rbraun';
 $sites['assos.centrale-marseille.fr.shauville'] = 'assos.centrale-marseille.fr.shauville';
 $sites['assos.centrale-marseille.fr.testmassiliades'] = 'assos.centrale-marseille.fr.testmassiliades';
-$sites['assos.centrale-marseille.fr.tjanvier'] = 'assos.centrale-marseille.fr.tjanvier';
 $sites['tvp.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.tvp';
 $sites['assos.centrale-marseille.fr'] = 'default';
 

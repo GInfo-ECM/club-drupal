@@ -48,7 +48,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/lintecestlefeu',
         'assos.centrale-marseille.fr/listerik',
         'assos.centrale-marseille.fr/listonic',
-        'assos.centrale-marseille.fr/lpomot',
         'assos.centrale-marseille.fr/mdv',
         'assos.centrale-marseille.fr/mmenossi',
         'assos.centrale-marseille.fr/nonotest',
@@ -109,7 +108,6 @@ $aliases['ldp'] = array('uri' => 'assos.centrale-marseille.fr/ldp', 'root' => '/
 $aliases['lintecestlefeu'] = array('uri' => 'assos.centrale-marseille.fr/lintecestlefeu', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['listerik'] = array('uri' => 'assos.centrale-marseille.fr/listerik', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['listonic'] = array('uri' => 'assos.centrale-marseille.fr/listonic', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['lpomot'] = array('uri' => 'assos.centrale-marseille.fr/lpomot', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['mdv'] = array('uri' => 'assos.centrale-marseille.fr/mdv', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['mmenossi'] = array('uri' => 'assos.centrale-marseille.fr/mmenossi', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['nonotest'] = array('uri' => 'assos.centrale-marseille.fr/nonotest', 'root' => '/users/guest/assos/htmltest/', );

@@ -97,7 +97,6 @@ $sites['assos.centrale-marseille.fr.mdv'] = 'assos.centrale-marseille.fr.mdv';
 $sites['assos.centrale-marseille.fr.mmenossi'] = 'assos.centrale-marseille.fr.mmenossi';
 $sites['assos.centrale-marseille.fr.phytv'] = 'assos.centrale-marseille.fr.phytv';
 $sites['assos.centrale-marseille.fr.pjury'] = 'assos.centrale-marseille.fr.pjury';
-$sites['assos.centrale-marseille.fr.qharbulot'] = 'assos.centrale-marseille.fr.qharbulot';
 $sites['assos.centrale-marseille.fr.rbraun'] = 'assos.centrale-marseille.fr.rbraun';
 $sites['assos.centrale-marseille.fr.shauville'] = 'assos.centrale-marseille.fr.shauville';
 $sites['assos.centrale-marseille.fr.testmassiliades'] = 'assos.centrale-marseille.fr.testmassiliades';

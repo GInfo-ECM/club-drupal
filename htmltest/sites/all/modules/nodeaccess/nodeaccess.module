@@ -877,7 +877,8 @@ function theme_nodeaccess_grants_form($variables) {
   $form = $variables['form'];
   $allowed_roles = variable_get('nodeaccess-roles', array());
   $allowed_grants = variable_get('nodeaccess-grants', array());
-
+  // Retrieve role names for columns.
+  $role_names = user_roles();
   // Roles table.
   $roles = element_children($form['rid']);
 
@@ -896,7 +897,7 @@ function theme_nodeaccess_grants_form($variables) {
     foreach ($roles as $key) {
       if (isset($allowed_roles[$key]) && $allowed_roles[$key]) {
         $row = array();
-        $row[] = $form['rid'][$key]['name']['#value'] . drupal_render($form['rid'][$key]['name']);
+        $row[] = $role_names[$key] . drupal_render($form['rid'][$key]['name']);
         if ($allowed_grants['view']) {
           $row[] = drupal_render($form['rid'][$key]['grant_view']);
         }

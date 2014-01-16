@@ -98,5 +98,6 @@ $sites['assos.centrale-marseille.fr.rbraun'] = 'assos.centrale-marseille.fr.rbra
 $sites['assos.centrale-marseille.fr.testmassiliades'] = 'assos.centrale-marseille.fr.testmassiliades';
 $sites['tvp.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.tvp';
 $sites['assos.centrale-marseille.fr'] = 'default';
-
 $sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.charlist';
+$sites['assos.centrale-marseille.fr.blucetest'] = 'assos.centrale-marseille.fr.blucetest';
+

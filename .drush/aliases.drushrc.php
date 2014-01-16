@@ -51,6 +51,7 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/rbraun',
         'assos.centrale-marseille.fr/testmassiliades',
         'assos.centrale-marseille.fr/tvp',
+	'assos.centrale-marseille.fr/blucetest',
     ),
     'root' => '/users/guest/assos/htmltest/',
 );
@@ -104,3 +105,4 @@ $aliases['rbraun'] = array('uri' => 'assos.centrale-marseille.fr/rbraun', 'root'
 $aliases['testmassiliades'] = array('uri' => 'assos.centrale-marseille.fr/testmassiliades', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['tvp'] = array('uri' => 'assos.centrale-marseille.fr/tvp', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['annalestest'] = array('uri' => 'assos.centrale-marseille.fr/', 'root' => '/users/guest/assos/htmltest/', );
+$aliases['blucetest'] = arraby('uri' => 'assos.centrale-marseille.fr/blucetest', 'root' => '/users/guest/assos/htmltest', );

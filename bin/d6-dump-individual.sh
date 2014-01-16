@@ -3,9 +3,9 @@
 . /users/guest/assos/bin/scripts-config.sh
 . /users/guest/assos/bin/scripts-utils.sh
 
-help="ARGS: # ARGS: auto or manual, site_prefix, database password"
+help="ARGS: # ARGS: auto or manual, site_prefix"
 
-check_arguments $# 3 "$help"
+check_arguments $# 2 "$help"
 
 # WARNING : backup are regularly flushed, put your backup in a safe place.
 
@@ -15,7 +15,7 @@ cd $dir_individual_backup
 tables='_%'
 liste="$1$tables"
 
-mysql -h myweb.serv.int -u webassos --password=$3 -BNe "show tables like '"$liste"'" webassos | tr '\r\n' ' ' > liste_tables.temp
+mysql --defaults-extra-file=$webassos_cnf -BNe "show tables like '"$liste"'" webassos | tr '\r\n' ' ' > liste_tables.temp
 
 #transformation de cette liste en une variable
 var=$(cat liste_tables.temp)
@@ -26,9 +26,9 @@ suffixe="_dump$current_date.sql"
 fichier="$1$suffixe"
 
 if [ $1 = 'auto' ] ; then
-    mysqldump webassos -h myweb.serv.int -u webassos --password=$3 $var > $d6_dir_individual_auto_backup/$fichier
+    mysqldump webassos --defaults-extra-file=$webassos_cnf $var > $d6_dir_individual_auto_backup/$fichier
 else
-    mysqldump webassos -h myweb.serv.int -u webassos --password=$3 $var > $d6_dir_individual_manual_backup/$fichier
+    mysqldump webassos --defaults-extra-file=$webassos_cnf $var > $d6_dir_individual_manual_backup/$fichier
 fi
 
 #suppression du fichier temporaire utilisé

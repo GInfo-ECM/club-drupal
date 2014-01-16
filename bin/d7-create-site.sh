@@ -28,13 +28,12 @@ fi
 
 ###### Initialisation
 cd $d7_dir
-db_password=`ask_password_db $db_server $db_user`
 site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/htmltest/', );"
 
 # Check if site database already exists.
-if mysql -h $db_server -u $db_user -e "USE $d7_site_name" -p$db_password 2>/dev/null ; then
+if mysql --defaults-extra-file=$myassos_cnf -e "USE $d7_site_name" 2>/dev/null ; then
     echo "Database $d7_site_name already exists"
     exit 1
 fi
@@ -61,8 +60,8 @@ touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name
 touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql4
 
 # Create and grant privileges on database
-mysql -h $db_server -u $db_user -e "CREATE DATABASE $d7_site_name" -p$db_password
-mysql -h $db_server -u $db_user -e "GRANT ALL PRIVILEGES ON $d7_site_name.* TO '$d7_site_name'@'%' IDENTIFIED BY '$site_password'" -p$db_password
+mysql --defaults-extra-file=$myassos_cnf -e "CREATE DATABASE $d7_site_name"
+mysql --defaults-extra-file=$myassos_cnf -e "GRANT ALL PRIVILEGES ON $d7_site_name.* TO '$d7_site_name'@'%' IDENTIFIED BY '$site_password'"
 
 # Create settings.php
 cp $d7_settings $d7_site_settings

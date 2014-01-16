@@ -16,10 +16,10 @@ fi
 db_password=`ask_password_db $db_server $db_user`
 
 echo 'Delete database.'
-mysql -h $db_server -u $db_user -p$db_password -e "DROP DATABASE $d7_site_name"
+mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE $d7_site_name"
 
 echo 'Delete MYSQL user.'
-mysql -h $db_server -u $db_user -p$db_password -e "DROP USER '$d7_site_name'@'%'"
+mysql --defaults-extra-file=$myassos_cnfh -e "DROP USER '$d7_site_name'@'%'"
 
 echo "Delete site's folder."
 chmod -R 700 $d7_site_dir

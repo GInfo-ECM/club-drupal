@@ -23,16 +23,6 @@ ask_password() {
     unset password
 }
 
-ask_password_db() {
-    # ARGS: server_name, user_name
-    local db_password="pour_boucler"
-    # empty db request to validate password
-    while ! mysql -h $1 -u $2 -p$db_password -e "" 2>/dev/null ; do
-        db_password=`ask_password "database password:"`
-    done
-    echo $db_password
-}
-
 generate_password() {
     # ARGS: [password_length]
     # The password contains special characters. '/' must be excluded to avoid sed malfunction.

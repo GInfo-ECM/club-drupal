@@ -76,6 +76,9 @@ case $1 in
     tvp)
 	piwik_id=110
 	;;
+	ftorregrosa)
+    piwik_id=314
+    ;;
     *)
 	piwik_id=287
 	;;

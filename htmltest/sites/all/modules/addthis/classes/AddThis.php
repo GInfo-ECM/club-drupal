@@ -286,7 +286,7 @@ class AddThis {
 
     if (!isset($loaded)) {
       $loaded = TRUE;
-      $this::addWidgetJs();
+      $this->addWidgetJs();
 
       return TRUE;
     }
@@ -354,12 +354,24 @@ class AddThis {
     return array();
   }
 
+  /**
+   * Get the type used for the block.
+   */
   public function getBlockDisplayType() {
     return variable_get(self::BLOCK_WIDGET_TYPE_KEY, self::WIDGET_TYPE_DISABLED);
   }
 
+  /**
+   * Get the settings used by the block display.
+   */
   public function getBlockDisplaySettings() {
-    return variable_get(self::BLOCK_WIDGET_SETTINGS_KEY, array());
+    $settings = variable_get(self::BLOCK_WIDGET_SETTINGS_KEY, NULL);
+
+    if ($settings == NULL && $this->getBlockDisplayType() != self::WIDGET_TYPE_DISABLED) {
+      $settings = field_info_formatter_settings($this->getBlockDisplayType());
+    }
+
+    return $settings;
   }
 
   public function getProfileId() {

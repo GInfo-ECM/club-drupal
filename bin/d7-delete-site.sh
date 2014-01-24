@@ -19,7 +19,7 @@ echo 'Delete database.'
 mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE $d7_site_name"
 
 echo 'Delete MYSQL user.'
-mysql --defaults-extra-file=$myassos_cnfh -e "DROP USER '$d7_site_name'@'%'"
+mysql --defaults-extra-file=$myassos_cnf -e "DROP USER '$d7_site_name'@'%'"
 
 echo "Delete site's folder."
 chmod -R 700 $d7_site_dir

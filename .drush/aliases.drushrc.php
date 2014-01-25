@@ -25,7 +25,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/election',
         'assos.centrale-marseille.fr/elepagetest',
         'assos.centrale-marseille.fr/eluseleves',
-        'assos.centrale-marseille.fr/emath',
         'assos.centrale-marseille.fr/eptest',
         'assos.centrale-marseille.fr/ercm',
         'assos.centrale-marseille.fr/expat',
@@ -77,7 +76,6 @@ $aliases['ecmnext'] = array('uri' => 'assos.centrale-marseille.fr/ecmnext', 'roo
 $aliases['election'] = array('uri' => 'assos.centrale-marseille.fr/election', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['elepagetest'] = array('uri' => 'assos.centrale-marseille.fr/elepagetest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['eluseleves'] = array('uri' => 'assos.centrale-marseille.fr/eluseleves', 'root' => '/users/guest/assos/htmltest/', );
-$aliases['emath'] = array('uri' => 'assos.centrale-marseille.fr/emath', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['eptest'] = array('uri' => 'assos.centrale-marseille.fr/eptest', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['ercm'] = array('uri' => 'assos.centrale-marseille.fr/ercm', 'root' => '/users/guest/assos/htmltest/', );
 $aliases['expat'] = array('uri' => 'assos.centrale-marseille.fr/expat', 'root' => '/users/guest/assos/htmltest/', );

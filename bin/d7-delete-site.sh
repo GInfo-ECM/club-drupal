@@ -13,8 +13,6 @@ if ! `work_tree_clean` ; then
     exit 2
 fi
 
-db_password=`ask_password_db $db_server $db_user`
-
 echo 'Delete database.'
 mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE $d7_site_name"
 

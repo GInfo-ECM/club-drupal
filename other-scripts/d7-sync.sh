@@ -19,6 +19,7 @@ if [ -z "$1" ] ; then
     exit 0
 fi
 
+root=$(pwd)
 cd htmltest/sites
 if [ $1 = default ] ; then
     dir_site=$1
@@ -41,6 +42,7 @@ rm $sql_file
 ssh assos "rm $remote_sql_file"
 
 # modify settings.php
+python3 $root/other-scripts/modify-settings.py settings.local.php
 
 # various drush cmd to finish synchronisation
 drush -y dis piwik

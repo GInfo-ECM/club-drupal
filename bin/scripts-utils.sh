@@ -36,7 +36,7 @@ generate_password() {
     fi
 
     while echo "$site_password" | grep -Fq '/' ; do
-        site_password=`dd if=/dev/urandom count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$password_length`
+        site_password=`dd if=/dev/random count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$password_length`
     done
 
     echo $site_password

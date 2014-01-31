@@ -9,10 +9,10 @@ help="# ARGS: Drupal_version, project_status, project_name\n
 
 check_arguments $# 3 "$help"
 
-if [ $1 = d6 ] ; then
-    cd $d6_dir_sites
-else
+if [ $1 = d7 ] ; then
     cd $d7_dir_sites
+else
+    echo Unrecognize version.
 fi
 
 for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages ! -name images | sort ` ; do

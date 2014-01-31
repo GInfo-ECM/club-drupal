@@ -44,7 +44,6 @@ dir_individual_manual_backup="$dir_individual_backup/manual"
 dir_individual_auto_backup="$dir_individual_backup/auto"
 
 myassos_cnf="$dir_private/myassos.cnf"
-webassos_cnf="$dir_private/webassos.cnf"
 
 ###### D7 variables
 d7_dir="$dir_multi_assos/htmltest"
@@ -64,13 +63,3 @@ d7_settings_name="d7-settings.php"
 d7_settings_local_template_name="d7-settings-local-template.php"
 d7_settings="$dir_template/$d7_settings_name"
 d7_settings_local_template="$dir_template/$d7_settings_local_template_name"
-
-
-###### D6 variables
-d6_dir="$dir_multi_assos/html"
-d6_dir_sites="$d6_dir/sites"
-
-### Backup
-d6_dir_full_backup="$dir_full_backup/d6"
-d6_dir_individual_manual_backup="$dir_individual_manual_backup/d6"
-d6_dir_individual_auto_backup="$dir_individual_auto_backup/d6"

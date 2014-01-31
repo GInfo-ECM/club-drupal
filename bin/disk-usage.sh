@@ -8,11 +8,6 @@ echo "Assos:"
 du -hcs $dir_multi_assos | grep total
 echo -e "\n"
 
-echo "D6:"
-cd $d6_dir_sites
-du -h -d 1
-echo -e "\n"
-
 echo "D7:"
 cd $d7_dir_sites
 du -h -d 1

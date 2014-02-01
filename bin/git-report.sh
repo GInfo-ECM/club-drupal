@@ -7,9 +7,9 @@ if ! `work_tree_clean` ; then
     mail_unclean_work_tree "[git] WORK TREE UNCLEAN"
 fi
 
-git_log=`git log -p --since=yesterday -n 1 --pretty=format:"########         %s       ########%nDate: %ai%nby %cn %n"`
+git_log=`git log -p --since="yesterday" --pretty=format:"########## %s ###########"`
 if [ -n "$git_log" ] ; then
-    echo $git_log | mail -s "[git] Report" $email_multi_assos
+    echo "$git_log" | mail -s "[git] Report" $email_multi_assos
 fi
 
 git pull --rebase > /dev/null

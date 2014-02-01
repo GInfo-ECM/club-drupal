@@ -10,7 +10,6 @@ log/*
 Maildir/*
 tmp/*
 Desktop/*
-html/*
 drush-backups
 .*
 

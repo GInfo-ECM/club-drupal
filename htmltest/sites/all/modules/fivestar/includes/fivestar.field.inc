@@ -477,6 +477,9 @@ function fivestar_field_formatter_view($entity_type, $entity, $field, $instance,
       'field_name' => $instance['field_name'],
       'langcode' => $langcode,
     );
+    // If microdata module is enabled, attach the microdata attributes.
+    $settings['microdata'] = module_exists('microdata') ? $entity->microdata[$field['field_name']] : array();
+
     $element[0] = drupal_get_form('fivestar_custom_widget', $values, $settings);
     // Our work here is done.
     return $element;
@@ -702,8 +705,8 @@ function fivestar_field_prepare_view($entity_type, $entities, $field, $instances
 /**
  * Implements hook_microdata_value_type_alter().
  */
-function fivestar_microdata_value_type_alter(&$types) {
-  $types['fivestar'] = 'item';
+function fivestar_microdata_value_types_alter(&$types) {
+  $types['fivestar'] = 'item_option';
 }
 
 /**
@@ -752,38 +755,11 @@ function _fivestar_get_microdata_property_info($entity_type, $entity, $field, $i
       $info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']] = array();
       fivestar_property_info_callback($info, $entity_type, $field, $instance, 'fivestar');
       $entity_info = $info[$entity_type]['bundles'][$instance['bundle']]['properties'];
-
-      foreach ($entity_info[$field['field_name']]['property info'] as $property_name => $property) {
-        $microdata[$property_name]['#attributes'] = array();
-      }
+    }
+    foreach ($entity_info[$field['field_name']]['property info'] as $property_name => $property) {
+      $microdata[$property_name]['#attributes'] = array();
     }
   }
 
   return $microdata;
-}
-
-
-/**
- * Implements hook_microdata_field_defaults.
- *
- * Sets default mappings for different vocabularies; for example, schema.org.
- * This enables fields to provide mappings for different use cases.
- */
-function fivestar_microdata_field_defaults() {
-  $field_settings = array();
-
-  // Add the vocabulary terms that are used to describe the data. Multiple
-  // schemes can be defined, allowing the user to choose which mapping to use.
-  // The array key is used to choose which mapping to use in the field instance
-  // settings form.
-  $field_settings['default_mappings']['schema.org'] = array(
-    '#itemprop'    => array('aggregateRating'),
-    '#itemtype'    => 'http://schema.org/AggregateRating',
-    'average_rating' => array(
-      '#itemprop' => array('ratingValue'),
-    ),
-  );
-
-  return $field_settings;
-
 }

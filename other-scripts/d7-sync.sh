@@ -49,6 +49,12 @@ remote_sql_file="~/tmp/$sql_file"
 ssh assos "drush @$1 sql-dump > $remote_sql_file"
 scp assos:$remote_sql_file .
 mysql -u root -e "DROP DATABASE IF EXISTS $1; CREATE DATABASE $1"
+ret=$?
+if [ $ret -ne 0 ] ; then
+    echo "mysql daemon is not started. Exiting."
+    ssh assos "rm $remote_sql_file"
+    exit 1
+fi
 mysql -u root $1 < $sql_file
 rm $sql_file
 ssh assos "rm $remote_sql_file"
@@ -57,6 +63,12 @@ ssh assos "rm $remote_sql_file"
 python3 $root/other-scripts/modify-settings.py settings.local.php --baseurl assos.local/$1
 
 ### various drush cmd to finish synchronisation
+drush status > /dev/null
+ret=$?
+if [ $ret -neq 0 ] ; then
+    echo "drush or site has a problem. Exiting"
+    exit 1
+fi
 drush -y dis piwik
 drush -y vset maintenace_mode 0
 drush -y vset error_level 2

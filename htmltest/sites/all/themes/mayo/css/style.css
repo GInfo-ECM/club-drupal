@@ -490,27 +490,39 @@ div.tabs ul.secondary li {
   margin: 0px;
   padding: 5px;
 }
-
+/* =============================================================================
+   SEARCH
+   ========================================================================== */
 /**
- * Search block form
+ * Header searchbox form
  * - no 'submit' button
  * - add search magnifier image
  * - use javascript to show prompt
  */
-.form-item-search-block-form .form-text:focus {
-  /*outline: none; */  /* remove blue outline for Safari */
-}
+ #header-searchbox form div {
+   display: inline;
+ }
+ /* text field header search */
 .form-item-search-block-form .form-text {
-  height: 24px;
-  color: #555555;
-  margin: 0px;
-  border: solid 1px #aaa;
-  border-bottom-color: #ddd;
-  border-right-color: #ddd;
-  margin-top: 1px;
-  background: #fff url(../images/search.png) no-repeat 2px center;
-  padding: 0px 4px 0px 4px;
-  padding-left: 24px; /* space for magnifying glass */
+  border: 1px solid #ccc;
+  border-right: none;
+  float: left; /* LTR */
+  height: 14px;
+  padding: 6px;
+  color: #4e4e4e;
+  background-color: #FAFAFA;
+}
+/* submit button */
+#header-searchbox form input.form-submit {
+  border:none;
+  width:31px;
+  height:26px;
+  border: 1px solid #ccc;
+  border-left: 0;
+  text-indent:-9999px;
+  margin:0;
+  background: none;
+  padding: 0;
 }
 #header .form-item-search-block-form {
   float: right;
@@ -520,7 +532,57 @@ div.tabs ul.secondary li {
   float: right;
   overflow: hidden;
 }
+/*#header-searchbox .form-submit:hover,
+#header-searchbox .form-submit:focus,
+#header-searchbox .form-submit:active {
+  cursor: pointer;
+}*/
 
+/*
+ *  Search block form
+ *  - submit replaced by magnify image.
+ *  - says 'search this site'
+ */
+
+#block-search-form .block .inner .content {
+  padding-top: 0;
+}
+
+/* text field search block */
+.block-search .form-item input.form-search,
+.white_bg .region-header .block-search .form-item input.form-search,
+.white_bg #navigation .block-search .form-item input.form-search {
+  border: 1px solid #ccc;
+  border-right: none;
+  float: left; /* LTR */
+  height: 14px;
+  padding: 6px;
+  color: #4e4e4e;
+  background-color: #FAFAFA;
+}
+/* submit button */
+.block-search form input.form-submit {
+  border:none;
+  width:31px;
+  height:26px;
+  border: 1px solid #ccc;
+  border-left: 0;
+  text-indent:-9999px;
+  margin:0;
+  background: none;
+  padding: 0;
+}
+
+/*.block-search .form-submit:hover,
+.block-search .form-submit:focus,
+.block-search .form-submit:active {
+  cursor: pointer;
+}*/
+
+/*#search-block-form input[type="submit"] {
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+}*/
+/************************/
 /**
  * Form
  */
@@ -602,7 +664,6 @@ table.views-view-grid tr td {
   margin-left: 10px;
 }
 .field-type-taxonomy-term-reference {
-  font-size: 0.8em;
   overflow: hidden;
   margin-bottom: 0.5em;
 }
@@ -619,7 +680,7 @@ table.views-view-grid tr td {
   padding: 0px;
 }
 .field-type-text-with-summary {
-  clear: left; /* do not use 'both' */
+  /*clear: left;*/ /* do not use 'both' */
 }
 
 table tr {
@@ -657,10 +718,6 @@ tr.odd td.active {
 tr.even,
 tr.odd {
   border-width: 0px;
-}
-
-.field-label-inline .field-label {
-  width: 64px;
 }
 blockquote {
   padding: 0px 10px;

@@ -48,7 +48,7 @@
       }
 
       // Base background.
-      $('#preview-page-wrapper', form).css('background-color', $('#palette input[name="palette[wall]"]', form).val());
+      $('#preview-page-wrapper', form).css('background-color', $('#palette input[name="palette[base]"]', form).val());
 
       // Page background.
       $('#preview-page', form).css('background-color', $('#palette input[name="palette[bg]"]', form).val());

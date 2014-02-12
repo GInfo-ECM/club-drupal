@@ -151,7 +151,7 @@ function mayo_preprocess_search_block_form(&$variables) {
 
   unset($variables['form']['actions']['submit']);
   unset($variables['form']['actions']['#children']);
-
+  $variables['form']['actions']['submit'] = array('#type' => 'image_button', '#src' => base_path() . path_to_theme() . '/images/search-submit.png');
   $variables['form']['search_block_form']['#value'] = $prompt;
   $variables['form']['search_block_form']['#size'] = theme_get_setting('searchbox_size');
   $variables['form']['search_block_form']['#attributes'] = array(

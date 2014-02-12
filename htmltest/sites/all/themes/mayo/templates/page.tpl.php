@@ -94,7 +94,7 @@
   $header_style = '';
   $header_height = theme_get_setting('header_height');
   if (!empty($header_height)) $header_style .= 'height: ' . $header_height . ';';
-  $header_bg_file = theme_get_setting('header_bg_file');
+  $header_bg_file = check_url(theme_get_setting('header_bg_file'));
   if ($header_bg_file) {
     $header_style .= 'filter:;background: url(' . $header_bg_file . ') repeat ';
     $header_style .= theme_get_setting('header_bg_alignment') . ';';

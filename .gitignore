@@ -3,8 +3,8 @@
 .#*
 __*
 private/*
-htmltest/sites/assos.*
-htmltest/sites/default
+drupal7/sites/assos.*
+drupal7/sites/default
 backup/*
 log/*
 Maildir/*

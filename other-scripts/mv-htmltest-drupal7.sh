@@ -5,6 +5,7 @@ for dir in $(find /users/guest/assos/drupal7/sites -maxdepth 1 -mindepth 1 -type
     ## Get database name
     site=${dir##*/}
     db=${site##*.}
+    echo $site
     if [ $db = 'default' ] ; then
 	db='default_assos'
     fi
@@ -34,5 +35,4 @@ for dir in $(find /users/guest/assos/drupal7/sites -maxdepth 1 -mindepth 1 -type
 
 	rm ~/tmp/out ~/tmp/in
     fi
-    read key
 done

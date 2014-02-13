@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for dir in $(find /users/guest/assos/htmltest/sites -maxdepth 1 -mindepth 1 -type d ! -name all | sort) ; do
+for dir in $(find /users/guest/assos/drupal7/sites -maxdepth 1 -mindepth 1 -type d ! -name all | sort) ; do
 
     ## Get database name
     site=${dir##*/}

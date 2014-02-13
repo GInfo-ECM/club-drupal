@@ -30,7 +30,7 @@ fi
 cd $d7_dir
 site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
-site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/htmltest/', );"
+site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/drupal7/', );"
 
 # Check if site database already exists.
 if mysql --defaults-extra-file=$myassos_cnf -e "USE $d7_site_name" 2>/dev/null ; then

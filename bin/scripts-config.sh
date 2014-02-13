@@ -46,7 +46,7 @@ dir_individual_auto_backup="$dir_individual_backup/auto"
 myassos_cnf="$dir_private/myassos.cnf"
 
 ###### D7 variables
-d7_dir="$dir_multi_assos/htmltest"
+d7_dir="$dir_multi_assos/drupal7"
 d7_dir_sites="$d7_dir/sites"
 sites_php="$d7_dir_sites/sites.php"
 

@@ -20,7 +20,7 @@ if [ -z "$1" ] ; then
 fi
 
 root=$(pwd)
-cd htmltest/sites
+cd drupal7/sites
 
 ret=$?
 if [ $ret -ne 0 ] ; then
@@ -35,7 +35,7 @@ else
 fi
 mkdir $dir_site
 cd $dir_site
-rsync -rl --progress assos:~/htmltest/sites/$dir_site/* .
+rsync -rl --progress assos:~/drupal7/sites/$dir_site/* .
 # Change permissions for Apache
 # TODO: do something less permissive than 755
 chmod -R 755 .

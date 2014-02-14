@@ -11,6 +11,15 @@ folders and database. Othewise, only the drupal installation is synched.
 You must launch this script at the root of the drupal instance.
 EOF
 
+### Init
+# Config
+source d7-sync-config.sh || source d7-sync-config.example.sh
+cd $DIR_MULTIASSOS
+ret=$?
+if [ $ret -ne 0 ] ; then
+    echo "No config file. Exiting."
+    exit 2
+fi
 ### sync drupal tree
 git pull --rebase
 
@@ -19,14 +28,7 @@ if [ -z "$1" ] ; then
     exit 0
 fi
 
-root=$(pwd)
-cd drupal7/sites
-
-ret=$?
-if [ $ret -ne 0 ] ; then
-    echo 'Not in the right directory. Exiting.'
-    exit 1
-fi
+cd $DIR_DRUPAL7_SITES
 
 if [ $1 = default ] ; then
     dir_site=$1
@@ -60,7 +62,12 @@ rm $sql_file
 ssh assos "rm $remote_sql_file"
 
 ### modify settings.php
-python3 $root/other-scripts/modify-settings.py settings.local.php --baseurl assos.local/$1
+if [ $1 = 'default' ] ; then
+    base_url=$DOMAIN
+else
+    base_url=$DOMAIN/$1
+fi
+python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url
 
 ### various drush cmd to finish synchronisation
 drush status > /dev/null

@@ -11,6 +11,7 @@ Maildir/*
 tmp/*
 Desktop/*
 drush-backups
+d7-sync-config.sh
 .*
 
 # Ignore Eclipse's files.

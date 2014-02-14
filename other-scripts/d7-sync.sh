@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 help=<<EOF
 This script is intended to ease the synchronisation of any site hosted by assos. It relies on bash, drush and requires @ssh assos@ to work.
@@ -20,8 +20,14 @@ if [ $ret -ne 0 ] ; then
     echo "No config file. Exiting."
     exit 2
 fi
+# git
+git checkout master
+git branch $LOCAL_BRANCH_NAME
+
 ### sync drupal tree
 git pull --rebase
+git checkout $LOCAL_BRANCH_NAME
+git rebase master
 
 ### sync files
 if [ -z "$1" ] ; then
@@ -68,6 +74,11 @@ else
     base_url=$DOMAIN/$1
 fi
 python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url
+
+### Modify sites.php
+sed "s/\['assos.centrale-marseille.fr[a-b1-9]*/['$DOMAIN/g" < $SITES_PHP > $SITES_PHP.tmp
+mv $SITES_PHP.tmp $SITES_PHP
+git commit -a -m "Modify sites.php"
 
 ### various drush cmd to finish synchronisation
 drush status > /dev/null

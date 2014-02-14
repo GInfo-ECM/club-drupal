@@ -69,7 +69,6 @@ $sites['assos.centrale-marseille.fr.cheer-up'] = 'assos.centrale-marseille.fr.ch
 $sites['assos.centrale-marseille.fr.clubfinance'] = 'assos.centrale-marseille.fr.clubfinance';
 $sites['assos.centrale-marseille.fr.clubrobot'] = 'assos.centrale-marseille.fr.clubrobot';
 $sites['assos.centrale-marseille.fr.echangesphoceens'] = 'assos.centrale-marseille.fr.echangesphoceens';
-$sites['assos.centrale-marseille.fr.ecmnext'] = 'assos.centrale-marseille.fr.ecmnext';
 $sites['assos.centrale-marseille.fr.election'] = 'assos.centrale-marseille.fr.election';
 $sites['assos.centrale-marseille.fr.eluseleves'] = 'assos.centrale-marseille.fr.eluseleves';
 $sites['assos.centrale-marseille.fr.eptest'] = 'assos.centrale-marseille.fr.eptest';

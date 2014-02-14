@@ -21,7 +21,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/clubfinance',
         'assos.centrale-marseille.fr/clubrobot',
         'assos.centrale-marseille.fr/echangesphoceens',
-        'assos.centrale-marseille.fr/ecmnext',
         'assos.centrale-marseille.fr/election',
         'assos.centrale-marseille.fr/elepagetest',
         'assos.centrale-marseille.fr/eluseleves',
@@ -72,7 +71,6 @@ $aliases['cheer-up'] = array('uri' => 'assos.centrale-marseille.fr/cheer-up', 'r
 $aliases['clubfinance'] = array('uri' => 'assos.centrale-marseille.fr/clubfinance', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['clubrobot'] = array('uri' => 'assos.centrale-marseille.fr/clubrobot', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['echangesphoceens'] = array('uri' => 'assos.centrale-marseille.fr/echangesphoceens', 'root' => '/users/guest/assos/drupal7/', );
-$aliases['ecmnext'] = array('uri' => 'assos.centrale-marseille.fr/ecmnext', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['election'] = array('uri' => 'assos.centrale-marseille.fr/election', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['elepagetest'] = array('uri' => 'assos.centrale-marseille.fr/elepagetest', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['eluseleves'] = array('uri' => 'assos.centrale-marseille.fr/eluseleves', 'root' => '/users/guest/assos/drupal7/', );

@@ -8,7 +8,7 @@ usage: d7-sync.sh [SITENAME]
 If a sitename is provided, the script will sync the drupal installation and the sites'
 folders and database. Othewise, only the drupal installation is synched.
 
-You must launch this script at the root of the drupal instance.
+TODO: improve chmod on files.
 EOF
 
 ### Init
@@ -69,11 +69,12 @@ ssh assos "rm $remote_sql_file"
 
 ### modify settings.php
 if [ $1 = 'default' ] ; then
-    base_url=$DOMAIN
+    base_url=http://$DOMAIN
 else
-    base_url=$DOMAIN/$1
+    base_url=http://$DOMAIN/$1
 fi
 python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url
+chmod 666 *.php
 
 ### Modify sites.php
 sed "s/\['assos.centrale-marseille.fr[a-b1-9]*/['$DOMAIN/g" < $SITES_PHP > $SITES_PHP.tmp
@@ -83,7 +84,7 @@ git commit -a -m "Modify sites.php"
 ### various drush cmd to finish synchronisation
 drush status > /dev/null
 ret=$?
-if [ $ret -neq 0 ] ; then
+if [ $ret -ne 0 ] ; then
     echo "drush or site has a problem. Exiting"
     exit 1
 fi

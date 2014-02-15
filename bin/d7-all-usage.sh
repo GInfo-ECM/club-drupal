@@ -6,11 +6,7 @@
 
 cd $d7_dir_sites
 
-drush pml --no-core --pipe > $dir_tmp/pml.txt
-
-for line in $(cat $dir_tmp/pml.txt); do
+for line in $(drush pml --no-core --pipe); do
     usage.sh d7 enabled "$line"
     echo -e "\n"
 done
-
-rm $dir_tmp/pml.txt

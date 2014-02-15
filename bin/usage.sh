@@ -15,6 +15,8 @@ else
     echo Unrecognize version.
 fi
 
+number_found=0
+
 for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages ! -name images | sort ` ; do
     # List projects that correspond to the status.
     # Keep project_name if listed.
@@ -24,6 +26,9 @@ for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages
     cd $dir;
 	if [ 1 -le `drush pml --status=$2 | grep $3 | wc -l` ] ; then
         echo $dir;
+        let number_found += 1 > /dev/null;
     fi
     cd -
 done
+
+echo "Number of sites found for project $3 and status $2 : $number_found";

@@ -10,6 +10,7 @@ drush pml --no-core --pipe > $dir_tmp/pml.txt
 
 for line in $(cat $dir_tmp/pml.txt); do
     usage.sh d7 enabled "$line"
+    echo -e "\n"
 done
 
 rm $dir_tmp/pml.txt

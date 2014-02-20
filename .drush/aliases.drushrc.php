@@ -1,6 +1,7 @@
 <?php
 $aliases['d7'] = array(
     'site-list' => array(
+'assos.centrale-marseille.fr/pdelmastest',
 'assos.centrale-marseille.fr/annalestest',
         'assos.centrale-marseille.fr',
         'assos.centrale-marseille.fr/accueil',
@@ -100,3 +101,4 @@ $aliases['testmassiliades'] = array('uri' => 'assos.centrale-marseille.fr/testma
 $aliases['tvp'] = array('uri' => 'assos.centrale-marseille.fr/tvp', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['annalestest'] = array('uri' => 'assos.centrale-marseille.fr/', 'root' => '/users/guest/assos/drupal7/', );
 $aliases['blucetest'] = array('uri' => 'assos.centrale-marseille.fr/blucetest', 'root' => '/users/guest/assos/drupal7/', );
+$aliases['pdelmastest'] = array('uri' => 'assos.centrale-marseille.fr/pdelmastest', 'root' => '/users/guest/assos/drupal7/', );

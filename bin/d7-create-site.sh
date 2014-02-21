@@ -70,6 +70,7 @@ generate_settings_local $d7_site_name $site_password $d7_settings_local_template
 # Create symbolic link
 cd $d7_dir
 ln -s . $d7_site_name
+git add $d7_site_name
 
 # Update sites.php
 chmod +w $sites_php

@@ -15,7 +15,7 @@ class PdfReaderTest extends DrupalWebTestCase {
         'uri' => 'http://test.com'
       ),
       'settings' => array(
-        'renderer' => 0
+        'renderer' => 'google',
       )
     );
     
@@ -28,4 +28,3 @@ class PdfReaderTest extends DrupalWebTestCase {
     
   }
 }
-

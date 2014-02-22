@@ -18,22 +18,6 @@ function pdf_reader_permission() {
 }
 
 /**
- * Implements hook_menu().
- */
-function pdf_reader_menu() {
-  $items['admin/config/pdf/reader'] = array(
-    'title' => 'PDF Reader',
-    'description' => 'Manage PDF Reader display format.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('pdf_reader_admin_settings'),
-    'access arguments' => array('administer pdf reader'),
-    'file' => 'pdf_reader.admin.inc',
-  );
-
-  return $items;
-}
-
-/**
  * Implement hook_field_formatter_info().
  */
 function pdf_reader_field_formatter_info() {
@@ -44,7 +28,7 @@ function pdf_reader_field_formatter_info() {
       'settings' => array(
         'pdf_width' => 600,
         'pdf_height' => 780,
-        'renderer' => 0,
+        'renderer' => 'google',
         'download' => FALSE,
         'colorbox' => FALSE,
         'colorbox_link_text' => '',
@@ -75,7 +59,10 @@ function pdf_reader_field_formatter_settings_form($field, $instance, $view_mode,
   $element['renderer'] = array(
     '#title' => t('Renderer'),
     '#type' => 'select',
-    '#options' => array('Google Viewer', 'Zoho Viewer', 'Direct Embed', 'pdf.js'),
+    '#options' => array(
+      'google' => 'Google Viewer', 
+      'direct' => 'Direct Embed', 
+      'pdf-js' => 'pdf.js'),
     '#default_value' => $settings['renderer'],
   );
 
@@ -110,7 +97,10 @@ function pdf_reader_field_formatter_settings_form($field, $instance, $view_mode,
  * Implements hook_field_formatter_settings_summary().
  */
 function pdf_reader_field_formatter_settings_summary($field, $instance, $view_mode) {
-  $renderers = array('Google Viewer', 'Zoho Viewer', 'Direct Embed', 'pdf.js');
+  $renderers = array(
+    'google' => 'Google Viewer', 
+    'direct' => 'Direct Embed', 
+    'pdf-js' => 'pdf.js');
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
 
@@ -166,8 +156,9 @@ function theme_pdf_reader($variables) {
 
   switch ($variables['settings']['renderer']) {
     case 0:
+    case 'google':
     default:
-      $output = '<iframe id="pdf_reader" src="http://docs.google.com/viewer?embedded=true&url='
+      $output = '<iframe id="pdf_reader" src="//docs.google.com/viewer?embedded=true&url='
               . urlencode($file_url)
               . '" width="' . $variables['settings']['pdf_width']
               . '" height="' . $variables['settings']['pdf_height']
@@ -175,15 +166,8 @@ function theme_pdf_reader($variables) {
               . '" style="border: none;"></iframe>';
       break;
     
-    case 1: 
-      $output = '<iframe id="pdf_reader" src="https://viewer.zoho.com/docs/urlview.do?embed=true&url='
-              . urlencode($file_url)
-              . '" width="' . $variables['settings']['pdf_width']
-              . '" height="' . $variables['settings']['pdf_height']
-              . '" style="border: none;"></iframe>';
-      break;
-    
-    case 2: 
+    case 2:
+    case 'direct':
       $output = '<object id="pdf_reader" data="' . $file_url . '#view=Fit' . '" '
               . 'type="application/pdf' . '" '
               . 'width="' . $variables['settings']['pdf_width'] . '" '
@@ -199,13 +183,14 @@ function theme_pdf_reader($variables) {
       break;
 
     case 3:
+    case 'pdf-js':
       _pdf_reader_load_pdf_js($file_url);
       $output = theme('pdf_js');
       break;
   }
 
   if ($variables['settings']['download'] == TRUE) {
-    $output .= l(t('Click here to download the PDF file.'), $file_url);
+    $output .= l(t('Click here to download the PDF file.'), $file_url, array('attributes' => array('class' => 'pdf-reader-download-link')));
   }
 
   if ($variables['settings']['colorbox'] == TRUE) {

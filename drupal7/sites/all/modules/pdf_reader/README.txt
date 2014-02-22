@@ -6,7 +6,7 @@ Usage
 
 To use pdf_reader module add a field to a content type, it can be either a File field or a Text field.
 
-Edit display settings for that field and select Widget type: PDF Reader.
+Edit display settings for that field and select Format: PDF Reader.
 
 Edit settings to your taste.
 

@@ -99,3 +99,4 @@ $sites['assos.centrale-marseille.fr'] = 'default';
 $sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.charlist';
 $sites['assos.centrale-marseille.fr.blucetest'] = 'assos.centrale-marseille.fr.blucetest';
 $sites['assos.centrale-marseille.fr.pdelmastest'] = 'assos.centrale-marseille.fr.pdelmastest';
+$sites['assos.centrale-marseille.fr.beret'] = 'assos.centrale-marseille.fr.beret';

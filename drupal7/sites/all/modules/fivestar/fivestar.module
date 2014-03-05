@@ -53,6 +53,9 @@ function fivestar_microdata_suggestions() {
     'average_rating' => array(
       '#itemprop' => array('ratingValue'),
     ),
+    'rating_count' => array(
+      '#itemprop' => array('ratingCount'),
+    ),
   );
 
   return $mappings;
@@ -142,7 +145,7 @@ function _fivestar_variables() {
  * voting, etc...
  */
 
-function _fivestar_cast_vote($entity_type, $id, $value, $tag = NULL, $uid = NULL, $skip_validation = FALSE) {
+function _fivestar_cast_vote($entity_type, $id, $value, $tag = NULL, $uid = NULL, $skip_validation = FALSE, $vote_source = NULL) {
   global $user;
   $tag = empty($tag) ? 'vote' : $tag;
   $uid = isset($uid) ? $uid : $user->uid;
@@ -159,8 +162,16 @@ function _fivestar_cast_vote($entity_type, $id, $value, $tag = NULL, $uid = NULL
     // Get the user's current vote.
     $criteria = array('entity_type' => $entity_type, 'entity_id' => $id, 'tag' => $tag, 'uid' => $uid);
     // Get the unique identifier for the user (IP Address if anonymous).
-    $user_criteria = votingapi_current_user_identifier();
-    $user_votes = votingapi_select_votes($criteria + $user_criteria);
+    
+    if ($vote_source != NULL) {
+      $user_criteria = array('vote_source' => $vote_source);
+      $limit = 1;
+    }
+    else {
+      $user_criteria = votingapi_current_user_identifier();
+      $limit = 0;
+    }
+    $user_votes = votingapi_select_votes($criteria + $user_criteria, $limit);
 
     if ($value == 0) {
       votingapi_delete_votes($user_votes);
@@ -197,7 +208,7 @@ function _fivestar_cast_vote($entity_type, $id, $value, $tag = NULL, $uid = NULL
  *   - count: An array of VotingAPI results, including the count 'value'.
  *   - user: An array of VotingAPI results, including the user's vote 'value'.
  */
-function fivestar_get_votes($entity_type, $id, $tag = 'vote', $uid = NULL) {
+function fivestar_get_votes_multiple($entity_type, $ids, $tag = 'vote', $uid = NULL) {
   global $user;
 
   if (!isset($uid)) {
@@ -206,41 +217,57 @@ function fivestar_get_votes($entity_type, $id, $tag = 'vote', $uid = NULL) {
 
   $criteria = array(
     'entity_type' => $entity_type,
-    'entity_id' => $id,
+    'entity_id' => $ids,
     'value_type' => 'percent',
     'tag' => $tag,
   );
 
-  $votes = array(
-    'average' => array(),
-    'count' => array(),
-    'user' => array(),
-  );
+  $votes = array();
+
+  // Initialize defaults.
+  foreach($ids as $id) {
+    $votes[$entity_type][$id] = array(
+      'average' => array(),
+      'count' => array(),
+      'user' => array(),
+    );
+  }
 
   $results = votingapi_select_results($criteria);
+  $user_votes = array();
+  if(!empty($results)) {
+    foreach(votingapi_select_votes($criteria += array('uid' => $uid)) as $uv) {
+      $user_votes[$uv['entity_type']][$uv['entity_id']] = $uv;
+    }
+  }
+
   foreach ($results as $result) {
     if ($result['function'] == 'average') {
-      $votes['average'] = $result;
+      $votes[$result['entity_type']][$result['entity_id']]['average'] = $result;
     }
     if ($result['function'] == 'count') {
-      $votes['count'] = $result;
+      $votes[$result['entity_type']][$result['entity_id']]['count'] = $result;
     }
-  }
-  if ($uid) {
-    $user_vote = votingapi_select_votes($criteria += array('uid' => $uid));
-    if ($user_vote) {
-      $votes['user'] = $user_vote[0];
-      $votes['user']['function'] = 'user';
-    }
-  }
-  else {
-    // If the user is anonymous, we never bother loading their existing votes.
-    // Not only would it be hit-or-miss, it would break page caching. Safer to always
-    // show the 'fresh' version to anon users.
-    $votes['user'] = array('value' => 0);
+	  if ($uid) {
+	    if (!empty($user_votes[$result['entity_type']][$result['entity_id']])) {
+        $votes[$result['entity_type']][$result['entity_id']]['user'] = $user_votes[$result['entity_type']][$result['entity_id']];
+        $votes[$result['entity_type']][$result['entity_id']]['user']['function'] = 'user';
+	    }
+	  }
+	  else {
+	    // If the user is anonymous, we never bother loading their existing votes.
+	    // Not only would it be hit-or-miss, it would break page caching. Safer to always
+	    // show the 'fresh' version to anon users.
+      $votes[$result['entity_type']][$result['entity_id']]['user'] = array('value' => 0);
+	  }
   }
 
   return $votes;
+}
+
+function fivestar_get_votes($entity_type, $id, $tag = 'vote', $uid = NULL) {
+  $multiple = fivestar_get_votes_multiple($entity_type, array($id), $tag, $uid);
+  return $multiple[$entity_type][$id];
 }
 
 /**
@@ -351,16 +378,23 @@ function fivestar_form_comment_form_alter(&$form, &$form_state, $form_id) {
  *   file for a fivestar widget. Each value should be the name of the widget.
  */
 function fivestar_fivestar_widgets() {
-  $files = &drupal_static(__FUNCTION__);
-  if (!isset($files)) {
+  $widgets = &drupal_static(__FUNCTION__);
+  if (!isset($widgets)) {
+    $cache = cache_get(__FUNCTION__);
+    if ($cache) {
+      $widgets = $cache->data;
+    }
+  }
+
+  if (!isset($widgets)) {
     $widgets_directory = drupal_get_path('module', 'fivestar') . '/widgets';
     $files = file_scan_directory($widgets_directory, '/\.css$/');
-  }
-  $widgets = array();
-  foreach ($files as $file) {
-    if (strpos($file->filename, '-rtl.css') === FALSE) {
-      $widgets[$file->uri] = drupal_ucfirst(str_replace('-color', '', $file->name));
+    foreach ($files as $file) {
+      if (strpos($file->filename, '-rtl.css') === FALSE) {
+        $widgets[$file->uri] = drupal_ucfirst(str_replace('-color', '', $file->name));
+      }
     }
+    cache_set(__FUNCTION__, $widgets);
   }
   return $widgets;
 }
@@ -411,6 +445,8 @@ function fivestar_custom_widget($form, &$form_state, $values, $settings) {
     '#stars' => $settings['stars'],
     '#auto_submit' => isset($settings['autosubmit']) ? $settings['autosubmit'] : TRUE,
     '#allow_clear' => $settings['allow_clear'],
+    '#allow_revote' => $settings['allow_revote'],
+    '#allow_ownvote' => $settings['allow_ownvote'],
     '#required' => isset($settings['required']) ? $settings['required'] : FALSE,
     '#widget' => isset($settings['widget']) ? $settings['widget'] : array('name' => 'default', 'css' => 'default'),
     '#values' => $values,
@@ -431,6 +467,7 @@ function fivestar_custom_widget($form, &$form_state, $values, $settings) {
  * Submit handler for the above form (non-javascript version).
  */
 function fivestar_form_submit($form, &$form_state) {
+
   // Cast the vote.
   _fivestar_cast_vote($form_state['settings']['content_type'], $form_state['settings']['content_id'], $form_state['values']['vote'], $form_state['settings']['tag']);
 
@@ -448,10 +485,11 @@ function fivestar_form_submit($form, &$form_state) {
  */
 function fivestar_ajax_submit($form, $form_state) {
   if (!empty($form_state['settings']['content_id'])) {
-    _fivestar_update_field_value($form_state['settings']['content_type'], $form_state['settings']['entity'], $form_state['settings']['field_name'], $form_state['settings']['langcode'], $form_state['values']['vote']);
+    $entity = entity_load($form_state['settings']['entity_type'], array($form_state['settings']['entity_id']));
+    $entity = reset($entity);
+    _fivestar_update_field_value($form_state['settings']['content_type'], $entity, $form_state['settings']['field_name'], $form_state['settings']['langcode'], $form_state['values']['vote']);
     $votes = _fivestar_cast_vote($form_state['settings']['content_type'], $form_state['settings']['content_id'], $form_state['values']['vote'], $form_state['settings']['tag']);
   }
-
 
   $values = array();
   $values['user'] = isset($votes['user']['value']) ? $votes['user']['value'] : 0;
@@ -463,7 +501,7 @@ function fivestar_ajax_submit($form, $form_state) {
   $new_element = fivestar_expand($form['vote']);
   // Update the description. Since it doesn't account of our cast vote above.
   // TODO: Look into all this, I honestly don't like it and it's a bit weird.
-  $form['vote']['vote']['#description'] = $new_element['vote']['#description'];
+  $form['vote']['vote']['#description'] = isset($new_element['vote']['#description']) ? $new_element['vote']['#description'] : '';
 
   return array(
     '#type' => 'ajax',
@@ -486,6 +524,8 @@ function fivestar_element_info() {
     '#input' => TRUE,
     '#stars' => 5,
     '#allow_clear' => FALSE,
+    '#allow_revote' => FALSE,
+    '#allow_ownvote' => FALSE,
     '#auto_submit' => FALSE,
     '#process' => array('fivestar_expand'),
     '#theme_wrappers' => array('form_element'),
@@ -510,6 +550,10 @@ function fivestar_element_info() {
  * Process callback for fivestar_element -- see fivestar_element()
  */
 function fivestar_expand($element) {
+  if (!_fivestar_allow_vote($element)){
+    $element['#input'] = FALSE;
+  }
+
   // Add CSS and JS
   $path = drupal_get_path('module', 'fivestar');
   $element['#attached']['js'][] = $path . '/js/fivestar.js';
@@ -532,8 +576,8 @@ function fivestar_expand($element) {
     '#type' => 'select',
     '#options' => $options,
     '#required' => $element['#required'],
-    '#theme' => 'fivestar_select',
     '#attributes' => $element['#attributes'],
+    '#theme' => _fivestar_allow_vote($element) ? 'fivestar_select' : 'fivestar_static',
     '#default_value' => _fivestar_get_element_default_value($element),
     '#weight' => -2,
   );
@@ -581,6 +625,9 @@ function fivestar_expand($element) {
         'microdata' => $settings['microdata'],
       ));
       $class[] = ' fivestar-combo-text';
+      break;
+    case 'none':
+      $element['vote']['#description'] = NULL;
       break;
   }
 
@@ -896,4 +943,44 @@ function _fivestar_target_comment_parent_node($entity, $field, $instance, $langc
     'entity_id' => $entity->nid,
     'entity_type' => 'node',
   );
+}
+
+/**
+ * Helper function to determine if a user can vote on content.
+ *
+ * @return Boolean
+ */
+function _fivestar_allow_vote($element) {
+  global $user;
+
+  // check allowed to re-vote
+  $can_revote = FALSE;
+  if ($element['#allow_revote']) {
+    $can_revote = TRUE;
+  }
+  else {
+    $criteria = array(
+      'entity_id' => isset($element['#settings']['content_id']) ? $element['#settings']['content_id'] : NULL,
+      'entity_type' => isset($element['#settings']['content_type']) ? $element['#settings']['content_type'] : NULL,
+      'uid' => $user->uid,
+    );
+
+  $can_revote = !votingapi_select_votes($criteria);
+  }
+  if (!$can_revote) {
+    return FALSE;
+  }
+  // check allowed own vote
+  if ($element['#allow_ownvote']) {
+    return TRUE;
+  }
+  else {
+    $entity_id = $element['#settings']['entity_id'];
+    //$entity = entity_load($element['#settings']['entity_type'], array($element['#settings']['entity_id']));
+    $entity = entity_load($element['#settings']['entity_type'], array($entity_id));
+    $entity = $entity[$entity_id];
+    $uid1 = $entity->uid;
+    $uid2 = $user->uid;
+    return $entity->uid != $user->uid;
+  }
 }

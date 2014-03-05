@@ -77,6 +77,20 @@ function fivestar_field_instance_settings_form($field, $instance) {
     '#return_value' => 1,
   );
 
+  $form['allow_revote'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow users to re-vote on already voted content.'),
+    '#default_value' => isset($instance['settings']['allow_revote']) ? $instance['settings']['allow_revote'] : FALSE,
+    '#return_value' => 1,
+  );
+
+  $form['allow_ownvote'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow users to vote on their own content.'),
+    '#default_value' => isset($instance['settings']['allow_ownvote']) ? $instance['settings']['allow_ownvote'] : FALSE,
+    '#return_value' => 1,
+  );
+
   $options = fivestar_get_targets($field, $instance);
   $form['target'] = array(
     '#title' => t('Voting target'),
@@ -119,9 +133,15 @@ function _fivestar_field_helper($entity_type, $entity, $field, $instance, $langc
     else {
       $rating = (isset($items[$delta]['rating'])) ? $items[$delta]['rating'] : 0;
     }
-    $target = _fivestar_field_target($entity, $field, $instance, $item, $langcode);
+    $target = _fivestar_field_target($entity, $field, $instance, $item, $langcode);    
     if (!empty($target)) {
-      _fivestar_cast_vote($target['entity_type'], $target['entity_id'], $rating, $field['settings']['axis'], $entity->uid, TRUE);
+      if ($entity_type == 'comment' && $op == 'delete') {
+        $target['vote_source'] = $entity->hostname;
+      }
+      else {
+        $target['vote_source'] = NULL;
+      }
+      _fivestar_cast_vote($target['entity_type'], $target['entity_id'], $rating, $field['settings']['axis'], $entity->uid, TRUE, $target['vote_source']);
       votingapi_recalculate_results($target['entity_type'], $target['entity_id']);
     }
     // The original callback is only called for a single updated field, but the Field API
@@ -291,6 +311,8 @@ function fivestar_field_widget_form(&$form, &$form_state, $field, $instance, $la
     $settings = array(
       'stars' => $instance['settings']['stars'],
       'allow_clear' => !empty($instance['settings']['allow_clear']) ? $instance['settings']['allow_clear'] : FALSE,
+      'allow_revote' => !empty($instance['settings']['allow_revote']) ? $instance['settings']['allow_revote'] : FALSE,
+      'allow_ownvote' => !empty($instance['settings']['allow_ownvote']) ? $instance['settings']['allow_ownvote'] : FALSE,
       'style' => 'user',
       'text' => 'none',
       'widget' => $widget,
@@ -301,6 +323,8 @@ function fivestar_field_widget_form(&$form, &$form_state, $field, $instance, $la
       '#title' => isset($instance['label']) ? (($i18n) ? i18n_field_translate_property($instance, 'label') : t($instance['label'])) : FALSE,
       '#stars' => isset($instance['settings']['stars']) ? $instance['settings']['stars'] : 5,
       '#allow_clear' => isset($instance['settings']['allow_clear']) ? $instance['settings']['allow_clear'] : FALSE,
+      '#allow_revote' => isset($instance['settings']['allow_revote']) ? $instance['settings']['allow_revote'] : FALSE,
+      '#allow_ownvote' => isset($instance['settings']['allow_ownvote']) ? $instance['settings']['allow_ownvote'] : FALSE,
       '#default_value' => isset($items[$delta]['rating']) ? $items[$delta]['rating'] : (isset($instance['default_value'][$delta]['rating']) ? $instance['default_value'][$delta]['rating'] : 0),
       '#widget' => $widget,
       '#settings' => $settings,
@@ -485,7 +509,8 @@ function fivestar_field_formatter_view($entity_type, $entity, $field, $instance,
     $settings = _fivestar_custom_widget_settings($entity_type, $instance, $display, $id, $tag, $widget);
     // Store entity and field data for later reuse.
     $settings += array(
-      'entity' => $entity,
+      'entity_id' => $id,
+      'entity_type' => $entity_type,
       'field_name' => $instance['field_name'],
       'langcode' => $langcode,
     );
@@ -616,6 +641,8 @@ function _fivestar_custom_widget_settings($entity_type, $instance, $display, $id
   $settings = array(
     'stars' => (!empty($instance['settings']['stars'])) ? $instance['settings']['stars'] : 5,
     'allow_clear' => (!empty($instance['settings']['allow_clear'])) ? $instance['settings']['allow_clear'] : 0,
+    'allow_revote' => (!empty($instance['settings']['allow_revote'])) ? $instance['settings']['allow_revote'] : 0,
+    'allow_ownvote' => (!empty($instance['settings']['allow_ownvote'])) ? $instance['settings']['allow_ownvote'] : 0,
     'style' => $settings['style'],
     'text' => $settings['text'],
     'content_type' => $entity_type,
@@ -685,20 +712,12 @@ function _fivestar_get_widget($widgets, $display, $instance) {
  */
 function fivestar_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
   // TODO: Clean this function up!
+  $exposed_widgets = array();
   foreach ($entities as $id => $entity) {
     // Ensure the items aren't processed twice.
     if (!isset($items[$id][0]['count'])) {
-      // Populating the $items[$id] array even for items with no value forces
-      // the render system to output a widget.
       if ($instances[$id]['widget']['type'] == 'exposed') {
-        // If the widget type is exposed then we want to look up the voting api
-        // values.
-        $tag = $field['settings']['axis'];
-        $votes = fivestar_get_votes($entity_type, $id, $tag);
-        $values['user'] = isset($votes['user']['value']) ? $votes['user']['value'] : 0;
-        $values['average'] = isset($votes['average']['value']) ? $votes['average']['value'] : 0;
-        $values['count'] = isset($votes['count']['value']) ? $votes['count']['value'] : 0;
-        $items[$id] = array($values);
+        $exposed_widgets[] = $id;
       }
       else {
         // If the widget type is not exposed, then the count is always 1 or 0.
@@ -713,6 +732,17 @@ function fivestar_field_prepare_view($entity_type, $entities, $field, $instances
           $values['user'] = 0;
           $values['average'] = 0;
         }
+        $items[$id] = array($values);
+      }
+    }
+    if(!empty($exposed_widgets)) {
+      $votes = fivestar_get_votes_multiple($entity_type, $exposed_widgets, $field['settings']['axis']);
+      foreach($votes[$entity_type] as $id => $vote) {
+        // Populating the $items[$id] array even for items with no value forces
+        // the render system to output a widget.
+        $values['user'] = isset($vote['user']['value']) ? $vote['user']['value'] : 0;
+        $values['average'] = isset($vote['average']['value']) ? $vote['average']['value'] : 0;
+        $values['count'] = isset($vote['count']['value']) ? $vote['count']['value'] : 0;
         $items[$id] = array($values);
       }
     }
@@ -741,6 +771,11 @@ function fivestar_property_info_callback(&$info, $entity_type, $field, $instance
     ),
     'user_rating' => array(
       'label' => t('User\'s Rating'),
+      'type' => 'text',
+      'microdata' => TRUE,
+    ),
+    'rating_count' => array(
+      'label' => t('Rating count'),
       'type' => 'text',
       'microdata' => TRUE,
     ),

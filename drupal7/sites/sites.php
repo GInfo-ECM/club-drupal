@@ -54,7 +54,6 @@
  */
 $sites['assos.centrale-marseille.fr.accueil'] = 'assos.centrale-marseille.fr.accueil';
 $sites['forum.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.agora';
-$sites['assos.centrale-marseille.fr.annalestest'] = 'assos.centrale-marseille.fr.annalestest';
 $sites['assos.centrale-marseille.fr.annales'] = 'assos.centrale-marseille.fr.annales';
 $sites['assos.centrale-marseille.fr.anomaliste'] = 'assos.centrale-marseille.fr.anomaliste';
 $sites['assos.centrale-marseille.fr.aoudad'] = 'assos.centrale-marseille.fr.aoudad';

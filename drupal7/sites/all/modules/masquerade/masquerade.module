@@ -28,13 +28,20 @@ function masquerade_permission() {
       'title' => t('Masquerade as user'),
       'description' => t('Masquerade as another user.'),
     ),
+    'masquerade as any user' => array(
+      'title' => t('Masquerade as any user'),
+      'description' => t('Masquerade as any user.'),
+      'restrict access' => TRUE,
+    ),
     'masquerade as admin' => array(
       'title' => t('Masquerade as admin'),
       'description' => t('Masquerade as the site admin (UID 1).'),
+      'restrict access' => TRUE,
     ),
     'administer masquerade' => array(
       'title' => t('Administer Masquerade'),
       'description' => t('Perform administration tasks and configure the Masquerade module.'),
+      'restrict access' => TRUE,
     ),
   );
 }
@@ -410,8 +417,9 @@ function masquerade_user_view($account, $view_mode, $langcode) {
   // hidden.
   $allowed_uids = db_query("SELECT uid_to FROM {masquerade_users} WHERE uid_from = :uid_from", array(':uid_from' => $user->uid))
     ->fetchCol();
+  $can_masquerade_as_user = in_array($account->uid, $allowed_uids) || user_access('masquerade as any user');
 
-  if (user_access($perm) && empty($account->masquerading) && $user->uid != $account->uid && in_array($account->uid, $allowed_uids)) {
+  if (user_access($perm) && empty($account->masquerading) && $user->uid != $account->uid && $can_masquerade_as_user) {
     $account->content['masquerade'] = array(
       '#markup' => l(t('Masquerade as !user', array('!user' => $account->name)),
         'masquerade/switch/' . $account->uid,
@@ -652,12 +660,13 @@ function masquerade_block_1_validate($form, &$form_state) {
     ->execute()
     ->fetchField();
   if ($to_uid !== FALSE) {
-    $allowed = db_select('masquerade_users', 'm')
-      ->fields('m', array('uid_to'))
-      ->condition('m.uid_to', $to_uid, '=')
-      ->condition('m.uid_from', $user->uid, '=')
-      ->execute()
-      ->fetchField();
+    $allowed = user_access('masquerade as any user') ||
+               db_select('masquerade_users', 'm')
+                  ->fields('m', array('uid_to'))
+                  ->condition('m.uid_to', $to_uid, '=')
+                  ->condition('m.uid_from', $user->uid, '=')
+                  ->execute()
+                  ->fetchField();
   }
   if (isset($_SESSION['masquerading'])) {
     form_set_error('masquerade_user_field', t('You are already masquerading. Please <a href="@unswitch">switch back</a> to your account to masquerade as another user.', array('@unswitch' => url('masquerade/unswitch', array('query' => array('token' => drupal_get_token('masquerade/unswitch')))))));

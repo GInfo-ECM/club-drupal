@@ -92,4 +92,6 @@ fi
 drush -y dis piwik
 drush -y vset maintenace_mode 0
 drush -y vset error_level 2
+drush -y dis cas
+drush -y user-unblock 1
 drush cc all

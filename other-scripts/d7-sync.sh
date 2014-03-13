@@ -27,7 +27,8 @@ git branch $LOCAL_BRANCH_NAME
 ### sync drupal tree
 git pull --rebase
 git checkout $LOCAL_BRANCH_NAME
-git rebase master
+# Auto solve conflicts: it takes the version from master in case of conflict.
+git rebase master --strategy-option ours
 
 ### sync files
 if [ -z "$1" ] ; then

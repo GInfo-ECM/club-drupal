@@ -37,11 +37,17 @@ fi
 
 cd $DIR_DRUPAL7_SITES
 
+# Some variables are different for default
 if [ $1 = default ] ; then
     dir_site=$1
+    base_url=http://$DOMAIN
+    local_db_name=assos_default
 else
     dir_site=assos.centrale-marseille.fr.$1
+    base_url=http://$DOMAIN/$1
+    local_db_name=$1
 fi
+
 mkdir $dir_site
 cd $dir_site
 rsync -rltp --progress --delete assos:~/drupal7/sites/$dir_site/* .
@@ -57,7 +63,7 @@ sql_file="$1.$now.sql"
 remote_sql_file="~/tmp/$sql_file"
 ssh assos "drush @$1 sql-dump > $remote_sql_file"
 scp assos:$remote_sql_file .
-mysql -u root -e "DROP DATABASE IF EXISTS $1; CREATE DATABASE $1"
+mysql -u root -e "DROP DATABASE IF EXISTS $local_db_name; CREATE DATABASE $local_db_name"
 ret=$?
 if [ $ret -ne 0 ] ; then
     echo "mysql daemon is not started. Exiting."
@@ -65,16 +71,11 @@ if [ $ret -ne 0 ] ; then
     rm $sql_file
     exit 1
 fi
-mysql -u root $1 < $sql_file
+mysql -u root $local_db_name < $sql_file
 rm $sql_file
 ssh assos "rm $remote_sql_file"
 
 ### modify settings.php
-if [ $1 = 'default' ] ; then
-    base_url=http://$DOMAIN
-else
-    base_url=http://$DOMAIN/$1
-fi
 python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url
 chmod 666 *.php
 

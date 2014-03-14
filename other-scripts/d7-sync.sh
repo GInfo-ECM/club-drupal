@@ -62,6 +62,7 @@ ret=$?
 if [ $ret -ne 0 ] ; then
     echo "mysql daemon is not started. Exiting."
     ssh assos "rm $remote_sql_file"
+    rm $sql_file
     exit 1
 fi
 mysql -u root $1 < $sql_file

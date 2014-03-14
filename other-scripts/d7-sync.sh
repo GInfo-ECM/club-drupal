@@ -76,7 +76,7 @@ rm $sql_file
 ssh assos "rm $remote_sql_file"
 
 ### modify settings.php
-python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url
+python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url --database $local_db_name
 chmod 666 *.php
 
 ### Modify sites.php

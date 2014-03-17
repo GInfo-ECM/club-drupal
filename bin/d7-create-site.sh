@@ -86,7 +86,7 @@ sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.f
 mv $dir_tmp/aliases.tmp $aliases_drushrc_php
 
 # Next Instructions
-echo "Go to http://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
+echo "Go to https://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
 echo "Press enter when ready to go on."
 read key
 

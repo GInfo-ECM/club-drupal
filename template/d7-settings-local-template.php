@@ -16,4 +16,4 @@ $databases = array (
   ),
 );
 
-$base_url = 'http://assos.centrale-marseille.fr/%%SITE_NAME%%';
+$base_url = 'https://assos.centrale-marseille.fr/%%SITE_NAME%%';

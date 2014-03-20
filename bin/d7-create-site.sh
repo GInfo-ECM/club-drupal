@@ -7,7 +7,7 @@
 help="# ARGS: site_name [--no-init-database]"
 
 init_db=0
-if [ $2 = "--no-init-database" ] ; then
+if [ "$2" = "--no-init-database" ] ; then
     init_db=1
 fi
 

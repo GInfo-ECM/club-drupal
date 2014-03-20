@@ -6,6 +6,11 @@
 
 help="# ARGS: site_name [--no-init-database]"
 
+# Check if site already exists.
+if `site_exists $d7_site_name` ; then
+    exit 1
+fi
+
 init_db=0
 if [ "$2" = "--no-init-database" ] ; then
     init_db=1
@@ -37,11 +42,6 @@ cd $d7_dir
 site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/drupal7/', );"
-
-# Check if site already exists.
-if `site_exists $d7_site_name` ; then
-    exit 1
-fi
 
 
 ###### Main

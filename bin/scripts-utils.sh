@@ -104,14 +104,14 @@ site_exists() {
     # Check if site database exists.
     if mysql --defaults-extra-file=$myassos_cnf -e "USE $1" 2>/dev/null ; then
 	echo "Database $1 already exits."
-	return 1
+	return 0
     fi
 
     # Check if site folder already exists.
     dir=$d7_dir_sites/$1
     if [ -d "$dir" ] ; then
 	echo "Foder $dir already exists."
-	return 1
+	return 0
     fi
-    return 0
+    return 1
 }

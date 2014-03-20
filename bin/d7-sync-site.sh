@@ -14,8 +14,10 @@ EOF
 . /users/guest/assos/bin/scripts-config.sh
 . /users/guest/assos/bin/scripts-utils.sh
 
+check_arguments $# 2 "$help"
+
 # Create site if necessary
-if ! site_exists $2 ; then
+if ! site_exists $2 > /dev/null ; then
     echo "$2 does not exit. We will create it"
     d7-create-site.sh $2 --no-init-database
     # if the site is new, there is no database

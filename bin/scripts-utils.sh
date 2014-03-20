@@ -51,7 +51,7 @@ check_arguments() {
     if [ $1 -lt $2  ] ; then
         echo "Number of arguments insuffisant."
 	echo -e $3
-        exit 1
+        return 1
     fi
 }
 
@@ -70,9 +70,9 @@ give_dir() {
 work_tree_clean() {
     git_status_output=`git status --porcelain`
     if [ -z "$git_status_output" ] ; then
-	exit 0
+	return 0
     else
-	exit 1
+	return 1
     fi
 }
 
@@ -94,7 +94,7 @@ commit() {
     # ARG: commit message
     if [ -z "$1" ] ; then
 	echo "Empty commit message. Nothing was commited."
-	exit 2
+	return 2
     fi
     cd $dir_multi_assos
     git commit -a -m "$1"
@@ -103,12 +103,15 @@ commit() {
 site_exists() {
     # Check if site database exists.
     if mysql --defaults-extra-file=$myassos_cnf -e "USE $1" 2>/dev/null ; then
-	exit 1
+	echo "Database $1 already exits."
+	return 1
     fi
 
     # Check if site folder already exists.
     dir=$d7_dir_sites/$1
     if [ -d "$dir" ] ; then
-	exit 1
+	echo "Foder $dir already exists."
+	return 1
     fi
+    return 0
 }

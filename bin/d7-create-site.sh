@@ -8,7 +8,6 @@ help="# ARGS: site_name [--no-init-database]"
 
 # Check if site already exists.
 if `site_exists $d7_site_name` ; then
-    echo "Site exists."
     exit 1
 fi
 

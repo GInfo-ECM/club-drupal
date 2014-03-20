@@ -99,3 +99,17 @@ commit() {
     cd $dir_multi_assos
     git commit -a -m "$1"
 }
+
+site_exists() {
+    # Check if site database exists.
+    if mysql --defaults-extra-file=$myassos_cnf -e "USE $d7_site_name" 2>/dev/null ; then
+	echo "Database $d7_site_name already exists"
+	exit 1
+    fi
+
+    # Check if site folder already exists.
+    if [ -d $d7_site_dir ] ; then
+	echo "Folder $d7_site_dir already exists"
+	exit 1
+    fi
+}

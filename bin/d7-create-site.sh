@@ -33,17 +33,11 @@ site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/drupal7/', );"
 
-# Check if site database already exists.
-if mysql --defaults-extra-file=$myassos_cnf -e "USE $d7_site_name" 2>/dev/null ; then
-    echo "Database $d7_site_name already exists"
+# Check if site already exists.
+if site_exists ; then
     exit 1
 fi
 
-# Check if site folder already exists.
-if [ -d $d7_site_dir ] ; then
-    echo "Folder $d7_site_dir already exists"
-    exit 1
-fi
 
 ###### Main
 mkdir $d7_site_dir

@@ -39,7 +39,7 @@ site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'ass
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/drupal7/', );"
 
 # Check if site already exists.
-if site_exists ; then
+if site_exists $d7_site_name ; then
     exit 1
 fi
 

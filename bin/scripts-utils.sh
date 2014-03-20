@@ -102,14 +102,15 @@ commit() {
 
 site_exists() {
     # Check if site database exists.
-    if mysql --defaults-extra-file=$myassos_cnf -e "USE $d7_site_name" 2>/dev/null ; then
-	echo "Database $d7_site_name already exists"
+    if mysql --defaults-extra-file=$myassos_cnf -e "USE $1" 2>/dev/null ; then
+	echo "Database $1 already exists"
 	exit 1
     fi
 
     # Check if site folder already exists.
-    if [ -d $d7_site_dir ] ; then
-	echo "Folder $d7_site_dir already exists"
+    dir=$d7_dir_sites/$1
+    if [ -d "$dir" ] ; then
+	echo "Folder $dir already exists"
 	exit 1
     fi
 }

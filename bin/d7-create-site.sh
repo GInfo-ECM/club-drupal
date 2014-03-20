@@ -84,6 +84,8 @@ echo $site_line_aliases_drushrc_php >> $aliases_drushrc_php
 sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.fr\/$d7_site_name',"/ < $aliases_drushrc_php | tr '%' '\n    ' > $dir_tmp/aliases.tmp
 mv $dir_tmp/aliases.tmp $aliases_drushrc_php
 
+commit "Creation of site: $d7_site_name"
+
 # Next Instructions
 if [ $init_db -eq 0 ] ; then
     exit 0
@@ -106,5 +108,3 @@ echo "- Give the webmaster a link to the club Drupal's tutorials "
 echo "- Create a node of type \"Site\" on default"
 echo "- Register the webmaster on webmasters@listes.centrale-marseille.fr"
 echo -e "- If line to add to sites.php differs from the line below, please correct it\n\t$site_line_sites_php"
-
-commit "Creation of site: $d7_site_name"

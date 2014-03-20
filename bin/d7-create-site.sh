@@ -4,7 +4,12 @@
 . /users/guest/assos/bin/scripts-config-site.sh $1
 . /users/guest/assos/bin/scripts-utils.sh
 
-help="# ARGS: site name"
+help="# ARGS: site_name [--no-init-database]"
+
+init_db=0
+if [ $2 = "--no-init-database" ] ; then
+    init_db=1
+fi
 
 ######## Exceptions
 check_arguments $# 1 "$help"
@@ -80,6 +85,9 @@ sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.f
 mv $dir_tmp/aliases.tmp $aliases_drushrc_php
 
 # Next Instructions
+if [ $init_db -eq 0 ] ; then
+    exit 0
+fi
 echo "Go to https://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
 echo "Press enter when ready to go on."
 read key

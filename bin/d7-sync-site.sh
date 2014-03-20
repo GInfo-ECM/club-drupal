@@ -17,7 +17,7 @@ EOF
 # Create site if necessary
 if ! site_exists ; then
     echo "$2 does not exit. We will create it"
-    d7-create-site.sh $2
+    d7-create-site.sh $2 --no-init-database
 fi
 
 # Backup the database of SOURCE_SITE

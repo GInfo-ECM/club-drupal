@@ -1,8 +1,8 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
-. /users/guest/assos/bin/scripts-config-site.sh $1
-. /users/guest/assos/bin/scripts-utils.sh
+. /home/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config-site.sh $1
+. /home/assos/bin/scripts-utils.sh
 
 help="# ARGS: site_name [--no-init-database]"
 
@@ -41,7 +41,7 @@ fi
 cd $d7_dir
 site_password=`generate_password`
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
-site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/users/guest/assos/drupal7/', );"
+site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/home/assos/drupal7/', );"
 
 
 ###### Main

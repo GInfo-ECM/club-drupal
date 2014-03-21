@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config.sh
 
 echo -e "*Quotas: 9.1 GB*\n"
 

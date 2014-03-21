@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/script-config.sh
-. /users/guest/assos/bin/scripts-utils.sh
+. /home/assos/bin/script-config.sh
+. /home/assos/bin/scripts-utils.sh
 
 # This script updates all drupal 7 settings.php according to a new template. Site informations located in settings.local.php are left intact.
 

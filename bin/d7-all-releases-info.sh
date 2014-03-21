@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config.sh
 
 # List version of a module or theme that exists in sites/all/*
 # and all versions that are available for same project on drupal.org

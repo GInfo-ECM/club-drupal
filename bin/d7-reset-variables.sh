@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config.sh
 
 # ARGS: [site_name]
 

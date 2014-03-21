@@ -5,7 +5,7 @@
 # indendant of the current configuration and to change it without editing them.
 # *These variables must be used in scripts*
 
-PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/users/guest/assos/bin
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/assos/bin
 PATH=$PATH:/usr/guest/assos/bin
 
 scripts_config='imported'
@@ -13,7 +13,7 @@ scripts_config='imported'
 email_multi_assos="assos@centrale-marseille.fr"
 email_multi_assos_update="assos+update@centrale-marseille.fr"
 
-dir_multi_assos='/users/guest/assos'
+dir_multi_assos='/home/assos'
 dir_scripts="$dir_multi_assos/bin"
 dir_template="$dir_multi_assos/template"
 dir_private="$dir_multi_assos/private"

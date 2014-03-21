@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config.sh
 . scripts-utils.sh
 
 help="# ARGS: auto or manual"

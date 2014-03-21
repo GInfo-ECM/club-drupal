@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-config.sh
 
 d7-all-drush.sh -y en l10n_update
 d7-all-drush.sh l10n-update-refresh

@@ -11,8 +11,8 @@ destination site does not exist, it is created.
 usage: d7-sync.sh SOURCE_SITENAME DEST_SITENAME [--prod]
 EOF
 
-. /users/guest/assos/bin/scripts-config.sh
-. /users/guest/assos/bin/scripts-utils.sh
+. /home/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-utils.sh
 
 check_arguments $# 2 "$help"
 

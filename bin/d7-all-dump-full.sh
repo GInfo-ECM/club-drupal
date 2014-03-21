@@ -1,7 +1,7 @@
 #!/bin/sh
 
-. /users/guest/assos/bin/scripts-config.sh
-. /users/guest/assos/bin/scripts-utils.sh
+. /home/assos/bin/scripts-config.sh
+. /home/assos/bin/scripts-utils.sh
 
 current_date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
 

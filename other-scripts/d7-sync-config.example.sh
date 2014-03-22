@@ -38,7 +38,7 @@ scp_from_assos() {
     local source=${input[$#-2]}
     local dest=${input[$#-1]}
 
-    ssh $SSH_ID_SAS "scp $args $SSH_ID_WEBASSOS:$source $REMOTE_DIR_TMP_SAS" &&
+    ssh $SSH_ID_SAS "scp $args $SSH_ID_WEBASSOS:$source $REMOTE_DIR_TMP_SAS/$source" &&
     scp $args $SSH_ID_SAS:$REMOTE_DIR_TMP_SAS/$source $dest &&
     clean $source
 }
@@ -60,7 +60,7 @@ rsync_from_assos() {
     local source=${input[$#-2]}
     local dest=${input[$#-1]}
 
-    ssh $SSH_ID_SAS "rsync $args $SSH_ID_WEBASSOS:$source $REMOTE_DIR_TMP_SAS" &&
+    ssh $SSH_ID_SAS "rsync $args $SSH_ID_WEBASSOS:$source $REMOTE_DIR_TMP_SAS/$source" &&
     rsync $args $SSH_ID_SAS:$REMOTE_DIR_TMP_SAS/$source $dest &&
     clean $source
 }

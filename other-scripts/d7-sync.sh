@@ -15,6 +15,7 @@ EOF
 ### Init
 # Config
 source d7-sync-config.sh || source d7-sync-config.example.sh
+shopt -s expand_aliases
 cd $DIR_MULTIASSOS
 ret=$?
 if [ $ret -ne 0 ] ; then
@@ -51,7 +52,7 @@ fi
 
 mkdir $dir_site
 cd $dir_site
-rsync_from_assos -rltp --progress --delete ~/drupal7/sites/$dir_site/* .
+rsync_from_assos -rltp --progress --delete /home/assos/drupal7/sites/$dir_site/* .
 # Change permissions for Apache
 # TODO: do something less permissive than 755
 chmod -R 755 .

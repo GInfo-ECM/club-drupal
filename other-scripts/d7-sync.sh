@@ -64,9 +64,9 @@ chmod -R 777 files
 ### sync databases
 now=$(date +%s)
 sql_file="$1.$now.sql"
-remote_sql_file="~/tmp/$sql_file"
+remote_sql_file="$REMOTE_DIR_TMP_SAS/$sql_file"
 assos "drush @$1 sql-dump > $remote_sql_file"
-scp_from_assos $remote_sql_file .
+scp $SSH_ID_SAS:$remote_sql_file .
 mysql -u root -e "DROP DATABASE IF EXISTS $local_db_name; CREATE DATABASE $local_db_name"
 ret=$?
 if [ $ret -ne 0 ] ; then

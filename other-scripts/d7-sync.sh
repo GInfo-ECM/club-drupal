@@ -14,7 +14,8 @@ EOF
 
 ### Init
 # Config
-source d7-sync-config.sh || source d7-sync-config.example.sh
+source d7-sync-config.sh || source d7-sync-config.example.shc
+source ~/.bashrc
 shopt -s expand_aliases
 cd $DIR_MULTIASSOS
 ret=$?

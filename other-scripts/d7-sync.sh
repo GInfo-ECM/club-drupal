@@ -53,7 +53,7 @@ fi
 
 mkdir $dir_site
 cd $dir_site
-rsync_from_assos -rltp --progress --delete drupal7/sites/$dir_site/* .
+rsync_from_assos -rltp --progress --delete drupal7/sites/$dir_site/ .
 # Change permissions for Apache
 # TODO: do something less permissive than 755
 chmod -R 755 .

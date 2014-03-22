@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 help=<<EOF
-This script is intended to ease the synchronisation of any site hosted by assos. It relies on bash, drush and requires @ssh assos@ to work.
+This script is intended to ease the synchronisation of any site hosted by assos.
+It relies on bash, drush and requires a valid d7-sync-config.sh.
 The drupal installation is synched using git, the website files and database using rsync.
 
 usage: d7-sync.sh [SITENAME]
@@ -50,7 +51,7 @@ fi
 
 mkdir $dir_site
 cd $dir_site
-rsync -rltp --progress --delete assos:~/drupal7/sites/$dir_site/* .
+rsync_from_assos -rltp --progress --delete ~/drupal7/sites/$dir_site/* .
 # Change permissions for Apache
 # TODO: do something less permissive than 755
 chmod -R 755 .
@@ -61,19 +62,19 @@ chmod -R 777 files
 now=$(date +%s)
 sql_file="$1.$now.sql"
 remote_sql_file="~/tmp/$sql_file"
-ssh assos "drush @$1 sql-dump > $remote_sql_file"
-scp assos:$remote_sql_file .
+assos "drush @$1 sql-dump > $remote_sql_file"
+scp_from_assos $remote_sql_file .
 mysql -u root -e "DROP DATABASE IF EXISTS $local_db_name; CREATE DATABASE $local_db_name"
 ret=$?
 if [ $ret -ne 0 ] ; then
     echo "mysql daemon is not started. Exiting."
-    ssh assos "rm $remote_sql_file"
+    assos "rm $remote_sql_file"
     rm $sql_file
     exit 1
 fi
 mysql -u root $local_db_name < $sql_file
 rm $sql_file
-ssh assos "rm $remote_sql_file"
+assos "rm $remote_sql_file"
 
 ### modify settings.php
 python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url --database $local_db_name
@@ -88,7 +89,7 @@ git commit -a -m "Modify sites.php"
 drush status > /dev/null
 ret=$?
 if [ $ret -ne 0 ] ; then
-    echo "drush or site has a problem. Exiting"
+    echo "drush or site has a problem. Exiting."
     exit 1
 fi
 drush -y dis piwik

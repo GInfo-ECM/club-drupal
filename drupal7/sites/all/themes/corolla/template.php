@@ -51,11 +51,20 @@ function corolla_preprocess_block(&$vars) {
   if ($vars['block']->module == 'superfish' || $vars['block']->module == 'nice_menu') {
     $vars['content_attributes_array']['class'][] = 'clearfix';
   }
-  if ($vars['block']->region == 'menu_bar' || $vars['block']->region == 'header') {
-    $vars['title_attributes_array']['class'][] = 'element-invisible';
-  }
+  //if ($vars['block']->region == 'menu_bar' || $vars['block']->region == 'header') {
+    //$vars['title_attributes_array']['class'][] = 'element-invisible';
+  //}
 }
 
+/**
+ * Override or insert vars into the region template.
+ */
+function corolla_process_region(&$vars) {
+  if ($vars['region'] === 'content') {
+    $vars['outer_prefix'] = '<div class="' . $vars['classes'] . '">';
+    $vars['outer_suffix'] = '</div>';
+  }
+}
 
 /**
  * Returns HTML for a sort icon.

@@ -1,3 +1,17 @@
-.flexy-reference {
+.flexy-item {
+  display: block;
+  text-align: right;
+  font-size: 110%;
+}
+.flexy-title {
+  text-align: left;
+}
+.flexy-amount {
+  display: inline-block;
+  width: 10em;
+  text-align: right;
+}
+.flexy-striked {
   text-decoration: line-through;
 }
+

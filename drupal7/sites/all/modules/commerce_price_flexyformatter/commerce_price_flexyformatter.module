@@ -25,8 +25,9 @@ function commerce_price_flexyformatter_field_formatter_info() {
       'label' => t('Formatted amount with selected components'),
       'field types' => array('commerce_price'),
       'settings' => array(
-        'selection' => array('base_price' => 'base_price'),
-        'reference' => array(),
+        'base' => array('selection' => array('base_price' => 'base_price'), 'weight' => 0, 'calc' => 'default'),
+        'reference1' => array('class' => '.flexy-striked', 'weight' => -10, 'calc' => 'default'),
+        'reference2' => array('weight' => 10, 'calc' => 'default'),
         // need this to load all price components, hoping will not be changed
         'calculation' => 'calculated_sell_price',
       ),
@@ -42,38 +43,131 @@ function commerce_price_flexyformatter_field_formatter_settings_form($field, $in
 
   $element = array();
   $defaults = array();
-  $reference_defaults = array();
-
+  $reference1_defaults = $reference2_defaults = array();
+  $methods = array('default' => 'actual values',
+                    'reference1' => 'calculated on reference1 selected components',
+                    'reference2' => 'calculated on reference2 selected components');
   // Get all the price component types
   $options = commerce_price_component_titles();
   
-  foreach ($settings['selection'] as $key => $value) {
+  foreach ($settings['base']['selection'] as $key => $value) {
     if ($value != '0') { $defaults[] = $key; }
   }
-  foreach ($settings['reference']['selection'] as $key => $value) {
-    if ($value != '0') { $reference_defaults[] = $key; }
+  foreach ($settings['reference1']['selection'] as $key => $value) {
+    if ($value != '0') { $reference1_defaults[] = $key; }
+  }
+  foreach ($settings['reference2']['selection'] as $key => $value) {
+    if ($value != '0') { $reference2_defaults[] = $key; }
   }
 
-  $element['selection'] = array(
+  $element['base']['selection'] = array(
     '#type' => 'checkboxes',
     '#options' => $options,
     '#default_value' => $defaults,
   );
-  $element['reference'] = array (
-    '#type' => 'fieldset',
-    '#title' => t('Reference amount'),
-    '#collapsible' => TRUE,
-    '#collapsed' => ($settings['reference']['enabled']? FALSE : TRUE),
+  $element['base']['label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label'),
+    '#default_value' => $settings['base']['label'],
+    '#size' => 20,
   );
-  $element['reference']['enabled'] = array(
+  $element['base']['class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom class'),
+    '#default_value' => $settings['base']['class'],
+    '#size' => 20,
+  );
+  $element['base']['calc'] = array(
+    '#type' => 'radios',
+    '#options' => $methods,
+    '#title' => t('Tax calculation method'),
+    '#default_value' => $settings['base']['calc'],
+  );
+  $element['base']['weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#default_value' => $settings['base']['weight'],
+    '#size' => 6,
+  );
+  $element['reference1'] = array (
+    '#type' => 'fieldset',
+    '#title' => t('1st reference amount'),
+    '#collapsible' => TRUE,
+    '#collapsed' => ($settings['reference1']['enabled']? FALSE : TRUE),
+  );
+  $element['reference1']['enabled'] = array(
     '#title' => t('Enable'),
     '#type' => 'checkbox',
-    '#default_value' => $settings['reference']['enabled'],
+    '#default_value' => $settings['reference1']['enabled'],
   );
-  $element['reference']['selection'] = array(
+  $element['reference1']['selection'] = array(
     '#type' => 'checkboxes',
     '#options' => $options,
-    '#default_value' => $reference_defaults,
+    '#default_value' => $reference1_defaults,
+  );
+  $element['reference1']['label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label'),
+    '#default_value' => $settings['reference1']['label'],
+    '#size' => 20,
+  );
+  $element['reference1']['class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom class'),
+    '#default_value' => $settings['reference1']['class'],
+    '#size' => 20,
+  );
+  $element['reference1']['calc'] = array(
+    '#type' => 'radios',
+    '#options' => $methods,
+    '#title' => t('Tax calculation method'),
+    '#default_value' => $settings['reference1']['calc'],
+  );
+  $element['reference1']['weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#default_value' => $settings['reference1']['weight'],
+    '#size' => 6,
+  );
+  $element['reference2'] = array (
+    '#type' => 'fieldset',
+    '#title' => t('2nd reference amount'),
+    '#collapsible' => TRUE,
+    '#collapsed' => ($settings['reference2']['enabled']? FALSE : TRUE),
+  );
+  $element['reference2']['enabled'] = array(
+    '#title' => t('Enable'),
+    '#type' => 'checkbox',
+    '#default_value' => $settings['reference2']['enabled'],
+  );
+  $element['reference2']['selection'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#default_value' => $reference2_defaults,
+  );
+  $element['reference2']['label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label'),
+    '#default_value' => $settings['reference2']['label'],
+    '#size' => 20,
+  );
+  $element['reference2']['class'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom class'),
+    '#default_value' => $settings['reference2']['class'],
+    '#size' => 20,
+  );
+  $element['reference2']['calc'] = array(
+    '#type' => 'radios',
+    '#options' => $methods,
+    '#title' => t('Tax calculation method'),
+    '#default_value' => $settings['reference2']['calc'],
+  );
+  $element['reference2']['weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#default_value' => $settings['reference2']['weight'],
+    '#size' => 6,
   );
 
   return $element;
@@ -88,9 +182,12 @@ function commerce_price_flexyformatter_field_formatter_settings_summary($field, 
 
   $summary = array();
   $types = commerce_price_component_titles();
+  $methods = array('default' => 'actual values',
+                    'reference1' => 'calculated on reference1 selected components',
+                    'reference2' => 'calculated on reference2 selected components');
   $components['list'] = '';
   $components['count'] = 0;
-  foreach($settings['selection'] as $key => $value) {
+  foreach($settings['base']['selection'] as $key => $value) {
     if ($value != '0') {
       $components['count']++;
       if ($components['count'] > 1) {$components['list'] .= ', ';}
@@ -101,24 +198,50 @@ function commerce_price_flexyformatter_field_formatter_settings_summary($field, 
     $summary[] = t('No components selected');
   }
   else {
-    $summary[] = format_plural($components['count'], 'Selected component is !list.', 'Selected components are !list.', array('!list' => $components['list']));
-    if ($settings['reference']['enabled']) {
+    $description = ($settings['base']['label']?$settings['base']['label'].' - selected ':'Selected ') .
+                   format_plural($components['count'], 'component is !list', 'components are !list', array('!list' => $components['list'])) .
+                   ' - ' . t('weight: ') . $settings['base']['weight'] . ' - ' . t('tax ') . $methods[$settings['base']['calc']] .'.';
+    $summary[] = $description;
+    if ($settings['reference1']['enabled']) {
       $reference['list'] = '';
       $reference['count'] = 0;
-      foreach($settings['reference']['selection'] as $key => $value) {
+      foreach($settings['reference1']['selection'] as $key => $value) {
         if ($value != '0') {
           $reference['count']++;
           if ($reference['count'] > 1) {$reference['list'] .= ', ';}
           $reference['list'] .= $types[$key];
         }
       }
-      $summary[] = t('Reference amount enabled with !list.', array('!list' => $reference['list']));
+      $description = ($settings['reference1']['label']?$settings['reference1']['label'].' - selected ':'1st reference amount enabled with selected ') .
+                     format_plural($reference['count'], 'component is !list', 'components are !list', array('!list' => $reference['list'])) .
+                     ' - ' . t('weight: ') . $settings['reference1']['weight'] . ' - ' . t('tax ') . 
+                     $methods[$settings['reference1']['calc']] .'.';
+     $summary[] = $description;
     }
     else {
-      $summary[] = t('Reference amount not enabled.');
+      $summary[] = t('1st reference amount not enabled.');
+    }
+    if ($settings['reference2']['enabled']) {
+      $reference['list'] = '';
+      $reference['count'] = 0;
+      foreach($settings['reference2']['selection'] as $key => $value) {
+        if ($value != '0') {
+          $reference['count']++;
+          if ($reference['count'] > 1) {$reference['list'] .= ', ';}
+          $reference['list'] .= $types[$key];
+        }
+      }
+      $description = ($settings['reference2']['label']?$settings['reference2']['label'].' - selected ':'2nd reference amount enabled with selected ') .
+                     format_plural($reference['count'], 'component is !list', 'components are !list', array('!list' => $reference['list'])) .
+                     ' - ' . t('weight: ') . $settings['reference2']['weight'] . ' - ' . t('tax ') . 
+                     $methods[$settings['reference2']['calc']] .'.';
+     $summary[] = $description;
+    }
+    else {
+      $summary[] = t('2nd reference amount not enabled.');
     }
   }
-  
+
   return implode('<br />', $summary);
 }
 /**
@@ -139,7 +262,6 @@ function commerce_price_flexyformatter_field_formatter_prepare_view($entity_type
  */
 function commerce_price_flexyformatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
-
   // Loop through each price value in this field.
   foreach ($items as $delta => $item) {
     // Do not render a price if the amount is NULL (i.e. non-zero empty value).
@@ -148,50 +270,61 @@ function commerce_price_flexyformatter_field_formatter_view($entity_type, $entit
       // price was not available as opposed to just leaving a blank.
       continue;
     }
-
     // Theme the display of the price based on the display type.
     switch ($display['type']) {
 
       case 'commerce_price_flexyformatter_selected_amount':
         // Build an array of component display titles and their prices.
-        $components = array();
-        $amount = $reference_amount = 0;
-        $difference = $reference_difference = 0;        
+        $tax_base = array('reference1' => 0, 'reference2' => 0);        
+        $amount = $reference1_amount = $reference2_amount = 0;
+
+        // calc tax base
         foreach ($item['data']['components'] as $key => $component) {
-          if ($display['settings']['selection'][$component['name']] != '0') {
-            $amount += $component['price']['amount'];
-            if (isset($component['price']['data']['tax_rate'])) {
-              $amount -= $component['price']['data']['tax_rate']['rate'] * $difference;
-            }
-          }
-          else {
-            $difference += $component['price']['amount'];
-          }
-        }
-        // Check if reference amount is ebabled
-        if ($display['settings']['reference']['enabled']) {
-          $components = array();
-          // reset($item['data']['components']);
-          foreach ($item['data']['components'] as $key => $component) {
-            if ($display['settings']['reference']['selection'][$component['name']] != '0') {
-              $reference_amount += $component['price']['amount'];
-              if (isset($component['price']['data']['tax_rate'])) {
-                $reference_amount -= $component['price']['data']['tax_rate']['rate'] * $reference_difference;
-              }
-            }
-            else {
-              $reference_difference += $component['price']['amount'];
+          if (!isset($component['price']['data']['tax_rate'])) {
+           if (isset($display['settings']['reference1']['selection'][$component['name']]) 
+             && $display['settings']['reference1']['selection'][$component['name']] != '0') {
+              $tax_base['reference1'] += $component['price']['amount'];
+           }
+           if (isset($display['settings']['reference2']['selection'][$component['name']]) 
+             && $display['settings']['reference2']['selection'][$component['name']] != '0') {
+              $tax_base['reference2'] += $component['price']['amount'];
             }
           }
         }
+        $amount = commerce_price_flexyformatter_amount_calc($item['data']['components'],$display['settings']['base'],$tax_base);
+        if (isset($display['settings']['reference1']['enabled']) && $display['settings']['reference1']['enabled']) {
+          $reference1_amount = commerce_price_flexyformatter_amount_calc($item['data']['components'],$display['settings']['reference1'],$tax_base);
+        }
+        if (isset($display['settings']['reference2']['enabled']) && $display['settings']['reference2']['enabled']) {
+          $reference2_amount = commerce_price_flexyformatter_amount_calc($item['data']['components'],$display['settings']['reference2'],$tax_base);
+        }
+
         $element[$delta] = array(
           '#markup' => theme('commerce_price_flexyformatter_selected_amount', 
-            array('amount' => $amount,
-              'reference_enabled' => $display['settings']['reference']['enabled'],
-              'reference_amount' => $reference_amount,
+            array(
+              'base' => array(
+                'amount' => $amount,
+                'label' => (isset($display['settings']['base']['label'])?$display['settings']['base']['label']:null),
+                'class' => (isset($display['settings']['base']['class'])?$display['settings']['base']['class']:null),
+                'weight' => (isset($display['settings']['base']['weight'])?$display['settings']['base']['weight']:null),
+              ),
+              'reference1' => array(
+                'amount' => (isset($reference1_amount)?$reference1_amount:null),
+                'label' => (isset($display['settings']['reference1']['label'])?$display['settings']['reference1']['label']:null),
+                'class' => (isset($display['settings']['reference1']['class'])?$display['settings']['reference1']['class']:null),
+                'weight' => (isset($display['settings']['reference1']['weight'])?$display['settings']['reference1']['weight']:null),
+                'enabled' => (isset($display['settings']['reference1']['enabled'])?$display['settings']['reference1']['enabled']:0),
+              ),
+              'reference2' => array(
+                'amount' => (isset($reference2_amount)?$reference2_amount:null),
+                'label' => (isset($display['settings']['reference2']['label'])?$display['settings']['reference2']['label']:null),
+                'class' => (isset($display['settings']['reference2']['class'])?$display['settings']['reference2']['class']:null),
+                'weight' => (isset($display['settings']['reference2']['weight'])?$display['settings']['reference2']['weight']:null),
+                'enabled' => (isset($display['settings']['reference2']['enabled'])?$display['settings']['reference2']['enabled']:0),
+              ),
               'currency_code' => $item['currency_code'],
-              )
-            ),
+            )
+          ),
         );
       break;
     }
@@ -205,14 +338,37 @@ function commerce_price_flexyformatter_field_formatter_view($entity_type, $entit
  * @param $variables
  */
 function theme_commerce_price_flexyformatter_selected_amount($variables) {
-  if ($variables['reference_enabled'] && ($variables['amount'] != $variables['reference_amount'])) {
-  // Add the CSS styling.
+  $output = '';
+  uasort($variables, 'drupal_sort_weight');
   drupal_add_css(drupal_get_path('module', 'commerce_price_flexyformatter') . '/commerce_price_flexyformatter.css');
-    $output = '<span class="flexy-reference">' . commerce_currency_format($variables['reference_amount'], $variables['currency_code']) . '</span> ';
-    $output .= '<span class="flexy-amount has-reference">' . commerce_currency_format($variables['amount'], $variables['currency_code']) . '</span>';
+  foreach ($variables as $key => $variable) {
+   if (is_numeric($variable['weight']) && ($key == 'base' || $variable['enabled'])) {
+    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . commerce_currency_format($variable['amount'], $variables['currency_code']) . '</span></span> ';
+   }
   }
-  else {
-    $output = '<span class="flexy-amount has-no-reference">' . commerce_currency_format($variables['amount'], $variables['currency_code']) . '</span>';
-  }
+
   return $output; 
+}
+/**
+ * Calculate amount to be displayed.
+ *
+ * @param array $components
+ * @param array $settings
+ * @param array $tax_base
+ */
+
+function commerce_price_flexyformatter_amount_calc($components,$settings,$tax_base) {
+  $amount = 0;
+  foreach ($components as $key => $component) {
+    if (isset($settings['selection'][$component['name']]) && $settings['selection'][$component['name']] != '0') {
+      if (!isset($component['price']['data']['tax_rate'])
+        or (isset($settings['calc']) 
+          and $settings['calc'] == 'default')) {
+        $amount += $component['price']['amount'];
+      } else {
+        $amount += $component['price']['data']['tax_rate']['rate'] * $tax_base[$settings['calc']];
+      }
+    }
+  }
+  return $amount;
 }

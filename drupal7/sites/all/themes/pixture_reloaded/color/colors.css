@@ -81,20 +81,23 @@ tr.even {
   background: #b800a5 url("../images/header-tile.png") repeat-x left top;
 }
 
-#header .header-inner {
+.header-inner {
   background: transparent url("../images/header.png") no-repeat top left;
 }
 
 @media only screen and (max-width:320px) {
-  #header,#header .header-inner {background: #b800a5;}
+  #header,
+  .header-inner {background: #b800a5;}
 }
 
 @media only screen and (min-width:321px) and (max-width:480px) {
-  #header,#header .header-inner  {background: #b800a5;}
+  #header,
+  .header-inner  {background: #b800a5;}
 }
 
 @media only screen and (min-width:481px) and (max-width:768px) {
-  #header,#header .header-inner  {background: #b800a5;}
+  #header,
+  .header-inner  {background: #b800a5;}
 }
 
 #site-slogan {
@@ -102,14 +105,7 @@ tr.even {
 }
 
 #site-name a,
-.region-header #block-user-login label,
-.nav li a:link,
-.nav li a:hover,
-.nav li a:focus,
-.nav li a:visited,
-.nav li a:active,
-.nav li a.active,
-.nav li a:visited:hover {
+.region-header #block-user-login label {
   color: #feffff;
 }
 
@@ -183,26 +179,26 @@ tr.even {
 
 /* Articles */
 
-.article .article-title {
+.node .node-title {
   border-bottom: solid 1px #e9e9e9;
 }
 
-.article .article-title a:hover {
+.node .node-title a:hover {
   color: #ac2e82;
 }
 
-.article-teaser.article-sticky .article-title {
+.node-teaser.node-sticky .node-title {
 }
 
 .field-type-image figure {
   border: 1px solid #e9e9e9;
 }
 
-#main-content .article-teaser {
+#main-content .node-teaser {
   border: 1px solid #e9e9e9;
 }
 
-#main-content .article-teaser.article-sticky {
+#main-content .node-teaser.node-sticky {
   background: #f7f7f7;
 }
 
@@ -224,7 +220,7 @@ tr.even {
 
 /* Forum */
 
-#forum thead, 
+#forum thead,
 #forum tbody {
   border: none;
 }
@@ -296,13 +292,15 @@ ul.primary li a.active:focus {
 
 
 /* Menu bar menu */
-
-nav .menu-wrapper li a,
-nav .menu-wrapper li a:hover,
-nav .menu-wrapper li a:focus,
-nav .menu-wrapper li a:visited,
-nav .menu-wrapper li a.active {
+.at-mt .at-menu-toggle h2 a,
+.menu-wrapper li a,
+.menu-wrapper li a:hover,
+.menu-wrapper li a:focus {
   color: #fffffe;
+}
+
+.at-mt .at-menu-toggle h2 {
+  background: none;
 }
 
 
@@ -416,3 +414,9 @@ ul.sf-menu.sf-vertical.sf-style-default ul ul ul ul a {
 .view-content .calendar-calendar ul.inline li {
   border: 1px solid #f9cbed;
 }
+
+#footer .attribution a {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+}
+

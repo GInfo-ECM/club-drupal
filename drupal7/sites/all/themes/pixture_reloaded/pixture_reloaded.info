@@ -433,9 +433,9 @@
   settings[menu_bullets]          = 'mb-dd'
   settings[menu_bar_position]     = 'mbp-l'
 
-; Information added by drupal.org packaging script on 2012-07-31
-version = "7.x-3.0-rc1"
+; Information added by Drupal.org packaging script on 2014-03-23
+version = "7.x-3.0"
 core = "7.x"
 project = "pixture_reloaded"
-datestamp = "1343716985"
+datestamp = "1395577169"
 

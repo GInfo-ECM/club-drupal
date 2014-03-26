@@ -25,17 +25,17 @@
               <?php endif; ?>
 
               <?php if ($site_name || $site_slogan): ?>
-                <hgroup id="name-and-slogan"<?php print $hgroup_attributes; ?>>
+                <div<?php print $hgroup_attributes; ?>>
 
                   <?php if ($site_name): ?>
-                    <h1 id="site-name"<?php print $site_name_attributes; ?>><?php print $site_name; ?></h1>
+                    <h1<?php print $site_name_attributes; ?>><?php print $site_name; ?></h1>
                   <?php endif; ?>
 
                   <?php if ($site_slogan): ?>
-                    <h2 id="site-slogan"<?php print $site_slogan_attributes; ?>><?php print $site_slogan; ?></h2>
+                    <h2<?php print $site_slogan_attributes; ?>><?php print $site_slogan; ?></h2>
                   <?php endif; ?>
 
-                </hgroup>
+                </div>
               <?php endif; ?>
 
             </div>
@@ -124,7 +124,7 @@
 
                       <?php print render($title_prefix); ?>
 
-                      <?php if ($title && !isset($node)): ?>
+                      <?php if ($title): ?>
                         <header class="clearfix">
                           <h1 id="page-title">
                             <?php print $title; ?>
@@ -196,11 +196,12 @@
       </div>
     <?php endif; ?>
 
-    <?php if ($page['footer']): ?>
+    <?php if ($page['footer'] || $attribution): ?>
       <div id="footer-wrapper">
         <div class="container clearfix">
           <footer class="clearfix" role="contentinfo">
             <?php print render($page['footer']); ?>
+            <p class="attribute-creator"><?php print $attribution; ?></p>
           </footer>
         </div>
       </div>

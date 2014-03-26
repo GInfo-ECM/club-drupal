@@ -1,4 +1,11 @@
 <?php
+
+// Set this no matter what, we need this to happen
+if (module_exists('noggin')) {
+  variable_set('noggin:header_selector', '#header .header-inner');
+}
+
+
 /**
  * Implements hook_form_system_theme_settings_alter().
  *
@@ -13,6 +20,11 @@ function pixture_reloaded_form_system_theme_settings_alter(&$form, &$form_state)
   $form['at-release'] = array(
     '#type' => 'hidden',
     '#default_value' => '7.x-3.x',
+  );
+
+  // Remove option to use full width wrappers
+  $form['at']['modify-output']['design']['page_full_width_wrappers'] = array(
+    '#access' => FALSE,
   );
 
   // Tell the submit function its safe to run the color inc generator

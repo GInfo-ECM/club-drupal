@@ -2,7 +2,7 @@
 
 body,
 #branding,
-#header hgroup {
+#header .h-group {
   padding: 0;
   margin: 0;
 }
@@ -344,10 +344,20 @@ a.active:focus {
 #header,
 #branding {
   max-height: 88px;
+  line-height: 1;
 }
 #head-elements {
   min-height: 88px;
 }
+
+.noggin-header #header,
+#branding {
+  max-height: none;
+}
+
+
+
+
 /* IE6 treats height like max height */
 .ie6 #header,
 .ie6 #branding,
@@ -355,9 +365,6 @@ a.active:focus {
   height: 88px;
 }
 
-#branding {
-  text-transform: uppercase;
-}
 #site-name {
   font-size: 2.6em;
   margin: 0;
@@ -379,6 +386,7 @@ a.active:focus {
   float:right;
   margin:10px 0 0;
 }
+
 /* Special case blocks in the header region */
 .region-header .block {
   float: left;
@@ -399,8 +407,8 @@ a.active:focus {
 /* Menu-bar */
 #menu-bar {
   clear: both;
-  min-height: 32px;
-  line-height: 32px;
+  min-height: 2.5em;
+  line-height: 2.5em;
   padding: 0;
   z-index: 100; /* Needed so Superfish menus appear over flash & slideshows in IE7 */
   position: relative;
@@ -924,8 +932,19 @@ ul.primary {
   margin: 0 0 15px;
   padding: 0;
 }
+ul.primary,
+ul.primary li {
+  white-space: normal;
+}
 ul.primary li a {
-  padding: 0.25em 0.9em 0.3em;
+    display: block;
+    float: left;
+    height: 2em;
+    line-height: 2em;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 0 10px;
+    white-space: nowrap;
 }
 ul.primary li a.active:hover,
 ul.primary li a.active:focus {
@@ -991,8 +1010,7 @@ ul.sf-menu.sf-horizontal {
   padding: 0;
 }
 ul.sf-menu.sf-horizontal a {
-  height: 32px;
-  line-height: 32px;
+  line-height: 2.5em;
   padding: 0 10px;
   border-left: none;
   border-top: none;
@@ -1026,8 +1044,7 @@ ul.sf-menu.sf-navbar {
   z-index: 99;
 }
 ul.sf-menu.sf-navbar a {
-  height: 32px;
-  line-height: 32px;
+  height: 2.5em;
   padding: 0 10px;
   border-left: none;
   border-top: none;
@@ -1052,7 +1069,7 @@ ul.sf-menu.sf-navbar li {
 }
 ul.sf-menu.sf-navbar li:hover ul,
 ul.sf-menu.sf-navbar li.sfHover ul {
-  top: 32px;
+  top: 2.5em;
 }
 ul.sf-menu.sf-vertical ul,
 ul.sf-menu.sf-navbar ul ul,
@@ -1408,4 +1425,9 @@ body.wysiwygeditor {
 .view-gmap img,
 #getlocations_map_canvas img {
   max-width: none;
+}
+
+/* Misc styles to be categorised */
+.filter-help a {
+  padding: 0 20px 0 0;
 }

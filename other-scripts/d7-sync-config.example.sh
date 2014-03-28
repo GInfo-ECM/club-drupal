@@ -6,7 +6,4 @@ DIR_DRUPAL7_SITES=$DIR_DRUPAL7/sites
 SITES_PHP=$DIR_DRUPAL7_SITES/sites.php
 LOCAL_BRANCH_NAME=local
 DOMAIN=assos.local
-# Connexion variable
-REMOTE_DIR_TMP_SAS="~/tmp/assos"
-SSH_ID_SAS=jenselme
-SSH_ID_WEBASSOS=assos@webassos.ec-m.fr
+WEBASSOS_ID=webassos

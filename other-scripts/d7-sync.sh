@@ -2,7 +2,8 @@
 
 help=<<EOF
 This script is intended to ease the synchronisation of any site hosted by assos.
-It relies on bash, drush and requires a valid d7-sync-config.sh.
+It relies on bash, drush and requires a valid d7-sync-config.sh. You must have
+configured SSH so that ssh webassos connects you to the webserver.
 The drupal installation is synched using git, the website files and database using rsync.
 
 usage: d7-sync.sh [SITENAME]
@@ -15,9 +16,6 @@ EOF
 ### Init
 # Config
 source d7-sync-config.sh || source d7-sync-config.example.sh
-source d7-sync-functions.sh
-source ~/.bashrc
-shopt -s expand_aliases
 cd $DIR_MULTIASSOS
 ret=$?
 if [ $ret -ne 0 ] ; then
@@ -54,7 +52,7 @@ fi
 
 mkdir $dir_site
 cd $dir_site
-rsync_from_assos -rltp --progress --delete drupal7/sites/$dir_site/ .
+rsync -rltp --progress --delete $WEBASSOS_ID:drupal7/sites/$dir_site/ .
 # Change permissions for Apache
 # TODO: do something less permissive than 755
 chmod -R 755 .
@@ -65,8 +63,8 @@ chmod -R 777 files
 now=$(date +%s)
 sql_file="$1.$now.sql"
 remote_sql_file="$REMOTE_DIR_TMP_SAS/$sql_file"
-assos "drush @$1 sql-dump > $remote_sql_file"
-scp $SSH_ID_SAS:$remote_sql_file .
+ssh $WEBASSOS_ID "drush @$1 sql-dump > $remote_sql_file"
+scp $WEBASSOS_ID:$remote_sql_file .
 mysql -u root -e "DROP DATABASE IF EXISTS $local_db_name; CREATE DATABASE $local_db_name"
 ret=$?
 if [ $ret -ne 0 ] ; then
@@ -77,7 +75,7 @@ if [ $ret -ne 0 ] ; then
 fi
 mysql -u root $local_db_name < $sql_file
 rm $sql_file
-assos "rm $remote_sql_file"
+ssh $WEBASSOS_ID "rm $remote_sql_file"
 
 ### modify settings.php
 python3 $DIR_MULTIASSOS/other-scripts/modify-settings.py settings.local.php --baseurl $base_url --database $local_db_name

@@ -2,7 +2,8 @@
 
 . /home/assos/bin/scripts-config.sh
 
-echo -e "*Quotas: 9.1 GB*\n"
+df -h
+echo -e "\n"
 
 echo "Assos:"
 du -hcs $dir_multi_assos | grep total

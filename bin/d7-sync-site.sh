@@ -16,6 +16,7 @@ EOF
 
 check_arguments $# 2 "$help"
 
+
 # Create site if necessary
 if ! site_exists $2 > /dev/null ; then
     echo "$2 does not exit. We will create it"
@@ -23,6 +24,7 @@ if ! site_exists $2 > /dev/null ; then
     # if the site is new, there is no database
     new_site=1
 fi
+
 
 # Backup the database of SOURCE_SITE
 current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
@@ -35,8 +37,10 @@ if [ -z "$new_site" ] ; then
     drush -y @$1 sql-dump --result-file=$d7_dir_individual_manual_backup/$dir/$current_date.$dir.sql --gzip
 fi
 
+
 # Sync files
 drush -y rsync --delete --exclude="*.php" @${1}:%site @${2}:%site
+
 
 # Sync databases
 ## Save file system
@@ -45,13 +49,16 @@ if [ -z "$new_site" ] ; then
     public_path=$(drush @$2 vget --format=string file_public_path 2> /dev/null)
     temp_path=$(drush @$2 vget --format=string file_temporary_path 2> /dev/null)
 fi
+
 ## Sync
 current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 sql_file=$dir_tmp/$current_date.$1.sql
 drush -y @$1 sql-dump --result-file=$sql_file
 sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2#g" $sql_file
-drush -y @$2 sql-sync --create-db --source-dump $sql_file
+mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE IF EXISTS $2; CREATE DATABASE $2"
+mysql --defaults-extra-file=$myassos_cnf $2 < $sql_file
 rm $sql_file
+
 ## Restore file system
 if [ -n "$private_path" ] ; then
     drush -y @$2 vset file_private_path $private_path

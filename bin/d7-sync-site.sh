@@ -32,7 +32,7 @@ else
     dir=assos.centrale-marseille.fr.$2
 fi
 if [ -z "$new_site" ] ; then
-    drush -y @$1 sql-dump | gzip  > $d7_dir_individual_manual_backup/$dir/$current_date.$dir.sql.gz
+    drush -y @$1 sql-dump --result-file=$d7_dir_individual_manual_backup/$dir/$current_date.$dir.sql --gzip
 fi
 
 # Sync files
@@ -46,7 +46,11 @@ if [ -z "$new_site" ] ; then
     temp_path=$(drush @$2 vget --format=string file_temporary_path 2> /dev/null)
 fi
 ## Sync
-drush -y sql-sync @$1 @$2
+current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
+sql_file=$dir_tmp/$current_date.$1.sql
+drush -y @$1 sql-dump --result-file=$sql_file
+sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2/g" $sql_file
+drush -y @$2 sql-sync --create-db --source-dump $sql_file
 ## Restore file system
 if [ -n "$private_path" ] ; then
     drush -y @$2 vset file_private_path $private_path

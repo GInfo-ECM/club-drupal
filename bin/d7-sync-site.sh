@@ -55,6 +55,7 @@ current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 sql_file=$dir_tmp/$current_date.$1.sql
 drush -y @$1 sql-dump --result-file=$sql_file
 sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2#g" $sql_file
+sed -i -e "s#/$1/sites/assos.centrale-marseille.fr.$1#/$2/sites/assos.centrale-marseille.fr.$2"
 mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE IF EXISTS $2; CREATE DATABASE $2"
 mysql --defaults-extra-file=$myassos_cnf $2 < $sql_file
 rm $sql_file

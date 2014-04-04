@@ -14,10 +14,10 @@ if [ ! -z $1 ] ; then
     fi
 fi
 
-current_timestamp=`date "+%s"`
+current_timestamp=$(date "+%s")
 
-random_1=`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" "`
-random_2=`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" "`
+random_1=$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")
+random_2=$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")
 
 ####### General variables
 drush -yq vset --always-set reverse_proxy TRUE

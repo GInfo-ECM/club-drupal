@@ -17,14 +17,14 @@ fi
 
 number_found=0
 
-for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages ! -name images | sort ` ; do
+for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name languages ! -name images | sort) ; do
     # List projects that correspond to the status.
     # Keep project_name if listed.
     # Count line result. 0 if not listed or 1 if listed.
     # Print site_dir if listed.
 
     cd $dir;
-	if [ 1 -le `drush pml --status=$2 | grep $3 | wc -l` ] ; then
+	if [ 1 -le $(drush pml --status=$2 | grep $3 | wc -l) ] ; then
         echo $dir;
         number_found=$(($number_found + 1))
     fi

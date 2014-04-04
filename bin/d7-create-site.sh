@@ -26,20 +26,20 @@ if ! work_tree_clean ; then
 fi
 
 # "-" is forbidden because it provokes database error.
-if [ `echo $1 | grep -` ] ; then
+if [ $(echo $1 | grep -) ] ; then
     echo '"-" is forbidden in the site name'
     exit 1
 fi
 
 # Site name length must be lower or equal to 16 due to database limitations.
-if [`echo $1 | wc -c` -gt 16 ] ; then
+if [ $(echo $1 | wc -c) -gt 16 ] ; then
     echo "site name can't have more than 16 characters"
     exit 1
 fi
 
 ###### Initialisation
 cd $d7_dir
-site_password=`generate_password`
+site_password=$(generate_password)
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/home/assos/drupal7/', );"
 
@@ -51,7 +51,7 @@ dir_site_name="assos.centrale-marseille.fr.$d7_site_name"
 # Backup requirements
 mkdir $d7_dir_individual_auto_backup/$dir_site_name
 mkdir $d7_dir_individual_manual_backup/$dir_site_name
-current_date=`date "+%Y-%m-%d-%Hh%Mm%Ss"`
+current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 
 # NB : ls sort by considering the 1st characters
 touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name.sql

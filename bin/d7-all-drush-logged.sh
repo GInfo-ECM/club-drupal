@@ -9,9 +9,9 @@ check_arguments $# 1 "$help"
 
 cd $d7_dir_sites
 
-for dir in `find . -maxdepth 1 -mindepth 1 -type d ! -name all | sort` ; do
+for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all | sort) ; do
     cd $dir
-    current_date=`date "+%Y-%m-%d_%Hh:%Mm"`
+    current_date=$(date "+%Y-%m-%d_%Hh:%Mm")
     echo "======$current_date======" >> $d7_dir_log/$dir.log
     echo "Arguments are: $* " >> $d7_dir_log/$dir.log
     drush $* >> $d7_dir_log/$dir.log

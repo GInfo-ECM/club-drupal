@@ -12,10 +12,10 @@ scripts_utils='imported'
 
 ask_password() {
     # read -s doesn't work with sh.
-    # usage: pass=`ask_password "password please:"`
+    # usage: pass=$(ask_password "password please:")
     echo $1 >&2
     echo -n ">" >&2
-    stty_avant=`stty -g`
+    stty_avant=$(stty -g)
     stty -echo
     read password
     stty $stty_avant
@@ -36,7 +36,7 @@ generate_password() {
     fi
 
     while echo "$site_password" | grep -Fq '/' ; do
-        site_password=`dd if=/dev/random count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$password_length`
+        site_password=$(dd if=/dev/random count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-$password_length)
     done
 
     echo $site_password
@@ -63,12 +63,12 @@ generate_settings_local() {
 give_dir() {
     # ARG: file
     # Return the abosulte directory path of a file or a dir.
-    settings_location=`realpath $1`
-    echo `dirname $settings_location`
+    settings_location=$(realpath $1)
+    echo $(dirname $settings_location)
 }
 
 work_tree_clean() {
-    git_status_output=`git status --porcelain`
+    git_status_output=$(git status --porcelain)
     if [ -z "$git_status_output" ] ; then
 	return 0
     else
@@ -78,12 +78,12 @@ work_tree_clean() {
 
 mail_unclean_work_tree() {
     cd $dir_multi_assos
-    git_status_output=`git status`
+    git_status_output=$(git status)
     echo "$git_status_output" | mail -s "$1" $email_multi_assos
 }
 
 commit_if_unclean() {
-    if ! `work_tree_clean` ; then
+    if ! work_tree_clean ; then
 	commit_message="COMMIT OF UNCLEAN STUFF"
 	commit -a -m "$commit_message"
 	mail_unclean_work_tree "[git] $commit_message"

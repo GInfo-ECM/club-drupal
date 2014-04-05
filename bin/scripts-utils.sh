@@ -51,7 +51,7 @@ check_arguments() {
     if [ $1 -lt $2  ] ; then
         echo "Number of arguments insuffisant."
 	echo -e $3
-        return 1
+        exit 1
     fi
 }
 

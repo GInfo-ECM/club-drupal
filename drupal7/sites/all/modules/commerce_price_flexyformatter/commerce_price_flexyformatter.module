@@ -28,6 +28,7 @@ function commerce_price_flexyformatter_field_formatter_info() {
         'base' => array('selection' => array('base_price' => 'base_price'), 'weight' => 0, 'calc' => 'default'),
         'reference1' => array('class' => '.flexy-striked', 'weight' => -10, 'calc' => 'default'),
         'reference2' => array('weight' => 10, 'calc' => 'default'),
+        'raw' => array(),
         // need this to load all price components, hoping will not be changed
         'calculation' => 'calculated_sell_price',
       ),
@@ -169,6 +170,11 @@ function commerce_price_flexyformatter_field_formatter_settings_form($field, $in
     '#default_value' => $settings['reference2']['weight'],
     '#size' => 6,
   );
+  $element['raw'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use unformatted amount'),
+    '#default_value' => $settings['raw'],
+  );
 
   return $element;
 }
@@ -241,7 +247,7 @@ function commerce_price_flexyformatter_field_formatter_settings_summary($field, 
       $summary[] = t('2nd reference amount not enabled.');
     }
   }
-
+  if (isset($settings['raw']) && $settings['raw']) $summary[] = t('Using unformatted amounts.');
   return implode('<br />', $summary);
 }
 /**
@@ -322,6 +328,7 @@ function commerce_price_flexyformatter_field_formatter_view($entity_type, $entit
                 'weight' => (isset($display['settings']['reference2']['weight'])?$display['settings']['reference2']['weight']:null),
                 'enabled' => (isset($display['settings']['reference2']['enabled'])?$display['settings']['reference2']['enabled']:0),
               ),
+              'raw' =>(isset($display['settings']['raw'])?$display['settings']['raw']:false),
               'currency_code' => $item['currency_code'],
             )
           ),
@@ -342,8 +349,8 @@ function theme_commerce_price_flexyformatter_selected_amount($variables) {
   uasort($variables, 'drupal_sort_weight');
   drupal_add_css(drupal_get_path('module', 'commerce_price_flexyformatter') . '/commerce_price_flexyformatter.css');
   foreach ($variables as $key => $variable) {
-   if (is_numeric($variable['weight']) && ($key == 'base' || $variable['enabled'])) {
-    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . commerce_currency_format($variable['amount'], $variables['currency_code']) . '</span></span> ';
+   if (isset($variable['weight']) && is_numeric($variable['weight']) && ($key == 'base' || $variable['enabled'])) {
+    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . ($variables['raw'] == false ? commerce_currency_format($variable['amount'], $variables['currency_code']): commerce_currency_amount_to_decimal($variable['amount'], $variables['currency_code'])) . '</span></span> ';
    }
   }
 

@@ -5,9 +5,9 @@ dependencies[] = commerce_price
 core = 7.x
 
 
-; Information added by Drupal.org packaging script on 2014-03-23
+; Information added by Drupal.org packaging script on 2014-04-08
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "commerce_price_flexyformatter"
-datestamp = "1395580758"
+datestamp = "1396991954"
 

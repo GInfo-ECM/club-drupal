@@ -8,7 +8,7 @@ $aliases['d7'] = array(
 'assos.centrale-marseille.fr/dkanaatest',
 'assos.centrale-marseille.fr/beret',
 'assos.centrale-marseille.fr/pdelmastest',
-        'assos.centrale-marseille.fr',
+        'default',
         'assos.centrale-marseille.fr/accueil',
         'assos.centrale-marseille.fr/agora',
         'assos.centrale-marseille.fr/annales',

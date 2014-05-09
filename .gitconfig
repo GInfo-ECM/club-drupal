@@ -1,0 +1,8 @@
+[user]
+	name = Club drupal
+	email = assos@centrale-marseille.fr
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+

@@ -1,11 +1,11 @@
+// ====================================================================
+// Basic Layout Styles
+// ====================================================================
 
-/**
- * Basic Layout Styles
- */
 #page-wrapper {
   margin: 0px auto;
   padding: 0px;
-  width: 100%;
+  max-width: 100%;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -19,14 +19,9 @@
 #main {
 }
 
-body {
-  min-width: 700px;
-}
 #content,
 #sidebar-first,
-#sidebar-second,
-#sidebar-first-r,
-#sidebar-second-r {
+#sidebar-second {
   display: inline;
   float: left;
   position: relative;

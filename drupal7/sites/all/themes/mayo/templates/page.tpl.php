@@ -69,10 +69,6 @@
 
 <?php
   $page_wrapper_style = '';
-  $page_width = theme_get_setting('page_width');
-  if (empty($page_width)) $page_width = '90%';
-  if (arg(0) == "admin") $page_width = '100%'; // admin page
-  $page_wrapper_style = 'width: ' . $page_width . ';';
   $base_vmargin = theme_get_setting('base_vmargin');
   if (arg(0) == "admin") $base_vmargin = '0px'; // admin page
   if (empty($base_vmargin)) $base_vmargin = '0px';
@@ -135,30 +131,12 @@
   if (empty($searchbox_top_margin)) $searchbox_top_margin = '0px';
   $searchbox_style = 'padding-right: ' . $searchbox_right_margin . '; padding-top: ' . $searchbox_top_margin . ';';
 
+  $menubar_style = '';
+  $menubar_bg_value = theme_get_setting('menubar_bg_value');
+  if (theme_get_setting('menubar_background') == 1) $menubar_style = ' style=" background-color: ' . $menubar_bg_value . ';"';
+
   $fontsizer_top_margin = (intval($searchbox_top_margin) + 3) . 'px';
   $fontsizer_style = 'margin-top: ' . $fontsizer_top_margin . ';';
-
-  $sb_layout_style = theme_get_setting('sidebar_layout_style');
-  $sb_first_width = theme_get_setting('sidebar_first_width');
-  if (empty($sb_first_width)) $sb_first_width = '25%';
-  $sb_first_style = 'width: ' . $sb_first_width . ';';
-  $sb_second_width = theme_get_setting('sidebar_second_width');
-  if (empty($sb_second_width)) $sb_second_width = '25%';
-  $sb_second_style = 'width: ' . $sb_second_width . ';';
-
-  $content_width = 100;
-  if ($page['sidebar_first']) {
-    $content_width -= intval(preg_replace('/%/', '', $sb_first_width));
-  }
-  if ($page['sidebar_second']) {
-    $content_width -= intval(preg_replace('/%/', '', $sb_second_width));
-  }
-  $content_style = 'width: ' . $content_width . '%;';
-
-  $margins = mayo_get_margins($page['content'], $page['sidebar_first'], $page['sidebar_second']);
-  $content_section_style = $margins['content'];
-  $sb_first_section_style = $margins['sb_first'];
-  $sb_second_section_style = $margins['sb_second'];
 
   if (theme_get_setting('header_fontsizer')) {
     drupal_add_js(drupal_get_path('theme', 'mayo') . '/js/mayo-fontsize.js');
@@ -243,7 +221,7 @@
 
     <!-- for nice_menus, superfish -->
     <?php if ($page['menubar']) { ?>
-    <div id="menubar" class="menubar clearfix">
+    <div id="menubar" class="menubar clearfix"<?php if(!empty($menubar_style)) echo $menubar_style; ?>>
       <?php print render($page['menubar']); ?>
     </div>
     <?php } ?>
@@ -285,21 +263,8 @@
       <div class="clearfix cfie"></div>
 
 
-      <!-- sidebars (left) -->
-      <?php if (($page['sidebar_first']) && ($sb_layout_style != 3)){ ?>
-        <div id="sidebar-first" class="column sidebar" style="<?php echo $sb_first_style; ?>"><div class="section" style="<?php echo $sb_first_section_style; ?>">
-          <?php print render($page['sidebar_first']); ?>
-        </div></div> <!-- /.section, /#sidebar-first -->
-      <?php } ?>
-      <?php if (($page['sidebar_second']) && ($sb_layout_style == 2)) { ?>
-        <div id="sidebar-second" class="column sidebar" style="<?php echo $sb_second_style; ?>"><div class="section" style="<?php echo $sb_second_section_style; ?>">
-          <?php print render($page['sidebar_second']); ?>
-        </div></div> <!-- /.section, /#sidebar-second -->
-      <?php } ?>
-
-
       <!-- main content -->
-      <div id="content" class="column" style="<?php echo $content_style; ?>"><div class="section" style="<?php echo $content_section_style; ?>">
+      <div id="content" class="column"><div class="section">
 
         <?php if ($page['highlighted']) { ?>
           <div id="highlighted"><?php print render($page['highlighted']); ?></div>
@@ -321,15 +286,16 @@
 
       </div></div> <!-- /.section, /#content -->
 
-
-      <!-- sidebars (right) -->
-      <?php if (($page['sidebar_first']) && ($sb_layout_style == 3)) { ?>
-        <div id="sidebar-first-r" class="column sidebar" style="<?php echo $sb_first_style; ?>"><div class="section" style="<?php echo $sb_first_section_style; ?>">
+      <!-- sidebar (first) -->
+      <?php if ($page['sidebar_first']){ ?>
+        <div id="sidebar-first" class="column sidebar"><div class="section">
           <?php print render($page['sidebar_first']); ?>
         </div></div> <!-- /.section, /#sidebar-first -->
       <?php } ?>
-      <?php if (($page['sidebar_second']) && ($sb_layout_style != 2)) { ?>
-        <div id="sidebar-second-r" class="column sidebar" style="<?php echo $sb_second_style; ?>"><div class="section" style="<?php echo $sb_second_section_style; ?>">
+
+      <!-- sidebar (second) -->
+            <?php if ($page['sidebar_second']) { ?>
+        <div id="sidebar-second" class="column sidebar"><div class="section">
           <?php print render($page['sidebar_second']); ?>
         </div></div> <!-- /.section, /#sidebar-second -->
       <?php } ?>
@@ -387,7 +353,5 @@
       <?php } ?>
 
     </div> <!-- /#footer-wrapper -->
-
-
   </div> <!-- /#page -->
 </div> <!-- /#page-wrapper -->

@@ -1,6 +1,6 @@
 /**
  * @file
- * Adds javascript functions for font resizing
+ * Adds javascript functions for font resizing.
  */
 jQuery(document).ready(function() {
   var originalFontSize = jQuery('body').css('font-size');

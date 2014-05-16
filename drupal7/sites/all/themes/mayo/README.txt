@@ -1,6 +1,11 @@
 
 MAYO - original theme for Drupal 7 from PIXTURE STUDIO
 
+MAYO 7.x-2.x is the original theme with responsive layout and other responsive features. Also the theme is
+ using SASS/Compass to compile CSS. You will still be able to create a normal sub-theme if you need to customize further without getting envolved with SASS. This version uses <!DOCTYPE html> which starts it down the HTML5 path. Very few of the newer HTML5 elements are used at this point.
+
+MAYO Responsive (7.x-2.x) borrows from Jeff Burnz and his great work on AdaptiveTheme https://drupal.org/project/adaptivethemeS
+
 The name "MAYO" is taken from a phrase "MAke Your Own" and "MAYOnnaise" which I love :-). As the name describes itself, MAYO is developed to be a theme that provides users easy ways to customize and create a theme they like.
 
 MAYO is developed based on the experience of developing PIXTURE theme. However, MAYO fully takes advantage of Drupal 7's color module and advaced theme settings.  MAYO is simple but flexible. You can customize the look of the MAYO easily from the theme setting page. It does not require you to have the knowledge of CSS, HTML and PHP.
@@ -15,7 +20,11 @@ MAYO's theme settings page provides many options you can select/customize.  Belo
 
 2. Base font and heading font type (either Serif or Sans-serif) and base font size.
 
-3. Page layout options such as width of the site (fixed width layout or liquid layout), margins, sidebar layout and width, etc.
+3. Page layout options such as margins, sidebar layout and width, etc. There are now settings for Big
+Screen Sidebar Layout, Tablet Sidebar Layout, and Smalltouch Sidebar Layout. Also you can adjust the Media
+query for each device type, but caution is advised in changing the defaults. Be careful using Pixle Units in
+the Sidebar Layout settings as it could have undesired behavior on some device sizes. % units seem to work
+best.
 
 4. Styles such as menubar styles and round corner for node/sidebar block.
 
@@ -90,12 +99,6 @@ Each block in the top and bottom columns regions has its own box style just like
 
 Menu and Submenu regions are for those who uses superfish, nice_menus and other drop down menus (see the next section for more details).  Position of the sidebar first and the second can be configured from the theme settings page.
 
-
-Mininum width
-==============
-Currently, the theme uses 700px as the minimum-width. If you want to change it, please manually edit the css/layout.css and change the min-width of the body.
-
-
 How to use superfish/nice_menus module?
 =======================================
 The primary menu and secondary menu does not support superfish and nice_menus. If you want to use one of them, you need to turn off the primary and secondary menu from the theme settings page first. Then, create and configure menu blocks and then assign them to either the 'menubar' or 'sub-menubar' region of the MAYO theme at admin/structure/block page.
@@ -115,17 +118,10 @@ If the header background image you choose is not wide enough, the image repeats,
 
 Round corners for sidebar block and node
 ========================================
-By using CSS3 and browser specific stylesheet properties, round corners for sidebar blocks and node are supported by major browsers such as Fireforx, Safari, Google Chrome and Opera except for IE. We have decided not to support round corners for IE with Javascript since may slows down the page display. So if you are IE users, please wait for the future version of IE that supports CSS3's border-radius property.
+By using CSS3 and browser specific stylesheet properties, round corners for sidebar blocks and node are supported by major browsers such as Fireforx, Safari, Google Chrome and Opera except for IE. We have decided not to support round corners for IE<9 with Javascript since may slows down the page display. So if you are IE users, please wait for the future version of IE that supports CSS3's border-radius property.
 
 
 Changing default color set
 ===========================
 Please do not change the default color set (MAYO) in the color/color.inc file.  You can change other entries but not the default one. Otherwise, it will mess up the entire color changing scheme.
-
-
-
-Author
-=======
-Hideki Ito
-PIXTURE STUDIO <http://www.pixture.com>
 

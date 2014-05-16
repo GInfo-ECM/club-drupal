@@ -1,3 +1,7 @@
+/**
+ * @file
+ * Updates the live preview for MAYO theme settings.
+ */
 
 (function ($) {
   Drupal.color = {

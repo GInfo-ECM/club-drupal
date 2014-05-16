@@ -105,8 +105,6 @@
 
   <?php print render($content['links']); ?>
 
-  <?php // print render($content['comments']); ?> <!-- moved to outside of the node div -->
-
 </div>
 
 <?php print render($content['comments']); ?> <!-- added -->

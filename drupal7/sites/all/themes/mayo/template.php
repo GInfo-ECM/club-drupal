@@ -6,7 +6,16 @@
  */
 
 /**
- * Construst HTML code for the top/bottom block columns
+ * Includes for MAYO css creation form settings.
+ */
+global $theme_key, $path_to_mayo;
+$theme_key = $GLOBALS['theme_key'];
+$path_to_mayo = drupal_get_path('theme', 'mayo');
+include_once($path_to_mayo . '/inc/load.inc');       // drupal_add_css() wrappers
+include_once($path_to_mayo . '/inc/get.inc');        // get theme info, settings, css etc
+
+/**
+ * Construct HTML code for the top/bottom block columns
  */
 function mayo_build_columns($columns) {
   $styles = array();
@@ -55,66 +64,6 @@ function mayo_build_columns($columns) {
 }
 
 /**
- * Calculate margins of contents and sidebars based on the layout style
- */
-function mayo_get_margins($content, $sb_first, $sb_second) {
-  $sb_layout_style = theme_get_setting('sidebar_layout_style');
-
-  $c_margin_l =  $sf_margin_l =  $ss_margin_l = 5;
-  $c_margin_r =  $sf_margin_r =  $ss_margin_r = 5;
-
-  switch($sb_layout_style) {
-    case 1:
-      if ($sb_first) {
-        $sf_margin_l = 0;
-      }
-      else {
-        $c_margin_l = 0;
-      }
-      if ($sb_second) {
-        $ss_margin_r = 0;
-      }
-      else {
-        $c_margin_r = 0;
-      }
-      break;
-    case 2: // both sidebars come left
-      if ($sb_first) {
-        $sf_margin_l = 0;
-      }
-      else if ($sb_second) {
-        $ss_margin_l = 0;
-      }
-      else {
-        $c_margin_l = 0;
-      }
-      $c_margin_r = 0;
-      break;
-    case 3: // both sidebars come right
-      if ($sb_second) {
-        $ss_margin_r = 0;
-      }
-      else if ($sb_first) {
-        $sf_margin_r = 0;
-      }
-      else {
-        $c_margin_r = 0;
-      }
-      $c_margin_l = 0;
-      break;
-  }
-  $c_margin_style = 'margin-left: ' . $c_margin_l . 'px; margin-right: ' . $c_margin_r . 'px;';
-  $sf_margin_style = 'margin-left: ' . $sf_margin_l . 'px; margin-right: ' . $sf_margin_r . 'px;';
-  $ss_margin_style = 'margin-left: ' . $ss_margin_l . 'px; margin-right: ' . $ss_margin_r . 'px;';
-
-  return array(
-    'content' => $c_margin_style,
-    'sb_first' => $sf_margin_style,
-    'sb_second' => $ss_margin_style,
-  );
-}
-
-/**
  * Return a themed breadcrumb links
  *
  * @param $breadcrumb
@@ -141,7 +90,7 @@ function mayo_breadcrumb($variables) {
 
 /**
  * Custom search block form
- *  No 'submit button'
+ *  Magnifying glass icon used instead of 'submit button'.
  *  Use javascript to show/hide the 'search this site' prompt inside of the text field
  */
 function mayo_preprocess_search_block_form(&$variables) {
@@ -151,7 +100,7 @@ function mayo_preprocess_search_block_form(&$variables) {
 
   unset($variables['form']['actions']['submit']);
   unset($variables['form']['actions']['#children']);
-  $variables['form']['actions']['submit'] = array('#type' => 'image_button', '#src' => base_path() . path_to_theme() . '/images/search-submit.png');
+
   $variables['form']['search_block_form']['#value'] = $prompt;
   $variables['form']['search_block_form']['#size'] = theme_get_setting('searchbox_size');
   $variables['form']['search_block_form']['#attributes'] = array(
@@ -193,6 +142,17 @@ function mayo_preprocess_maintenance_page(&$variables) {
  * Implements hook_preprocess_html().
  */
 function mayo_preprocess_html(&$variables) {
+  global $theme_key;
+  // Adds classes to <body class="">
+  $settings_array = array(
+    'round_corners',
+    'dark_messages',
+  );
+  foreach ($settings_array as $setting) {
+    if (theme_get_setting($setting) !== 0) {
+      $variables['classes_array'][] = theme_get_setting($setting);
+    }
+  }
 
   // Add conditional stylesheet for IE
   drupal_add_css(path_to_theme() . '/css/ie8.css', array('group' => CSS_THEME, 'browsers' => array('IE' => 'IE 8', '!IE' => FALSE), 'preprocess' => FALSE));
@@ -205,23 +165,13 @@ function mayo_preprocess_html(&$variables) {
     'weight' => 10,
   );
 
-  // Add optional stylesheets
-
-  if (theme_get_setting('dark_messages')) {
-    // add dark.css if it's selected at the theme setting page.
-    drupal_add_css(drupal_get_path('theme', 'mayo') . '/css/dark.css', $options);
-  }
-
-  $round_corners = theme_get_setting('round_corners');
-  if ($round_corners == 1 || $round_corners == 3) {
-    drupal_add_css(drupal_get_path('theme', 'mayo') . '/css/round-sidebar.css', $options);
-  }
-  if ($round_corners == 2 || $round_corners == 3) {
-    drupal_add_css(drupal_get_path('theme', 'mayo') . '/css/round-node.css', $options);
-  }
-
   if (theme_get_setting('menubar_style') == 2) {
     drupal_add_css(drupal_get_path('theme', 'mayo') . '/css/black-menu.css', $options);
+  }
+
+  // Add old legacy MAYO styles for Superfish.
+  if (theme_get_setting('legacy_superfish_styles') == 1) {
+    drupal_add_css(drupal_get_path('theme', 'mayo') . '/css/mayo-superfish.css', $options);
   }
 
   $options = array(
@@ -230,12 +180,6 @@ function mayo_preprocess_html(&$variables) {
     'weight' => 10,
   );
 
-/*
-  $font_family = array(
-    0 => "font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'URW Palladio L', Baskerville, serif; ",
-    1 => "font-family: Verdana, Geneva, Arial, 'Bitstream Vera Sans', 'DejaVu Sans', sans-serif; ",
-  );
-*/
   $font_family = array(
     // Added Japanese font support
     0 => "font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'URW Palladio L', Baskerville, Meiryo, 'Hiragino Mincho Pro', 'MS PMincho', serif; ",
@@ -268,6 +212,11 @@ function mayo_preprocess_html(&$variables) {
     drupal_add_css(".sidebar h2 { font-size: 1.2em; }", $options);
     drupal_add_css("#content .node h2 { font-size: 1.4em; }", $options);
   }
+    // Get the path to the directory where our CSS files are saved
+  $theme_name = $theme_key;
+  $path = variable_get('theme_' . $theme_name . '_files_directory');
+    // Load Layout
+  mayo_load_layout_css($path, $theme_name);
 }
 
 /**
@@ -278,4 +227,20 @@ function mayo_process_html(&$variables) {
   if (module_exists('color')) {
     _color_html_alter($variables);
   }
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function mayo_page_alter($page) {
+  // Add meta tag for viewport, for easier responsive theme design.
+  $viewport = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'viewport',
+      'content' => 'width=device-width, initial-scale=1',
+    ),
+  );
+  drupal_add_html_head($viewport, "viewport");
 }

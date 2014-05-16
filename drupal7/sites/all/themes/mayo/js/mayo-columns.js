@@ -1,6 +1,6 @@
 /**
  * @file
- * Equolize the column height in a specified group
+ * Equalize the column height in a specified group.
  */
 jQuery(document).ready(function() {
   mayoEqualHeight(jQuery("#top-columns .column-block"));

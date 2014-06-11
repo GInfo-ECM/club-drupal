@@ -350,11 +350,19 @@ function theme_commerce_price_flexyformatter_selected_amount($variables) {
   drupal_add_css(drupal_get_path('module', 'commerce_price_flexyformatter') . '/commerce_price_flexyformatter.css');
   foreach ($variables as $key => $variable) {
    if (isset($variable['weight']) && is_numeric($variable['weight']) && ($key == 'base' || $variable['enabled'])) {
-    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . ($variables['raw'] == false ? commerce_currency_format($variable['amount'], $variables['currency_code']): commerce_currency_amount_to_decimal($variable['amount'], $variables['currency_code'])) . '</span></span> ';
+    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . ($variables['raw'] == false ? commerce_currency_format($variable['amount'], $variables['currency_code']): commerce_price_flexyformatter_raw_format($variable['amount'], $variables['currency_code'])) . '</span></span>';
    }
   }
 
   return $output; 
+}
+/**
+ * Calculate raw
+ */ 
+function commerce_price_flexyformatter_raw_format($amount, $currency_code){
+  $currency = commerce_currency_load($currency_code);
+  $amount = commerce_currency_amount_to_decimal($amount, $currency_code);
+  return number_format($amount, $currency['decimals'], $currency['decimal_separator'], '');
 }
 /**
  * Calculate amount to be displayed.

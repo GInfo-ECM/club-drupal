@@ -83,7 +83,7 @@ function piwik_admin_settings_form($form_state) {
   // Page specific visibility configurations.
   $php_access = user_access('use PHP for tracking visibility');
   $visibility = variable_get('piwik_visibility_pages', 0);
-  $pages = variable_get('piwik_pages', '');
+  $pages = variable_get('piwik_pages', PIWIK_PAGES);
 
   $form['tracking']['page_vis_settings'] = array(
     '#type' => 'fieldset',
@@ -175,6 +175,11 @@ function piwik_admin_settings_form($form_state) {
     '#type' => 'fieldset',
     '#title' => t('Links and downloads'),
   );
+  $form['tracking']['linktracking']['piwik_trackmailto'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Track clicks on mailto links'),
+    '#default_value' => variable_get('piwik_trackmailto', 1),
+  );
   $form['tracking']['linktracking']['piwik_track'] = array(
     '#type' => 'checkbox',
     '#title' => t('Track clicks on outbound links and downloads (clicks on file links) for the following extensions'),
@@ -184,9 +189,35 @@ function piwik_admin_settings_form($form_state) {
     '#title' => t('List of download file extensions'),
     '#title_display' => 'invisible',
     '#type' => 'textfield',
-    '#default_value' => variable_get('piwik_trackfiles_extensions', PK_TRACKFILES_EXTENSIONS),
-    '#description' => t('A file extension list separated by the | character that will be tracked when clicked. Regular expressions are supported. For example: !extensions', array('!extensions' => PK_TRACKFILES_EXTENSIONS)),
+    '#default_value' => variable_get('piwik_trackfiles_extensions', PIWIK_TRACKFILES_EXTENSIONS),
+    '#description' => t('A file extension list separated by the | character that will be tracked when clicked. Regular expressions are supported. For example: !extensions', array('!extensions' => PIWIK_TRACKFILES_EXTENSIONS)),
     '#maxlength' => 255,
+    '#states' => array(
+      'enabled' => array(
+        ':input[name="piwik_track"]' => array('checked' => TRUE),
+      ),
+      # Note: Form required marker is not visible as title is invisible.
+      'required' => array(
+        ':input[name="piwik_track"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+  // Message specific configurations.
+  $form['tracking']['messagetracking'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Messages'),
+  );
+  $form['tracking']['messagetracking']['piwik_trackmessages'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Track messages of type'),
+    '#default_value' => variable_get('piwik_trackmessages', array()),
+    '#description' => t('This will track the selected message types shown to users. Tracking of form validation errors may help you identifying usability issues in your site. Every message is tracked as one individual event. Messages from excluded pages cannot tracked.'),
+    '#options' => array(
+      'status' => t('Status message'),
+      'warning' => t('Warning message'),
+      'error' => t('Error message'),
+    ),
   );
 
   $form['tracking']['search'] = array(
@@ -358,12 +389,12 @@ function piwik_admin_settings_form($form_state) {
   $form['advanced']['piwik_js_scope'] = array(
     '#type' => 'select',
     '#title' => t('JavaScript scope'),
-    '#description' => t("<strong>Warning:</strong> Adding the external JavaScript files to the footer region is recommended for performance reasons."),
+    '#description' => t("Piwik recommends adding the tracking code to the header for performance reasons."),
     '#options' => array(
       'footer' => t('Footer'),
       'header' => t('Header'),
     ),
-    '#default_value' => variable_get('piwik_js_scope', 'footer'),
+    '#default_value' => variable_get('piwik_js_scope', 'header'),
   );
 
   return system_settings_form($form);

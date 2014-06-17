@@ -64,7 +64,7 @@ drush -yq vset cache 1
 drush -yq vset block_cache 1
 # Lifetime : 0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600, 32400, 43200
 drush -yq vset cache_lifetime 0
-drush -yq vset page_cache_maximum_age 0
+drush -yq vset page_cache_maximum_age 300
 # Compression
 drush -yq vset page_compression 1
 drush -yq vset preprocess_css 1

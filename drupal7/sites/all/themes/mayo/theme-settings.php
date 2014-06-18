@@ -145,7 +145,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
       1 => t('1. Apply page margin to all (header, footer and main contents).'),
       2 => t('2. Apply page margin to main contents only.'),
     ),
-    '#description' => '<img src="/' . drupal_get_path('theme', 'mayo') . '/images/page-layout.png" /><br />' . t('When the layout 2 is selected, or header background image is selected, header borders are not drawn to make it looks better.'),
+    '#description' => '<img src="/' . drupal_get_path('theme', 'mayo') . '/images/page-layout.png" /><br />' . t('When the layout 2 is selected, or header background image is selected, header borders are not drawn to make it look better.'),
   );
 
   /* --------------- Responsive sidebar layout settings -------------- */
@@ -958,7 +958,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Use dark message colors'),
     '#default_value' => theme_get_setting('dark_messages'),
-    '#value' => 'dark-messages',
+    '#return_value' => 'dark-messages',
     '#description' => t('Check here if you use the dark color set. Colors for the status/warning/error messages are adjusted.'),
   );
 

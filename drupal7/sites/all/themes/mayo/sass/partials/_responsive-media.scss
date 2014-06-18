@@ -14,8 +14,14 @@
     }
   }
 
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: .75em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: .85em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: .85em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -40,9 +46,14 @@
   input.form-text {
     width: 95%;
   }
-
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: .9em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 1.2em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: .85em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -88,9 +99,14 @@
     }
   }
 
-
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: 1.4em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 1.8em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: 1.3em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -132,9 +148,14 @@
     }
   }
 
-
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: 1.7em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 2.2em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: 1.6em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;

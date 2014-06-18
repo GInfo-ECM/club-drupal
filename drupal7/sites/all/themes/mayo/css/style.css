@@ -364,10 +364,10 @@ fieldset {
   margin: 0px;
 }
 
-.rc-1 .comment,
-.rc-1 .node,
-.rc-2 .column-block,
-.rc-2 .sidebar .block,
+.rc-2 .comment,
+.rc-2 .node,
+.rc-1 .column-block,
+.rc-1 .sidebar .block,
 .rc-3 .comment,
 .rc-3 .node,
 .rc-3 .column-block,
@@ -743,6 +743,14 @@ div.tabs .primary {
 div.tabs .secondary li a,
 div.tabs .primary li a {
   border-width: 1px;
+}
+
+/* To wrap tabs. */
+div.tabs .secondary li,
+div.tabs .primary li {
+  float: left;
+  line-height: 1.5em;
+  margin-right: 3px;
 }
 
 div.tabs .secondary li a.active,
@@ -1311,8 +1319,15 @@ fieldset.mayo-layout-form div.form-type-radio {
     height: auto;
   }
 
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: .75em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: .85em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: .85em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -1334,8 +1349,15 @@ fieldset.mayo-layout-form div.form-type-radio {
     width: 95%;
   }
 
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: .9em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 1.2em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: .85em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -1378,8 +1400,15 @@ fieldset.mayo-layout-form div.form-type-radio {
     height: auto;
   }
 
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: 1.4em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 1.8em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: 1.3em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;
@@ -1418,8 +1447,15 @@ fieldset.mayo-layout-form div.form-type-radio {
     height: auto;
   }
 
-  #site-name a, #header h1 a, #header h1 a:link, #header h1 a:visited {
-    font-size: 1.7em;
+  #site-name a, #site-name a:link, #site-name a:visited {
+    margin: 0 0;
+    font-size: 2.2em;
+    font-weight: 800;
+    line-height: 1em;
+  }
+
+  #header h1 a, #header h1 a:link, #header h1 a:visited {
+    font-size: 1.6em;
     font-weight: 800;
     line-height: 1em;
     text-decoration: none;

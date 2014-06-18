@@ -1,6 +1,6 @@
 
 name = MAYO
-description = Simple but fully customizable and colorable fixed/liquid layout theme
+description = Simple but fully customizable and colorable responsive layout theme.
 core = 7.x
 
 stylesheets[all][] = css/style.css
@@ -146,9 +146,9 @@ settings[standard-pc] = 1
   settings[global_default_layout]         = 'smalltouch-portrait'
   settings[global_default_layout_toggle]  = 0
   settings[global_files_path]             = 'public_files'
-; Information added by Drupal.org packaging script on 2014-05-07
-version = "7.x-2.0"
+; Information added by Drupal.org packaging script on 2014-06-15
+version = "7.x-2.1"
 core = "7.x"
 project = "mayo"
-datestamp = "1399497228"
+datestamp = "1402797829"
 

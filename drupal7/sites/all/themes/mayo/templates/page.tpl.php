@@ -84,7 +84,7 @@
     $page_style = 'padding: ' . $page_margin . ';';
   }
   else {
-    $main_style = 'padding: 0px ' . $page_margin . ';';
+    $main_style = 'padding: 0px ' . $page_margin . '; box-sizing: border-box;';
   }
 
   $header_style = '';
@@ -115,21 +115,21 @@
   if (empty($logo_left_margin)) $logo_left_margin = '0px';
   $logo_top_margin = theme_get_setting('logo_top_margin');
   if (empty($logo_top_margin)) $logo_top_margin = '0px';
-  $logo_style = 'padding-left: ' . $logo_left_margin . '; padding-top: ' . $logo_top_margin . ';';
+  $logo_style = 'margin-left: ' . $logo_left_margin . '; margin-top: ' . $logo_top_margin . ';';
 
   $sitename_style = '';
   $sitename_left_margin = theme_get_setting('sitename_left_margin');
   if (empty($sitename_left_margin)) $sitename_left_margin = '0px';
   $sitename_top_margin = theme_get_setting('sitename_top_margin');
   if (empty($sitename_top_margin)) $sitename_top_margin = '0px';
-  $sitename_style = 'padding-left: ' . $sitename_left_margin . '; padding-top: ' . $sitename_top_margin . ';';
+  $sitename_style = 'margin-left: ' . $sitename_left_margin . '; margin-top: ' . $sitename_top_margin . ';';
 
   $searchbox_style = '';
   $searchbox_right_margin = theme_get_setting('searchbox_right_margin');
   if (empty($searchbox_right_margin)) $searchbox_right_margin = '0px';
   $searchbox_top_margin = theme_get_setting('searchbox_top_margin');
   if (empty($searchbox_top_margin)) $searchbox_top_margin = '0px';
-  $searchbox_style = 'padding-right: ' . $searchbox_right_margin . '; padding-top: ' . $searchbox_top_margin . ';';
+  $searchbox_style = 'margin-right: ' . $searchbox_right_margin . '; margin-top: ' . $searchbox_top_margin . ';';
 
   $menubar_style = '';
   $menubar_bg_value = theme_get_setting('menubar_bg_value');
@@ -278,7 +278,7 @@
         <?php print render($title_prefix); ?>
         <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
         <?php print render($title_suffix); ?>
-        <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
+        <?php if ($tabs): ?><div class="tabs clearfix"><?php print render($tabs); ?></div><?php endif; ?>
         <?php print render($page['help']); ?>
         <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
         <?php print render($page['content']); ?>

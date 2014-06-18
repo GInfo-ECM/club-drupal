@@ -331,6 +331,14 @@ div.tabs .primary li a {
   border-width: 1px;
 }
 
+/* To wrap tabs. */
+div.tabs .secondary li,
+div.tabs .primary li {
+  float: left;
+  line-height: 1.5em;
+  margin-right: 3px;
+}
+
 div.tabs .secondary li a.active,
 div.tabs .primary li a.active {
   background: url('../images/dark.png') repeat top left;

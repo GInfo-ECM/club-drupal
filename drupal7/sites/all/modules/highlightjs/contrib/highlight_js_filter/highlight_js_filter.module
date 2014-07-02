@@ -117,8 +117,6 @@ function highlight_js_filter_process_code($text, $lang = '') {
   $text = preg_replace("/^\n/", '', preg_replace('@</?(br|p)\s*/?>@', '', str_replace('\"', '"', $text)));
   // Trim leading and trailing linebreaks
   $text = trim($text, "\n");
-  // Escape newlines
-  $text = nl2br($text);
   $class = empty($lang) ? '' : ' class="' . $lang . '"';
   $text = '<pre><code' . $class . '>' . highlight_js_filter_fix_spaces(str_replace(' ', '&nbsp;', $text)) . '</code></pre>';
   return $text;

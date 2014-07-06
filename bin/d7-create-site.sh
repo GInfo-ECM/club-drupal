@@ -4,7 +4,7 @@
 . /home/assos/bin/scripts-config-site.sh $1
 . /home/assos/bin/scripts-utils.sh
 
-help="# ARGS: site_name [--no-init-database]"
+help="# ARGS: site_name site_mail admin_password [--no-init-database]"
 
 # Check if site already exists.
 if site_exists $d7_site_name ; then
@@ -12,12 +12,12 @@ if site_exists $d7_site_name ; then
 fi
 
 init_db=1
-if [ "$2" = "--no-init-database" ] ; then
+if [ "$4" = "--no-init-database" ] ; then
     init_db=0
 fi
 
 ######## Exceptions
-check_arguments $# 1 "$help"
+check_arguments $# 3 "$help"
 
 echo "Checking if work tree is clean (may take a while)"
 if ! work_tree_clean ; then
@@ -37,17 +37,23 @@ if [ $(echo $1 | wc -c) -gt 16 ] ; then
     exit 1
 fi
 
+# drush site-install needs the translation file
+if [ ! -f $translation_fr ] ; then
+    echo "The translation file $translation_fr does not exist"
+    exit 1
+fi
+
 ###### Initialisation
 cd $d7_dir
 site_password=$(generate_password)
 site_line_sites_php="\$sites['assos.centrale-marseille.fr.$d7_site_name'] = 'assos.centrale-marseille.fr.$d7_site_name';"
 site_line_aliases_drushrc_php="\$aliases['$d7_site_name'] = array('uri' => 'assos.centrale-marseille.fr/$d7_site_name', 'root' => '/home/assos/drupal7/', );"
+# NB: site_name is initialised in script-config-site.sh
+site_mail=$2
+admin_password=$3
 
 
 ###### Main
-mkdir $d7_site_dir
-dir_site_name="assos.centrale-marseille.fr.$d7_site_name"
-
 # Backup requirements
 mkdir $d7_dir_individual_auto_backup/$dir_site_name
 mkdir $d7_dir_individual_manual_backup/$dir_site_name
@@ -63,9 +69,15 @@ touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name
 mysql --defaults-extra-file=$myassos_cnf -e "CREATE DATABASE $d7_site_name"
 mysql --defaults-extra-file=$myassos_cnf -e "GRANT ALL PRIVILEGES ON $d7_site_name.* TO '$d7_site_name'@'%' IDENTIFIED BY '$site_password'"
 
-# Create settings.php
+mkdir $d7_site_dir
+dir_site_name="assos.centrale-marseille.fr.$d7_site_name"
+
+# Create settings.local.php
 cp $d7_settings $d7_site_settings
 generate_settings_local $d7_site_name $site_password $d7_settings_local_template $d7_site_settings_local
+
+# Install the site
+drush site-install -y standard --account-mail=$site_mail --account-name="admin" --account-pass=$admin_password --locale=fr --site-mail=$site_mail --site-name=$d7_site_name --sites-subdir=$dir_site_name
 
 # Create symbolic link
 cd $d7_dir
@@ -90,9 +102,6 @@ commit "Creation of site: $d7_site_name"
 if [ $init_db -eq 0 ] ; then
     exit 0
 fi
-echo "Go to https://assos.centrale-marseille.fr/$d7_site_name/install.php to continue."
-echo "Press enter when ready to go on."
-read key
 
 # Init variables
 d7-reset-variables.sh $d7_site_name

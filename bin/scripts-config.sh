@@ -49,6 +49,7 @@ myassos_cnf="$dir_private/myassos.cnf"
 d7_dir="$dir_multi_assos/drupal7"
 d7_dir_sites="$d7_dir/sites"
 sites_php="$d7_dir_sites/sites.php"
+translations_fr="$d7_dir/profiles/standard/translations/fr.po"
 
 ### Log
 d7_dir_log="$dir_log/d7"

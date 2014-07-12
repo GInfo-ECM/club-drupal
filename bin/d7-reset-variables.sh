@@ -27,15 +27,16 @@ drush -yq vset error_level 0
 drush -yq vset dblog_row_limit 1000
 drush -yq vset cron_safe_threshold 0
 
-###### Hidden captcha
+###### Captcha
 drush -yq en hidden_captcha
-# Log wrong answers.
-drush -yq vset captcha_log_wrong_responses 1
+# Do not log wrong answers.
+drush -yq vset captcha_enable_stats 0
+drush -yq vset captcha_log_wrong_responses 0
 # Use hidden captcha for all forms.
 drush -yq sqlq --db-prefix "UPDATE {captcha_points} SET module = 'hidden_captcha', captcha_type = 'Hidden CAPTCHA' WHERE module is NULL;"
 # Flush captcha cache.
 drush -yq vdel captcha_placement_map_cache
-# Randomely generate a math question as the label of the hidden captcha field.
+# Randomly generate a math question as the label of the hidden captcha field.
 drush -yq vset hidden_captcha_label "$random_1 + $random_2"
 
 

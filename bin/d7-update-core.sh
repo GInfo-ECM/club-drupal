@@ -2,7 +2,7 @@
 
 . /home/assos/bin/scripts-config.sh
 
-help="This script is intended to help you update drupal core. It fellows steps describe here: https://forge.centrale-marseille.fr/projects/clubdrupal/wiki/Utilisation_de_Drupal_multi-site#Mise-%C3%A0-jour-du-noyau-de-Drupal
+help="This script is intended to help you update drupal core. It fellows steps described here: https://forge.centrale-marseille.fr/projects/clubdrupal/wiki/Utilisation_de_Drupal_multi-site#Mise-%C3%A0-jour-du-noyau-de-Drupal
 Please do not launch in cron."
 
 if ! tty -s ; then
@@ -12,7 +12,7 @@ fi
 
 set -e # Exit immediatly if a command exits with a non zero value
 
-# Backup transaltion
+# Backup translations
 translations_backupdir=/var/tmp
 cp $translations_fr $translations_backupdir
 

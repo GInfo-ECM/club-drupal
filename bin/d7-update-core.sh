@@ -22,7 +22,7 @@ d7-all-drush.sh -y en update
 
 d7-all-drush.sh -y upc drupal
 
-d7-all-drush.sh updb
+d7-all-drush.sh -y updb
 
 d7-all-drush.sh -y dis update
 

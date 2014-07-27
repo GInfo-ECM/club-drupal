@@ -20,7 +20,8 @@ d7-all-dump-individual.sh manual
 
 d7-all-drush.sh -y en update
 
-d7-all-drush.sh -y upc drupal
+cd $d7_dir
+drush -y upc drupal
 
 d7-all-drush.sh -y updb
 

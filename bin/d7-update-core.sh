@@ -18,8 +18,6 @@ cp $translations_fr $translations_backupdir
 
 d7-all-dump-individual.sh manual
 
-d7-all-update-contrib.sh
-
 d7-all-drush.sh -y en update
 
 d7-all-drush.sh -y upc drupal
@@ -34,7 +32,7 @@ d7-all-drush.sh -y dis update
 drupal_version=$(cd $d7_dir && drush status | grep "Drupal version" | tr -d ' ' | tail -c 3)
 
 # Try to download new translation. If it fails, restore the old one.
-if ! curl -f http://ftp.drupal.org/files/translations/7.x/drupal/drupal-7.28.fr.po -o $translations_fr ; then
+if ! curl -f http://ftp.drupal.org/files/translations/7.x/drupal/drupal-7.$drupal_version.fr.po -o $translations_fr ; then
     cp $translations_backupdir/fr.po $translations_fr
 fi
 

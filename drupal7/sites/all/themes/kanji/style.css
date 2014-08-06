@@ -458,7 +458,7 @@ blockquote {
   padding: 0 0 10px;
 }
 .one-sidebar #center {
-  width: 700px;
+  width: 702px;
 }
 .two-sidebars #center {
   width: 482px;
@@ -871,6 +871,7 @@ body {
   }
   img {
     max-width: 100%;
+    height: auto !important;
   }
   div {
     width: auto !important;
@@ -1107,6 +1108,7 @@ body {
   }
   img {
     max-width: 100%;
+    height: auto !important;
   }
   .node .content {
     padding: 0 10px 10px !important;

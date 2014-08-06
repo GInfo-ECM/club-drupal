@@ -25,9 +25,9 @@ regions[footer_bottom] = footer bottom
 settings[default_background] = 1
 
 
-; Information added by drupal.org packaging script on 2013-05-02
-version = "7.x-3.5"
+; Information added by Drupal.org packaging script on 2014-08-04
+version = "7.x-3.6"
 core = "7.x"
 project = "kanji"
-datestamp = "1367472911"
+datestamp = "1407152329"
 

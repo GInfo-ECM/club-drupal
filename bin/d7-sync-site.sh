@@ -5,7 +5,7 @@ This script is intended to ease the synchronisation between any site hosted by a
 Typically, this script is usefull when you have (or want to have) a test site based on
 a already working site. It relies on bash, drush and drush aliases.
 
-Before synching the ssite, the destination site's database is backuped. If the
+Before synching the site, the destination site's database is backuped. If the
 destination site does not exist, it is created.
 
 usage: d7-sync.sh SOURCE_SITENAME DEST_SITENAME [--prod]
@@ -56,8 +56,8 @@ sql_file=$dir_tmp/$current_date.$1.sql
 drush -y @$1 sql-dump --result-file=$sql_file
 sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2#g" $sql_file
 sed -i -e "s#/$1/sites/assos.centrale-marseille.fr.$1#/$2/sites/assos.centrale-marseille.fr.$2#g" $sql_file
-mysql --defaults-extra-file=$myassos_cnf -e "DROP DATABASE IF EXISTS $2; CREATE DATABASE $2"
-mysql --defaults-extra-file=$myassos_cnf $2 < $sql_file
+drush @$2 sql-dump | grep DROP | drush sql-cli
+drush @$2 sql-cli < $sql_file
 rm $sql_file
 
 ## Restore file system

@@ -56,7 +56,7 @@ sql_file=$dir_tmp/$current_date.$1.sql
 drush -y @$1 sql-dump --result-file=$sql_file
 sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2#g" $sql_file
 sed -i -e "s#/$1/sites/assos.centrale-marseille.fr.$1#/$2/sites/assos.centrale-marseille.fr.$2#g" $sql_file
-drush @$2 sql-dump | grep DROP | drush sql-cli
+drush @$2 sql-drop
 drush @$2 sql-cli < $sql_file
 rm $sql_file
 

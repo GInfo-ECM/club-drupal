@@ -41,6 +41,10 @@ echo 'Delete database backups.'
 rm -r "${d7_dir_individual_auto_backup}/assos.centrale-marseille.fr.${d7_site_name}"
 rm -r "${d7_dir_individual_manual_backup}/assos.centrale-marseille.fr.${d7_site_name}"
 
+echo 'Remove site from nginx_map'
+cat $nginx_site_names | grep -v $d7_site_name
+update_nginx_map
+
 echo "Don't forget to:"
 echo "- Refresh node site on default"
 echo "- Check particular behavior (normally detailed on site node)"

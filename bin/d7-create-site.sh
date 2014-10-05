@@ -96,6 +96,13 @@ echo $site_line_aliases_drushrc_php >> $aliases_drushrc_php
 sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.fr\/$d7_site_name',"/ < $aliases_drushrc_php | tr '%' '\n    ' > $dir_tmp/aliases.tmp
 mv $dir_tmp/aliases.tmp $aliases_drushrc_php
 
+
+### Update nginx_sites_map
+echo $d7_site_name >> $nginx_site_names
+# The sort must be reversed so that nginx aplly the rules correctly.
+cat $nginx_site_names | sort -r > $nginx_site_names
+update_nginx_map
+
 commit "Creation of site: $d7_site_name"
 
 # Next Instructions

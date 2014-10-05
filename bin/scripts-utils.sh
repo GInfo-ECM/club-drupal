@@ -117,11 +117,6 @@ site_exists() {
 }
 
 update_nginx_map() {
-    nginx_map_template='map $uri $subsite {\n
-    ~^/(?P<sub>%%PATTERN%%) $sub;\n
-}\n'
     new_nginx_map_pattern=$(cat $nginx_site_names | tr "\n" "|" | head -c -1)
-    new_nginx_sites_map=${nginx_map_template/"%%PATTERN%%"/$new_nginx_map_pattern}
-
-    echo -e $new_nginx_sites_map > $nginx_sites_map
+    sed s+"%%PATTERN%%"+"$new_nginx_map_pattern"+ < $nginx_map_template > $nginx_sites_map
 }

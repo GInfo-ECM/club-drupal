@@ -1,0 +1,3 @@
+map $uri $subsite {
+    ~^/(?P<sub>%%PATTERN%%) $sub;
+}

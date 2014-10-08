@@ -1,6 +1,7 @@
 <?php
 $aliases['d7'] = array(
     'site-list' => array(
+'assos.centrale-marseille.fr/vragainetest',
 'assos.centrale-marseille.fr/accueiltest',
 'assos.centrale-marseille.fr/atamisiertest',
 'assos.centrale-marseille.fr/adumeniltest',
@@ -100,3 +101,4 @@ $aliases['msb'] = array('uri' => 'assos.centrale-marseille.fr/msb', 'root' => '/
 $aliases['adumeniltest'] = array('uri' => 'assos.centrale-marseille.fr/adumeniltest', 'root' => '/home/assos/drupal7/', );
 $aliases['atamisiertest'] = array('uri' => 'assos.centrale-marseille.fr/atamisiertest', 'root' => '/home/assos/drupal7/', );
 $aliases['accueiltest'] = array('uri' => 'assos.centrale-marseille.fr/accueiltest', 'root' => '/home/assos/drupal7/', );
+$aliases['vragainetest'] = array('uri' => 'assos.centrale-marseille.fr/vragainetest', 'root' => '/home/assos/drupal7/', );

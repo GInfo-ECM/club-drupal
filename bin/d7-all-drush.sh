@@ -11,4 +11,5 @@ for dir in $(find $d7_dir_sites -maxdepth 1 -mindepth 1 -type d ! -name all | so
     cd $dir
     echo $dir
     drush "$@"
+    sleep 5
 done

@@ -6,6 +6,8 @@
 
 help="# ARGS: site_name site_mail admin_password [--no-init-database]"
 
+check_arguments $# 3 "$help"
+
 # Check if site already exists.
 if site_exists $d7_site_name ; then
     exit 1
@@ -17,8 +19,6 @@ if [ "$4" = "--no-init-database" ] ; then
 fi
 
 ######## Exceptions
-check_arguments $# 3 "$help"
-
 echo "Checking if work tree is clean (may take a while)"
 if ! work_tree_clean ; then
     echo "Your work tree is not clean. Solve this before $0 can continue."

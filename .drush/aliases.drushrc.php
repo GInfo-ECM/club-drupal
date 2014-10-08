@@ -19,7 +19,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/bde',
         'assos.centrale-marseille.fr/bds',
         'assos.centrale-marseille.fr/bphanluong',
-        'assos.centrale-marseille.fr/cac13',
         'assos.centrale-marseille.fr/chaasfrangi',
         'assos.centrale-marseille.fr/charlist',
         'assos.centrale-marseille.fr/cheer-up',
@@ -65,7 +64,6 @@ $aliases['bda'] = array('uri' => 'assos.centrale-marseille.fr/bda', 'root' => '/
 $aliases['bde'] = array('uri' => 'assos.centrale-marseille.fr/bde', 'root' => '/home/assos/drupal7/', );
 $aliases['bds'] = array('uri' => 'assos.centrale-marseille.fr/bds', 'root' => '/home/assos/drupal7/', );
 $aliases['bphanluong'] = array('uri' => 'assos.centrale-marseille.fr/bphanluong', 'root' => '/home/assos/drupal7/', );
-$aliases['cac13'] = array('uri' => 'assos.centrale-marseille.fr/cac13', 'root' => '/home/assos/drupal7/', );
 $aliases['chaasfrangi'] = array('uri' => 'assos.centrale-marseille.fr/chaasfrangi', 'root' => '/home/assos/drupal7/', );
 $aliases['charlist'] = array('uri' => 'assos.centrale-marseille.fr/charlist', 'root' => '/home/assos/drupal7/', );
 $aliases['cheer-up'] = array('uri' => 'assos.centrale-marseille.fr/cheer-up', 'root' => '/home/assos/drupal7/', );

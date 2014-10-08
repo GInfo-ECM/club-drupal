@@ -54,6 +54,9 @@ admin_password=$3
 
 
 ###### Main
+mkdir $d7_site_dir
+dir_site_name="assos.centrale-marseille.fr.$d7_site_name"
+
 # Backup requirements
 mkdir $d7_dir_individual_auto_backup/$dir_site_name
 mkdir $d7_dir_individual_manual_backup/$dir_site_name
@@ -68,9 +71,6 @@ touch $d7_dir_individual_auto_backup/$dir_site_name/$current_date.$dir_site_name
 # Create and grant privileges on database
 mysql --defaults-extra-file=$myassos_cnf -e "CREATE DATABASE $d7_site_name"
 mysql --defaults-extra-file=$myassos_cnf -e "GRANT ALL PRIVILEGES ON $d7_site_name.* TO '$d7_site_name'@'%' IDENTIFIED BY '$site_password'"
-
-mkdir $d7_site_dir
-dir_site_name="assos.centrale-marseille.fr.$d7_site_name"
 
 # Create settings.local.php
 cp $d7_settings $d7_site_settings

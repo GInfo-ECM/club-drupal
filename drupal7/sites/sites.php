@@ -57,7 +57,6 @@ $sites['forum.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.agora';
 $sites['assos.centrale-marseille.fr.annales'] = 'assos.centrale-marseille.fr.annales';
 $sites['assos.centrale-marseille.fr.aoudad'] = 'assos.centrale-marseille.fr.aoudad';
 $sites['assos.centrale-marseille.fr.apocaliste'] = 'assos.centrale-marseille.fr.apocaliste';
-$sites['assos.centrale-marseille.fr.bcoissac'] = 'assos.centrale-marseille.fr.bcoissac';
 $sites['assos.centrale-marseille.fr.bda'] = 'assos.centrale-marseille.fr.bda';
 $sites['assos.centrale-marseille.fr.bde'] = 'assos.centrale-marseille.fr.bde';
 $sites['assos.centrale-marseille.fr.bds'] = 'assos.centrale-marseille.fr.bds';

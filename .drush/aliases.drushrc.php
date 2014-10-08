@@ -14,7 +14,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/annales',
         'assos.centrale-marseille.fr/aoudad',
         'assos.centrale-marseille.fr/apocaliste',
-        'assos.centrale-marseille.fr/bcoissac',
         'assos.centrale-marseille.fr/bda',
         'assos.centrale-marseille.fr/bde',
         'assos.centrale-marseille.fr/bds',
@@ -59,7 +58,6 @@ $aliases['agora'] = array('uri' => 'assos.centrale-marseille.fr/agora', 'root' =
 $aliases['annales'] = array('uri' => 'assos.centrale-marseille.fr/annales', 'root' => '/home/assos/drupal7/', );
 $aliases['aoudad'] = array('uri' => 'assos.centrale-marseille.fr/aoudad', 'root' => '/home/assos/drupal7/', );
 $aliases['apocaliste'] = array('uri' => 'assos.centrale-marseille.fr/apocaliste', 'root' => '/home/assos/drupal7/', );
-$aliases['bcoissac'] = array('uri' => 'assos.centrale-marseille.fr/bcoissac', 'root' => '/home/assos/drupal7/', );
 $aliases['bda'] = array('uri' => 'assos.centrale-marseille.fr/bda', 'root' => '/home/assos/drupal7/', );
 $aliases['bde'] = array('uri' => 'assos.centrale-marseille.fr/bde', 'root' => '/home/assos/drupal7/', );
 $aliases['bds'] = array('uri' => 'assos.centrale-marseille.fr/bds', 'root' => '/home/assos/drupal7/', );

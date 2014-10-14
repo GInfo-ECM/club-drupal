@@ -18,5 +18,5 @@ d7-all-drush.sh -y dis update
 
 d7-all-drush.sh cron
 
-git add -A $d7_dir_sites/all
+git add -A "${d7_dir_sites}/all"
 commit "Weekly update of contrib modules"

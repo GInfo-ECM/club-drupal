@@ -15,7 +15,7 @@ drush -yq vset piwik_site_search 1
 
 ##### Specific
 # Note: you can read the piwik site id from the url in piwik
-case $1 in
+case "$1" in
     accueil)
 	piwik_id=286
 	;;
@@ -76,17 +76,17 @@ case $1 in
     tvp)
 	piwik_id=110
 	;;
-	ftorregrosa)
-    piwik_id=314
-    ;;
+    ftorregrosa)
+	piwik_id=314
+	;;
     *)
 	piwik_id=287
 	;;
 esac
 
 # Default is an exception and cannot be treated in the case
-if echo $1 | grep default ; then
+if echo "$1" | grep default ; then
     piwik_id=101
 fi
 
-drush -yq vset piwik_site_id $piwik_id
+drush -yq vset piwik_site_id "${piwik_id}"

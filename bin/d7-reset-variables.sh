@@ -4,20 +4,20 @@
 
 # ARGS: [site_name]
 
-if [ ! -z $1 ] ; then
-    . scripts-config-site.sh $1
+if [ -n "$1" ] ; then
+    . scripts-config-site.sh "$1"
     # default is an exception to the rule
-    if echo $1 | grep default > /dev/null ; then
-	    cd $d7_dir_sites/default
+    if echo "$1" | grep default > /dev/null ; then
+	    cd "${d7_dir_sites}/default"
     else
-	cd $d7_site_dir
+	cd "${d7_site_dir}"
     fi
 fi
 
-current_timestamp=$(date "+%s")
+current_timestamp="$(date "+%s")"
 
-random_1=$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")
-random_2=$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")
+random_1="$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")"
+random_2="$(dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -f1 -d" ")"
 
 ####### General variables
 drush -yq vset --always-set reverse_proxy TRUE
@@ -41,7 +41,7 @@ drush -yq vset hidden_captcha_label "$random_1 + $random_2"
 
 
 ####### Piwik
-d7-reset-piwik-variables.sh $d7_site_name
+d7-reset-piwik-variables.sh "${d7_site_name}"
 
 ###### Security review
 # For untrusted roles:

@@ -97,10 +97,7 @@ sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.f
 mv "${dir_tmp}/aliases.tmp" "${aliases_drushrc_php}"
 
 ### Update nginx_sites_map
-echo $d7_site_name >> $nginx_site_names
-# The sort must be reversed so that nginx aplly the rules correctly.
-cat $nginx_site_names | sort -r > $nginx_site_names
-update_nginx_map
+d7-generate-nginx-map.sh
 
 commit "Creation of site: ${d7_site_name}"
 

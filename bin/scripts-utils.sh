@@ -115,8 +115,3 @@ site_exists() {
     fi
     return 1
 }
-
-update_nginx_map() {
-    new_nginx_map_pattern=$(cat $nginx_site_names | tr "\n" "|" | head -c -1)
-    sed s+"%%PATTERN%%"+"$new_nginx_map_pattern"+ < $nginx_map_template > $nginx_sites_map
-}

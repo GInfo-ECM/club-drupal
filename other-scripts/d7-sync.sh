@@ -60,7 +60,7 @@ chmod -R 777 files
 
 
 ### sync databases
-now="$(date +%s)"
+now=$(date +%s)
 sql_file="$1.${now}.sql"
 remote_sql_file="${REMOTE_DIR_TMP_SAS}/${sql_file}"
 ssh "${WEBASSOS_ID}" "drush @$1 sql-dump > ${remote_sql_file}"

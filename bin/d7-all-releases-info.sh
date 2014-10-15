@@ -7,7 +7,7 @@
 
 # modules
 cd "${d7_dir_sites}/all/modules"
-for dir in "$(ls -1)" ; do
+for dir in $(ls -1) ; do
     if [ -d "${dir}" ] ; then
         drush pm-releases "${dir}"
     fi
@@ -15,7 +15,7 @@ done
 
 # themes
 cd "${d7_dir_sites}/all/themes"
-for dir in "$(ls -1)" ; do
+for dir in $(ls -1) ; do
     if [ -d "${dir}" ] ; then
         drush pm-releases "${dir}"
     fi

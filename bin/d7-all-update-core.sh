@@ -30,7 +30,7 @@ d7-all-drush.sh -y dis update
 # Get the new subversion number:
 # cd to $d7_dir, filter drush status to get the drupal version line,
 # remove end line whitespaces, and get the 2 last caracters of the string.
-drupal_version="$(cd "${d7_dir}" && drush status | grep "Drupal version" | tr -d ' ' | tail -c 3)"
+drupal_version=$(cd "${d7_dir}" && drush status | grep "Drupal version" | tr -d ' ' | tail -c 3)
 
 # Try to download new translation. If it fails, restore the old one.
 if ! curl -f "http://ftp.drupal.org/files/translations/7.x/drupal/drupal-7.${drupal_version}.fr.po" -o "${translations_fr}" ; then

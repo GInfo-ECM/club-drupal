@@ -36,7 +36,7 @@ generate_password() {
     fi
 
     while echo "$site_password" | grep -Fq '/' ; do
-        site_password="$(dd if=/dev/random count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-"${password_length}")"
+        site_password=$(dd if=/dev/random count=1 | uuencode -m - | head -n 2 | tail -n 1 | cut -c-"${password_length}")
     done
 
     echo "$site_password"
@@ -63,12 +63,12 @@ generate_settings_local() {
 give_dir() {
     # ARG: file
     # Return the abosulte directory path of a file or a dir.
-    settings_location="$(realpath "$1")"
-    echo "$(dirname "${settings_location}")"
+    settings_location=$(realpath "$1")
+    echo $(dirname "${settings_location}")
 }
 
 work_tree_clean() {
-    git_status_output="$(git status --porcelain)"
+    git_status_output=$(git status --porcelain)
     if [ -z "${git_status_output}" ] ; then
 	return 0
     else
@@ -77,8 +77,8 @@ work_tree_clean() {
 }
 
 mail_unclean_work_tree() {
-    cd "$dir_multi_assos"
-    git_status_output="$(git status)"
+    cd "${dir_multi_assos}"
+    git_status_output=$(git status)
     echo "${git_status_output}" | mail -s "$1" "${email_multi_assos}"
 }
 

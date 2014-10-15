@@ -27,7 +27,7 @@ fi
 
 
 # Backup the database of SOURCE_SITE
-current_date="$(date "+%Y-%m-%d-%Hh%Mm%Ss")"
+current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 if [ "$1" = "default" ] ; then
     dir="$2"
 else
@@ -45,13 +45,13 @@ drush -y rsync --delete --exclude="*.php" "@${1}:%site" "@${2}:%site"
 # Sync databases
 ## Save file system
 if [ -z "${new_site}" ] ; then
-    private_path="$(drush "@$2" vget --format=string file_private_path 2> /dev/null)"
-    public_path="$(drush "@$2" vget --format=string file_public_path 2> /dev/null)"
-    temp_path="$(drush "@$2" vget --format=string file_temporary_path 2> /dev/null)"
+    private_path=$(drush "@$2" vget --format=string file_private_path 2> /dev/null)
+    public_path=$(drush "@$2" vget --format=string file_public_path 2> /dev/null)
+    temp_path=$(drush "@$2" vget --format=string file_temporary_path 2> /dev/null)
 fi
 
 ## Sync
-current_date="$(date "+%Y-%m-%d-%Hh%Mm%Ss")"
+current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 sql_file="${dir_tmp}/${current_date}.$1.sql"
 drush -y "@$1" sql-dump --result-file="${sql_file}"
 sed -i -e "s#https?://assos.centrale-marseille.fr/$1#https://assos.centrale-marseille.fr/$2#g" "${sql_file}"

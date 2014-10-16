@@ -20,7 +20,7 @@ number_of_backups_to_delete=$((backups_number - $1))
 if [ "${number_of_backups_to_delete}" -gt 0 ] ; then
     ls | head "-${number_of_backups_to_delete}" | xargs rm
 else
-    if [ ! -z "$2" ] ; then
+    if [ -n "$2" ] ; then
         dir=$(pwd)
         echo "There are not enough files in $dir to Flush it. Check if backup script works fine." | mail -s "[db] $dir has a backup problem" "$2"
     fi

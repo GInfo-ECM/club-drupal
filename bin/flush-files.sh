@@ -15,7 +15,7 @@ check_arguments "$#" 1 "$help"
 
 # Must not be quoted to avoid problem with ((…))
 backups_number=$(ls | wc -l)
-((number_of_backups_to_delete = backups_number - $1))
+number_of_backups_to_delete=$((backups_number - $1))
 
 if [ "${number_of_backups_to_delete}" -gt 0 ] ; then
     ls | head "-${number_of_backups_to_delete}" | xargs rm

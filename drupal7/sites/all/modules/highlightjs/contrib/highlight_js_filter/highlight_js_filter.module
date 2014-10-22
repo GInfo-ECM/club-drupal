@@ -17,7 +17,7 @@ function highlight_js_filter_filter_info() {
     'prepare callback' => '_highlight_js_filter_prepare',
     'process callback' => '_highlight_js_filter_process',
     'tips callback' => '_highlight_js_filter_tips',
-    'cache' => FALSE,
+    'cache' => TRUE,
   );
   return $filters;
 }
@@ -38,9 +38,10 @@ function _highlight_js_filter_tips($format, $long = FALSE) {
 /**
  * Prepare callback for Highlight JS filter.
  */
-function _highlight_js_filter_prepare($text, $format) {
-  $text = preg_replace_callback('@<code>(.+?)</code>@s', '_highlight_js_filter_escape_code_tag_callback', $text);
-  $text = preg_replace_callback('@<code class="(.+?)">(.+?)</code>@s', '_highlight_js_filter_escape_code_tag_lang_callback', $text);
+function _highlight_js_filter_prepare($text) {
+  $text = preg_replace_callback('@^<\?php(.+?)\?>@sm', '_highlight_js_filter_escape_code_tag_callback', $text);
+  $text = preg_replace_callback('@^<code>(.+?)</code>@sm', '_highlight_js_filter_escape_code_tag_callback', $text);
+  $text = preg_replace_callback('@^<code class="(.+?)">(.+?)</code>@sm', '_highlight_js_filter_escape_code_tag_lang_callback', $text);
   return $text;
 }
 

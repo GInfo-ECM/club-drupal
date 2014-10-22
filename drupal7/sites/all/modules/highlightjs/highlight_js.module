@@ -13,9 +13,9 @@
 function highlight_js_libraries_info() {
   $libraries['highlightjs'] = array(
     'name' => 'highlightjs',
-    'vendor url' => 'http://softwaremaniacs.org/soft/highlight/en',
-    'download url' => 'http://softwaremaniacs.org/soft/highlight/en/download',
-    'version' => '7.2',
+    'vendor url' => 'http://highlightjs.org/',
+    'download url' => 'http://highlightjs.org/download/',
+    'version' => '8.0',
     'files' => array(
       'js' => array(
         'highlight.pack.js',
@@ -64,7 +64,7 @@ function highlight_js_settings() {
     '#title' => t('Highlight JS default style'),
     '#default_value' => variable_get('highlightjs_style', 'default'),
     '#description' => t('Select the default code style format. Please refer to the !url page for a live demo of all the styles.',
-                        array('!url' => l('Demo', 'http://softwaremaniacs.org/media/soft/highlight/test.html'))),
+                        array('!url' => l('Demo', 'http://highlightjs.org/static/test.html'))),
     '#options' => $options,
   );
   return system_settings_form($form);

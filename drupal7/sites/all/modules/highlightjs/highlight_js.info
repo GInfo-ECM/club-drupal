@@ -2,11 +2,11 @@ name = Highlight JS Syntax Highlighter
 description = JavaScript Syntax Highlighter for client-side syntax highlighting.
 php = 5
 core = 7.x
-dependencies[] = libraries
+dependencies[] = libraries (>=2.0)
 
-; Information added by Drupal.org packaging script on 2014-06-26
-version = "7.x-1.1"
+; Information added by Drupal.org packaging script on 2014-10-22
+version = "7.x-1.2"
 core = "7.x"
 project = "highlightjs"
-datestamp = "1403806728"
+datestamp = "1413962329"
 

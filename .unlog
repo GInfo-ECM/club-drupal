@@ -1,0 +1,4 @@
+[/home/assos/log/*]
+start pattern = /home/assos/drupal7/sites/(assos.centrale-marseille.fr.\w+|default)
+error pattern = (error|warning)
+mail to = assos

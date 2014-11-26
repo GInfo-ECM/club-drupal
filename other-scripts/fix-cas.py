@@ -8,11 +8,11 @@ from getpass import getpass
 def fix_cas(db, host, user, password, prefix, roles):
     import pymysql as mysql
 
-    while not password:
-        password = getpass('Please enter the password: ')
-    password = password.strip()
-
-    conn = mysql.connect(host=host, user=user, passwd=password, db=db, charset='utf8')
+    if not password:
+        conn = mysql.connect(host=host, user=user, db=db, charset='utf8')
+    else:
+        conn = mysql.connect(host=host, user=user, passwd=password, db=db, charset='utf8')
+        
     with conn:
         cur = conn.cursor()
 

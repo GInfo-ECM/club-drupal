@@ -96,6 +96,9 @@ echo "${site_line_aliases_drushrc_php}" >> "${aliases_drushrc_php}"
 sed s/"'site-list' => array("/"'site-list' => array(%'assos.centrale-marseille.fr\/$d7_site_name',"/ < "${aliases_drushrc_php}" | tr '%' '\n    ' > "${dir_tmp}/aliases.tmp"
 mv "${dir_tmp}/aliases.tmp" "${aliases_drushrc_php}"
 
+### Update nginx_sites_map
+d7-generate-nginx-map.sh
+
 commit "Creation of site: ${d7_site_name}"
 
 # Next Instructions

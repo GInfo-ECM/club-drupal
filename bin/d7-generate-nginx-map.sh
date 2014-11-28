@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /home/assos/bin/scripts-config.sh
+
 help=<<EOF
 Generate nginx map from Drupal's sites.php
 

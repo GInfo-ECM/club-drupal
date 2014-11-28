@@ -66,4 +66,4 @@ d7_settings="${dir_template}/${d7_settings_name}"
 d7_settings_local_template="${dir_template}/${d7_settings_local_template_name}"
 
 ### Nginx
-$d7_nginx_map_content="${dir_multi_assos}/nginx_map"
+d7_nginx_map_content="${dir_multi_assos}/nginx_map"

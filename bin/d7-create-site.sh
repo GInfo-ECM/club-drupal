@@ -66,7 +66,7 @@ current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 touch "${d7_dir_individual_auto_backup}/${dir_site_name}/${current_date}.${dir_site_name}.sql"
 touch "${d7_dir_individual_auto_backup}/${dir_site_name}/${current_date}.${dir_site_name}.sql2"
 touch "${d7_dir_individual_auto_backup}/${dir_site_name}/${current_date}.${dir_site_name}.sql3"
-touch "${d7_dir_individual_auto_backup}/${dir_site_name}/${current_date}.${dir_site_name}.sql4}"
+touch "${d7_dir_individual_auto_backup}/${dir_site_name}/${current_date}.${dir_site_name}.sql4"
 
 # Create and grant privileges on database
 mysql --defaults-extra-file="${myassos_cnf}" -e "CREATE DATABASE ${d7_site_name}"
@@ -98,6 +98,8 @@ mv "${dir_tmp}/aliases.tmp" "${aliases_drushrc_php}"
 
 ### Update nginx_sites_map
 d7-generate-nginx-map.sh
+# Reload nginx
+#sudo service nginx reload
 
 commit "Creation of site: ${d7_site_name}"
 

@@ -26,6 +26,7 @@ drush -yq ev "variable_set('update_notify_emails', array('$email_multi_assos_upd
 drush -yq vset error_level 0
 drush -yq vset dblog_row_limit 1000
 drush -yq vset cron_safe_threshold 0
+drush -yq vset file_temporary_path /var/tmp/assos/tmp
 
 ###### Captcha
 drush -yq en hidden_captcha

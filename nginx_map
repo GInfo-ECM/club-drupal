@@ -9,7 +9,6 @@
 ~*^assos.centrale-marseille.fr/ksi/.*$	/ksi;
 ~*^assos.centrale-marseille.fr/jpennec/.*$	/jpennec;
 ~*^assos.centrale-marseille.fr/jenselmetest/.*$	/jenselmetest;
-~*^assos.centrale-marseille.fr/jenselmenginx/.*$	/jenselmenginx;
 ~*^assos.centrale-marseille.fr/jenselme/.*$	/jenselme;
 ~*^assos.centrale-marseille.fr/isf/.*$	/isf;
 ~*^assos.centrale-marseille.fr/icm/.*$	/icm;

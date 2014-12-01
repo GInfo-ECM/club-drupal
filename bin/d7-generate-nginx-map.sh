@@ -17,4 +17,5 @@ cut -d"'" -f2,4 "${sites_php}" |\
  # Remove the ' at the end of the line.
  sed "s/'/ /" |\
  # Put slashes where they are needed (beware of tabs).
- sed 's/ assos.centrale-marseille.fr\./	/; s/assos.centrale-marseille.fr\./assos.centrale-marseille.fr\//; s/	/\/\.\*\$	\//; s/$/;/' >> "${d7_nginx_map_content}"
+ sed 's/ assos.centrale-marseille.fr\./	/; s/assos.centrale-marseille.fr\./~*^assos.centrale-marseille.fr\//; s/	/\/\.\*\$	\//; s/$/;/' \
+ > "${d7_nginx_map_content}"

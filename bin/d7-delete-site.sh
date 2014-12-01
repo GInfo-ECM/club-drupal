@@ -44,7 +44,7 @@ rm -r "${d7_dir_individual_manual_backup}/assos.centrale-marseille.fr.${d7_site_
 echo 'Remove site from nginx_map'
 d7-generate-nginx-map.sh
 # Restart nginx
-#sudo service nginx reload
+sudo service nginx restart
 
 echo "Don't forget to:"
 echo "- Refresh node site on default"

@@ -99,7 +99,7 @@ mv "${dir_tmp}/aliases.tmp" "${aliases_drushrc_php}"
 ### Update nginx_sites_map
 d7-generate-nginx-map.sh
 # Reload nginx
-#sudo service nginx reload
+sudo service nginx restart
 
 commit "Creation of site: ${d7_site_name}"
 

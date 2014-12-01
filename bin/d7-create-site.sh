@@ -38,8 +38,8 @@ if [ $(echo "$1" | wc -c) -gt 16 ] ; then
 fi
 
 # drush site-install needs the translation file
-if [ ! -f "${translation_fr}" ] ; then
-    echo "The translation file $translation_fr does not exist"
+if [ ! -f "${translations_fr}" ] ; then
+    echo "The translation file ${translations_fr} does not exist"
     exit 1
 fi
 

@@ -10,6 +10,7 @@ log/*
 Maildir/*
 tmp/*
 Desktop/*
+unlog
 drush-backups
 d7-sync-config.sh
 .*

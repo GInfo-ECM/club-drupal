@@ -1,3 +1,4 @@
 alias ll='ls -al'
 alias lll='ls -alL'
 alias nano='nano -w'
+alias unlog='python3 /home/assos/unlog/unlog/main.py'

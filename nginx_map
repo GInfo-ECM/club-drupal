@@ -6,6 +6,7 @@
 ~*^assos.centrale-marseille.fr/mmenossi/.*$	/mmenossi;
 ~*^assos.centrale-marseille.fr/mdv/.*$	/mdv;
 ~*^assos.centrale-marseille.fr/lessive/.*$	/lessive;
+~*^assos.centrale-marseille.fr/lepagetest/.*$	/lepagetest;
 ~*^assos.centrale-marseille.fr/ksi/.*$	/ksi;
 ~*^assos.centrale-marseille.fr/jpennec/.*$	/jpennec;
 ~*^assos.centrale-marseille.fr/jenselmetest/.*$	/jenselmetest;

@@ -14,12 +14,16 @@
   }
   // Limits the stacking of top-column blocks to small screen touch.
   @media only screen and (max-width:320px) {
-  #top-columns .column-block-wrapper {
+  #top-columns .column-block-wrapper,
+  #bottom-columns .column-block-wrapper,
+  #footer-columns .column-block-wrapper {
     width: 100% !important;
     margin-top: 1em;
   }
 
-  #top-columns .column-block-wrapper .column-block {
+  #top-columns .column-block-wrapper .column-block,
+  #bottom-columns .column-block-wrapper .column-block,
+  #footer-columns .column-block-wrapper .column-block {
     height: auto !important;
     margin:0 !important;
   }

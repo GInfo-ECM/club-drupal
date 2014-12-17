@@ -34,6 +34,10 @@ function one_col_stack_layout($sidebar_first, $sidebar_second, $sidebar_unit) {
 #sidebar-first,#sidebar-second {float:none;clear:both;display:block;width:100%;margin-left:0;margin-right:0}
 #top-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
 #top-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
+#bottom-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
+#bottom-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
+#footer-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
+#footer-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
 EOF;
 
   return $styles;

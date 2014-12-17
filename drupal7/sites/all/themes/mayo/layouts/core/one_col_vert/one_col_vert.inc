@@ -45,6 +45,10 @@ function one_col_vert_layout($sidebar_first, $sidebar_second, $sidebar_unit) {
 #sidebar-second .section {margin-right: 0; margin-left: 5px;}
 #top-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
 #top-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
+#bottom-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
+#bottom-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
+#footer-columns .column-block-wrapper {width: 100% !important; margin-top: 1em;}
+#footer-columns .column-block-wrapper .column-block {height: auto ; margin: 0 !important;}
 EOF;
 
   return $styles;

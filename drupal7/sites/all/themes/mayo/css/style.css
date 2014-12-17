@@ -372,10 +372,8 @@ fieldset {
 .rc-3 .node,
 .rc-3 .column-block,
 .rc-3 .sidebar .block {
-  -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
+  -webkit-border-radius: 8px;
   border-radius: 8px;
 }
 
@@ -891,7 +889,7 @@ div.tabs ul.secondary li {
   border-bottom-color: #ddd;
   border-right-color: #ddd;
   margin-top: 1px;
-  background: white url(../images/search.png) no-repeat 2px center;
+  background: #fff url(../images/search.png) no-repeat 2px center;
   padding: 0px 4px 0px 4px;
   padding-left: 24px;
   /* space for magnifying glass */
@@ -918,13 +916,13 @@ div.tabs ul.secondary li {
   cursor: pointer;
   font-size: 0.9em;
   border: solid 1px #888888;
-  background: white url(../images/button.gif) repeat-x center;
+  background: #fff url(../images/button.gif) repeat-x center;
 }
 
 .pushbutton:hover, button:hover, .form-submit:hover {
   color: #111111;
   border: solid 1px #666666;
-  background: white url(../images/button-o.gif) repeat-x center;
+  background: #fff url(../images/button-o.gif) repeat-x center;
 }
 
 /**
@@ -1288,12 +1286,16 @@ fieldset.mayo-layout-form div.form-type-radio {
 }
 
 @media only screen and (max-width: 320px) {
-  #top-columns .column-block-wrapper {
+  #top-columns .column-block-wrapper,
+  #bottom-columns .column-block-wrapper,
+  #footer-columns .column-block-wrapper {
     width: 100% !important;
     margin-top: 1em;
   }
 
-  #top-columns .column-block-wrapper .column-block {
+  #top-columns .column-block-wrapper .column-block,
+  #bottom-columns .column-block-wrapper .column-block,
+  #footer-columns .column-block-wrapper .column-block {
     height: auto !important;
     margin: 0 !important;
   }

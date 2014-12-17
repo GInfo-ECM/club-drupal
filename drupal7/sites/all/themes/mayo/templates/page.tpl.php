@@ -148,7 +148,11 @@
       $page['bottom_column_first'] ||
       $page['bottom_column_second'] ||
       $page['bottom_column_third'] ||
-      $page['bottom_column_fourth']) {
+      $page['bottom_column_fourth'] ||
+      $page['footer_column_first'] ||
+      $page['footer_column_second'] ||
+      $page['footer_column_third'] ||
+      $page['footer_column_fourth']) {
     drupal_add_js(drupal_get_path('theme', 'mayo') . '/js/mayo-columns.js');
   }
 ?>

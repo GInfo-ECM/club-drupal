@@ -26,7 +26,7 @@ function commerce_price_flexyformatter_field_formatter_info() {
       'field types' => array('commerce_price'),
       'settings' => array(
         'base' => array('selection' => array('base_price' => 'base_price'), 'weight' => 0, 'calc' => 'default'),
-        'reference1' => array('class' => '.flexy-striked', 'weight' => -10, 'calc' => 'default'),
+        'reference1' => array('class' => 'flexy-striked', 'weight' => -10, 'calc' => 'default'),
         'reference2' => array('weight' => 10, 'calc' => 'default'),
         'raw' => array(),
         // need this to load all price components, hoping will not be changed
@@ -350,7 +350,7 @@ function theme_commerce_price_flexyformatter_selected_amount($variables) {
   drupal_add_css(drupal_get_path('module', 'commerce_price_flexyformatter') . '/commerce_price_flexyformatter.css');
   foreach ($variables as $key => $variable) {
    if (isset($variable['weight']) && is_numeric($variable['weight']) && ($key == 'base' || $variable['enabled'])) {
-    $output .= '<span class=flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '><span class"flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . ($variables['raw'] == false ? commerce_currency_format($variable['amount'], $variables['currency_code']): commerce_price_flexyformatter_raw_format($variable['amount'], $variables['currency_code'])) . '</span></span>';
+    $output .= '<span class="flexy-item' . ($variable['class']?' ' . $variable['class']:'') . '"><span class="flexy-title">' . $variable['label'] . '</span><span class="flexy-amount">' . ($variables['raw'] == false ? commerce_currency_format($variable['amount'], $variables['currency_code']): commerce_price_flexyformatter_raw_format($variable['amount'], $variables['currency_code'])) . '</span></span>';
    }
   }
 

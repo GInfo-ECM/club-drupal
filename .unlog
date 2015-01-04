@@ -1,5 +1,5 @@
 [/home/assos/log/*/*]
-start pattern = /home/assos/drupal7/sites/(assos.centrale-marseille.fr.\w+|default)
+start pattern = /home/assos/(drupal7/sites/(assos.centrale-marseille.fr.\w+|default)|backup/*|drush-backups/*)
 error pattern = (error|warning)
 mail to = assos+log@centrale-marseille.fr
 mail from = assos@centrale-marseille.fr

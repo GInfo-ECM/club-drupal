@@ -18,3 +18,6 @@ d7-sync-config.sh
 # Ignore Eclipse's files.
 /.project
 /.buildpath
+
+# Sauron
+/sauron

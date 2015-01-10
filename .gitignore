@@ -20,4 +20,5 @@ d7-sync-config.sh
 /.buildpath
 
 # Sauron
-/sauron
+/sauron/*
+!/sauron/config

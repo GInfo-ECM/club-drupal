@@ -49,8 +49,8 @@ count_d7_sites() {
 check_arguments() {
     # ARGS: number of arguments passed to script, number of arguments required, [help text]
     if [ "$1" -lt "$2"  ] ; then
-        echo "Number of arguments insuffisant."
-	echo -e "$3"
+        echo "Not enough arguments." >&2
+	echo -e "$3" >&2
         exit 1
     fi
 }
@@ -93,7 +93,7 @@ commit_if_unclean() {
 commit() {
     # ARG: commit message
     if [ -z "$1" ] ; then
-	echo "Empty commit message. Nothing was commited."
+	echo "Empty commit message. Nothing was commited." >&2
 	return 2
     fi
     cd "${dir_multi_assos}"
@@ -103,14 +103,14 @@ commit() {
 site_exists() {
     # Check if site database exists.
     if mysql --defaults-extra-file="${myassos_cnf}" -e "USE $1" 2>/dev/null ; then
-	echo "Database $1 already exits."
+	echo "Database $1 already exits." >&2
 	return 0
     fi
 
     # Check if site folder already exists.
     dir="${d7_dir_sites}/$1"
     if [ -d "${dir}" ] ; then
-	echo "Foder ${dir} already exists."
+	echo "Foder ${dir} already exists." >&2
 	return 0
     fi
     return 1

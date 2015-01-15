@@ -110,7 +110,7 @@ site_exists() {
     # Check if site folder already exists.
     dir="${d7_dir_sites}/$1"
     if [ -d "${dir}" ] ; then
-	echo "Foder ${dir} already exists." >&2
+	echo "Folder ${dir} already exists." >&2
 	return 0
     fi
     return 1

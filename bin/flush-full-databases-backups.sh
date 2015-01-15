@@ -1,8 +1,12 @@
 #!/bin/sh
 
-. /home/assos/bin/scripts-config.sh
+usage() {
+    echo "ARGS: Drupal version"
+}
 
-# ARGS: Drupal version
+. /home/assos/bin/print-help-if-required.sh
+
+. /home/assos/bin/scripts-config.sh
 
 cd "${dir_full_backup}/$1"
 

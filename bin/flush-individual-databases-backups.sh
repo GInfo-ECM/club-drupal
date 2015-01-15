@@ -1,8 +1,12 @@
 #!/bin/sh
 
-. /home/assos/bin/scripts-config.sh
+usage() {
+    echo "ARGS: manual or auto, Drupal version."
+}
 
-# ARGS: manual or auto, Drupal version
+. /home/assos/bin/print-help-if-required.sh
+
+. /home/assos/bin/scripts-config.sh
 
 cd "${dir_individual_backup}/$1/$2"
 

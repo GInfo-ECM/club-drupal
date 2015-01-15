@@ -1,12 +1,28 @@
 #!/bin/sh
 
+usage() {
+    echo "d7-delete-site.sh -s site_name."
+}
+
+site_name=''
+while getopts "hs:" opt; do
+    case "${opt}" in
+	h)
+	    usage; exit 0;;
+	s)
+	    site_name="${OPTARG}";;
+	:)
+	    echo "Option -$OPTARG requires an argument." >&2
+	    usage >&2; exit 1;;
+	\?)
+	    usage >&2; exit 1;;
+    esac
+done
+shift $((OPTIND-1))
+
 . /home/assos/bin/scripts-config.sh
-. scripts-config-site.sh "$1"
+. scripts-config-site.sh "${site_name}"
 . scripts-utils.sh
-
-help="# ARGS: site name."
-
-check_arguments "$#" 1 "${help}"
 
 echo 'Awaiting for git status. (may take a while)'
 if ! work_tree_clean ; then

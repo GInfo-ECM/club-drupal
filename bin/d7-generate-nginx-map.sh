@@ -1,13 +1,20 @@
 #!/bin/sh
 
-. /home/assos/bin/scripts-config.sh
+usage() {
+    help=<<EOF
+Generate nginx map from Drupal's sites.php.
 
-help=<<EOF
-Generate nginx map from Drupal's sites.php
+No option required.
 
 The left part of the map is $http_host$uri.
 The right part is $subdir.
 EOF
+    echo -e "${help}"
+}
+. /home/assos/bin/print-help-if-required.sh
+
+
+. /home/assos/bin/scripts-config.sh
 
 # Only for sites with url like assos.centrale-marseille.fr/subsite (other sites don't need to be in the map)
 cut -d"'" -f2,4 "${sites_php}" |\

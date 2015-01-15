@@ -1,9 +1,13 @@
 #!/bin/sh
 
-. /home/assos/bin/scripts-config.sh
+usage() {
+    printf "This script is intended to help you update drupal core. It follows steps described here: https://forge.centrale-marseille.fr/projects/clubdrupal/wiki/Utilisation_de_Drupal_multi-site#Mise-à-jour-du-noyau-de-Drupal
+Please do not launch in cron.\n"
+}
+. /home/assos/bin/print-help-if-required.sh
 
-help="This script is intended to help you update drupal core. It follows steps described here: https://forge.centrale-marseille.fr/projects/clubdrupal/wiki/Utilisation_de_Drupal_multi-site#Mise-%C3%A0-jour-du-noyau-de-Drupal
-Please do not launch in cron."
+
+. /home/assos/bin/scripts-config.sh
 
 if ! tty -s ; then
     echo "${help}"
@@ -16,7 +20,7 @@ set -e # Exit immediatly if a command exits with a non zero value
 translations_backupdir=/var/tmp
 cp "${translations_fr}" "${translations_backupdir}"
 
-d7-all-dump-individual.sh manual
+d7-all-dump-individual.sh -m manual
 
 d7-all-drush.sh -y en update
 

@@ -7,6 +7,6 @@
 cd "${d7_dir_sites}"
 
 for line in $(drush pml --no-core --pipe); do
-    usage.sh d7 enabled "${line}"
+    usage.sh -v d7 -s enabled -n "${line}"
     echo -e "\n"
 done

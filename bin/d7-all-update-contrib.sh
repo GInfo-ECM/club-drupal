@@ -9,7 +9,7 @@ d7-all-drush.sh -y en update
 # Launch cron to check for updates.
 d7-all-drush.sh -q cron
 
-d7-all-dump-individual.sh auto
+d7-all-dump-individual.sh -m auto
 
 d7-all-drush.sh -y upc --no-core
 d7-all-drush.sh -y updb

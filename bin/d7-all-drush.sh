@@ -1,9 +1,17 @@
 #!/bin/sh
 
+
+help='d7-all-drush.sh drush_arguments'
+
+usage() {
+    echo "${help}"
+}
+. /home/assos/bin/print-help-if-required.sh
+
+
 . /home/assos/bin/scripts-config.sh
 . scripts-utils.sh
 
-help="# ARGS: drush_command"
 
 check_arguments "$#" 1 "${help}"
 

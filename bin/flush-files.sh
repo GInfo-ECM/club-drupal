@@ -43,7 +43,6 @@ if [ -z "${scripts_utils}" ] ; then
     . scripts-utils.sh
 fi
 
-check_arguments "$#" 1 "$help"
 
 # Must not be quoted to avoid problem with ((…))
 backups_number=$(ls | wc -l)

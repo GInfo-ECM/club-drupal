@@ -11,7 +11,7 @@ while getopts "hm:" opt; do
 	h)
 	    usage; exit 0;;
 	m)
-	    mode="$1";;
+	    mode="${OPTARG}";;
 	:)
 	    echo "Option -${OPTARG} requires an argument." >&2
 	    usage >&2; exit 1;;

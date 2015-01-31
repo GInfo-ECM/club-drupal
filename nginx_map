@@ -35,7 +35,6 @@
 ~*^assos.centrale-marseille.fr/bde/.*$	/bde;
 ~*^assos.centrale-marseille.fr/bda/.*$	/bda;
 ~*^assos.centrale-marseille.fr/atrinhtest/.*$	/atrinhtest;
-~*^assos.centrale-marseille.fr/atamisiertest/.*$	/atamisiertest;
 ~*^assos.centrale-marseille.fr/apocaliste/.*$	/apocaliste;
 ~*^assos.centrale-marseille.fr/aoudad/.*$	/aoudad;
 ~*^assos.centrale-marseille.fr/annales/.*$	/annales;

@@ -40,5 +40,4 @@
 ~*^assos.centrale-marseille.fr/aoudad/.*$	/aoudad;
 ~*^assos.centrale-marseille.fr/annales/.*$	/annales;
 ~*^assos.centrale-marseille.fr/aeecm/.*$	/aeecm;
-~*^assos.centrale-marseille.fr/accueiltest/.*$	/accueiltest;
 ~*^assos.centrale-marseille.fr/accueil/.*$	/accueil;

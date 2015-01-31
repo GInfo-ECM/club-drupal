@@ -27,7 +27,6 @@
 ~*^assos.centrale-marseille.fr/clubfinance/.*$	/clubfinance;
 ~*^assos.centrale-marseille.fr/cheer-up/.*$	/cheer-up;
 ~*^assos.centrale-marseille.fr/charlist/.*$	/charlist;
-~*^assos.centrale-marseille.fr/chaasfrangi/.*$	/chaasfrangi;
 ~*^assos.centrale-marseille.fr/beret/.*$	/beret;
 ~*^assos.centrale-marseille.fr/bds/.*$	/bds;
 ~*^assos.centrale-marseille.fr/bde/.*$	/bde;

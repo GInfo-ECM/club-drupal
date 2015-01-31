@@ -60,7 +60,6 @@ $sites['assos.centrale-marseille.fr.apocaliste'] = 'assos.centrale-marseille.fr.
 $sites['assos.centrale-marseille.fr.bda'] = 'assos.centrale-marseille.fr.bda';
 $sites['assos.centrale-marseille.fr.bde'] = 'assos.centrale-marseille.fr.bde';
 $sites['assos.centrale-marseille.fr.bds'] = 'assos.centrale-marseille.fr.bds';
-$sites['assos.centrale-marseille.fr.bphanluong'] = 'assos.centrale-marseille.fr.bphanluong';
 $sites['assos.centrale-marseille.fr.chaasfrangi'] = 'assos.centrale-marseille.fr.chaasfrangi';
 $sites['assos.centrale-marseille.fr.cheer-up'] = 'assos.centrale-marseille.fr.cheer-up';
 $sites['assos.centrale-marseille.fr.clubfinance'] = 'assos.centrale-marseille.fr.clubfinance';

@@ -4,7 +4,7 @@
 
     "drupal": {
         "drupal_root": "drupal7",
-        "contrib_paths": ["sites/all/modules"],
+        "contrib_paths": ["sites/all/modules", "sites/all/themes"],
     }
 }
 

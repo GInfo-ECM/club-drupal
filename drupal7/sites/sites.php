@@ -72,7 +72,6 @@ $sites['fablab.centrale-marseille.fr'] = 'assos.centrale-marseille.fr.fablab';
 $sites['www.forum-foceen.fr'] = 'assos.centrale-marseille.fr.forumentreprises';
 $sites['assos.centrale-marseille.fr.ftorregrosa'] = 'assos.centrale-marseille.fr.ftorregrosa';
 $sites['assos.centrale-marseille.fr.gala'] = 'assos.centrale-marseille.fr.gala';
-$sites['assos.centrale-marseille.fr.ggaydier'] = 'assos.centrale-marseille.fr.ggaydier';
 $sites['assos.centrale-marseille.fr.ginfo'] = 'assos.centrale-marseille.fr.ginfo';
 $sites['assos.centrale-marseille.fr.icm'] = 'assos.centrale-marseille.fr.icm';
 $sites['assos.centrale-marseille.fr.isf'] = 'assos.centrale-marseille.fr.isf';

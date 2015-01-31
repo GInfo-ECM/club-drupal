@@ -88,7 +88,6 @@ $sites['assos.centrale-marseille.fr.charlist'] = 'assos.centrale-marseille.fr.ch
 $sites['assos.centrale-marseille.fr.ksi'] = 'assos.centrale-marseille.fr.ksi';
 $sites['assos.centrale-marseille.fr.beret'] = 'assos.centrale-marseille.fr.beret';
 $sites['assos.centrale-marseille.fr.msb'] = 'assos.centrale-marseille.fr.msb';
-$sites['assos.centrale-marseille.fr.gpeltiertest'] = 'assos.centrale-marseille.fr.gpeltiertest';
 $sites['assos.centrale-marseille.fr.aeecm'] = 'assos.centrale-marseille.fr.aeecm';
 $sites['assos.centrale-marseille.fr.septiluce'] = 'assos.centrale-marseille.fr.septiluce';
 $sites['assos.centrale-marseille.fr.atrinhtest'] = 'assos.centrale-marseille.fr.atrinhtest';

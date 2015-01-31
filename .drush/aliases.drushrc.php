@@ -26,7 +26,6 @@ $aliases['d7'] = array(
         'assos.centrale-marseille.fr/ercm',
         'assos.centrale-marseille.fr/expat',
         'assos.centrale-marseille.fr/fablab',
-        'assos.centrale-marseille.fr/foceentest',
         'assos.centrale-marseille.fr/forumentreprises',
         'assos.centrale-marseille.fr/ftorregrosa',
         'assos.centrale-marseille.fr/gala',
@@ -63,7 +62,6 @@ $aliases['eptest'] = array('uri' => 'assos.centrale-marseille.fr/eptest', 'root'
 $aliases['ercm'] = array('uri' => 'assos.centrale-marseille.fr/ercm', 'root' => '/home/assos/drupal7/', );
 $aliases['expat'] = array('uri' => 'assos.centrale-marseille.fr/expat', 'root' => '/home/assos/drupal7/', );
 $aliases['fablab'] = array('uri' => 'assos.centrale-marseille.fr/fablab', 'root' => '/home/assos/drupal7/', );
-$aliases['foceentest'] = array('uri' => 'assos.centrale-marseille.fr/foceentest', 'root' => '/home/assos/drupal7/', );
 $aliases['forumentreprises'] = array('uri' => 'assos.centrale-marseille.fr/forumentreprises', 'root' => '/home/assos/drupal7/', );
 $aliases['ftorregrosa'] = array('uri' => 'assos.centrale-marseille.fr/ftorregrosa', 'root' => '/home/assos/drupal7/', );
 $aliases['gala'] = array('uri' => 'assos.centrale-marseille.fr/gala', 'root' => '/home/assos/drupal7/', );

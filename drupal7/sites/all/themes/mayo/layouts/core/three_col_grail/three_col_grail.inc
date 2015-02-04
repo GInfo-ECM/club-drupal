@@ -64,6 +64,7 @@ function three_col_grail_layout($sidebar_first, $sidebar_second, $sidebar_unit) 
   $styles = <<<EOF
 .two-sidebars #content .section {margin-$left: $push_left; margin-$right: $push_right}
 .one-sidebar #content .section {margin-$left: $push_left;}
+.sidebar-second #content .section {margin-$left: 0; margin-$right: $pull_right;}
 #sidebar-first .section {margin-left: 0; margin-right: 10px;}
 #sidebar-second .section {margin-right: 0; margin-left: 10px;}
 #sidebar-first {width: $sidebar_first; margin-$left: -100%}

@@ -146,9 +146,9 @@ settings[standard-pc] = 1
   settings[global_default_layout]         = 'smalltouch-portrait'
   settings[global_default_layout_toggle]  = 0
   settings[global_files_path]             = 'public_files'
-; Information added by Drupal.org packaging script on 2014-12-14
-version = "7.x-2.2"
+; Information added by Drupal.org packaging script on 2015-02-04
+version = "7.x-2.3"
 core = "7.x"
 project = "mayo"
-datestamp = "1418527389"
+datestamp = "1423070582"
 

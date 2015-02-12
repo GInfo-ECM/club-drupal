@@ -85,8 +85,8 @@ sql_file="${dir_tmp}/${current_date}.${source_site_name}.sql"
 drush -y "@${source_site_name}" sql-dump --result-file="${sql_file}"
 sed -i -e "s#https?://assos.centrale-marseille.fr/${source_site_name}#https://assos.centrale-marseille.fr/${dest_site_name}#g" "${sql_file}"
 sed -i -e "s#/${source_site_name}/sites/assos.centrale-marseille.fr.${source_site_name}#/${dest_site_name}/sites/assos.centrale-marseille.fr.${dest_site_name}#g" "${sql_file}"
-drush "@${dest_site_name}" sql-drop
-drush "@${dest_site_name}" sql-cli < "${sql_file}"
+drush -y "@${dest_site_name}" sql-drop
+drush -y "@${dest_site_name}" sql-cli < "${sql_file}"
 rm "${sql_file}"
 
 ## Restore file system

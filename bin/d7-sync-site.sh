@@ -45,8 +45,6 @@ fi
 . /home/assos/bin/scripts-config.sh
 . /home/assos/bin/scripts-utils.sh
 
-check_arguments "$#" 2 "${help}"
-
 
 # Create site if necessary
 if ! site_exists "${dest_site_name}" > /dev/null ; then

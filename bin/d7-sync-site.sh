@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 usage() {
-    help=<<EOF
-This script is intended to ease the synchronisation between any site hosted by assos.
+    help="This script is intended to ease the synchronisation between any site hosted by assos.
 Typically, this script is usefull when you have (or want to have) a test site based on
 a already working site. It relies on bash, drush and drush aliases.
 
@@ -10,8 +9,7 @@ Before synching the site, the destination site's database is backuped. If the
 destination site does not exist, it is created. If prod is set, the site is not in
 maintenance mode.
 
-usage: d7-sync.sh -s SOURCE_SITENAME -d DEST_SITENAME [-p]
-EOF
+usage: d7-sync.sh -s SOURCE_SITENAME -d DEST_SITENAME [-p]"
     echo -e "${help}"
 }
 

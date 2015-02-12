@@ -9,6 +9,7 @@
 ~*^assos.centrale-marseille.fr/jenselme/.*$	/jenselme;
 ~*^assos.centrale-marseille.fr/isf/.*$	/isf;
 ~*^assos.centrale-marseille.fr/icm/.*$	/icm;
+~*^assos.centrale-marseille.fr/ginfotest/.*$	/ginfotest;
 ~*^assos.centrale-marseille.fr/ginfo/.*$	/ginfo;
 ~*^assos.centrale-marseille.fr/gala/.*$	/gala;
 ~*^assos.centrale-marseille.fr/ftorregrosa/.*$	/ftorregrosa;

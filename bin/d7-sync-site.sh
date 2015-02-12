@@ -49,7 +49,7 @@ fi
 # Create site if necessary
 if ! site_exists "${dest_site_name}" > /dev/null ; then
     echo "${dest_site_name} does not exit. We will create it"
-    d7-create-site.sh "${dest_site_name}" --no-init-database
+    d7-create-site.sh -s "${dest_site_name}" -m "will@be.erased" -p "willbeerased" -d
     # if the site is new, there is no database
     new_site=1
 fi

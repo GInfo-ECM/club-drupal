@@ -68,7 +68,7 @@ fi
 
 
 # Sync files
-drush -y rsync --delete --exclude="*.php" "@${1}:%site" "@${2}:%site"
+drush -y rsync --delete --exclude="*.php" "@${source_site_name}:%site" "@${dest_site_name}:%site"
 
 
 # Sync databases

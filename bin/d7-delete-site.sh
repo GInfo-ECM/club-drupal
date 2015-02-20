@@ -37,7 +37,7 @@ echo 'Delete MYSQL user.'
 mysql --defaults-extra-file="${myassos_cnf}" -e "DROP USER '${d7_site_name}'@'%'"
 
 echo "Delete site's folder."
-chmod -R 700 "${d7_site_dir}"
+chmod -R u=rwX,go-rwx "${d7_site_dir}"
 rm -r "${d7_site_dir}"
 
 # Delete symbolic link.

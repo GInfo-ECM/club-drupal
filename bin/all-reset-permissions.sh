@@ -15,10 +15,10 @@ done
 chmod -R 700 "${dir_scripts}"
 
 ####### backup
-chmod -R 700 "${dir_backup}"
+chmod -R u=rwX,go-rwx "${dir_backup}"
 
 ####### log
-chmod -R 700 "${dir_log}"
+chmod -R u=rwX,go-rwx "${dir_log}"
 
 ####### private
-chmod -R 700 "${dir_private}"
+chmod -R u=rwX,go-rwx "${dir_private}"

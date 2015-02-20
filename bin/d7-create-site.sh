@@ -150,7 +150,7 @@ fi
 d7-reset-variables.sh "${d7_site_name}"
 
 # Permissions
-chmod -R 755 "${d7_site_dir}"
+chmod -R u=rwX,go=rX "${d7_site_dir}"
 chmod 400 "${d7_site_settings}"
 
 # Last instructions

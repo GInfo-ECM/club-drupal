@@ -1,4 +1,5 @@
 {
+    "mail_server": "smtp.ec-m.fr",
     "administrator": {
         "mail": "assos@centrale-marseille.fr",
         "mail_signature": {

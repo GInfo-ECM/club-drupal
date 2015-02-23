@@ -5,3 +5,6 @@ export MAILDIR=~/Maildir
 
 ####### ALIASES
 . ~/.aliases
+
+###### FUNCTIONS
+. ~/.functions

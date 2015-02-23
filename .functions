@@ -1,0 +1,4 @@
+my-unlog() {
+    . /home/assos/unlog/bin/activate
+    unlog "$@"
+}

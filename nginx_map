@@ -13,6 +13,7 @@
 ~*^assos.centrale-marseille.fr/ginfo/.*$	/ginfo;
 ~*^assos.centrale-marseille.fr/gala/.*$	/gala;
 ~*^assos.centrale-marseille.fr/ftorregrosa/.*$	/ftorregrosa;
+~*^assos.centrale-marseille.fr/expat/.*$	/expat;
 ~*^assos.centrale-marseille.fr/ercm/.*$	/ercm;
 ~*^assos.centrale-marseille.fr/eluseleves/.*$	/eluseleves;
 ~*^assos.centrale-marseille.fr/election/.*$	/election;

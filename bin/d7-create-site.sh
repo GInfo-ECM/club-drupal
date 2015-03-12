@@ -49,7 +49,7 @@ fi
 
 
 . /home/assos/bin/scripts-config.sh
-. /home/assos/bin/scripts-config-site.sh "${site_name}"
+param="${site_name}" . /home/assos/bin/scripts-config-site.sh
 . /home/assos/bin/scripts-utils.sh
 
 # Check if site already exists.

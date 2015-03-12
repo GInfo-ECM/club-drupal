@@ -21,7 +21,7 @@ done
 shift $((OPTIND-1))
 
 . /home/assos/bin/scripts-config.sh
-. scripts-config-site.sh "${site_name}"
+param="${site_name}" . scripts-config-site.sh
 . scripts-utils.sh
 
 echo 'Awaiting for git status. (may take a while)'

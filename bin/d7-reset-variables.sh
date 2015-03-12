@@ -5,7 +5,7 @@
 # ARGS: [site_name]
 
 if [ -n "$1" ] ; then
-    . scripts-config-site.sh "$1"
+    param="$1" . scripts-config-site.sh
     # default is an exception to the rule
     if echo "$1" | grep -q default ; then
 	    cd "${d7_dir_sites}/default"

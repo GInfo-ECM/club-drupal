@@ -126,7 +126,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#size' => 12,
     '#maxlength' => 8,
     '#description' => t('Specify the base vertical (top/bottom) margin which is vertical spaces between page edge and browser screen in px.'),
-    '#prefix' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/base-layout.png') . '" /><br />',
+    '#prefix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/base-layout.png') . '" /><br />',
   );
   $form['layout']['page_margin'] = array(
     '#type' => 'textfield',
@@ -144,7 +144,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
       1 => t('1. Apply page margin to all (header, footer and main contents).'),
       2 => t('2. Apply page margin to main contents only.'),
     ),
-    '#description' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/page-layout.png') . '" /><br />' . t('When the layout 2 is selected, or header background image is selected, header borders are not drawn to make it look better.'),
+    '#description' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/page-layout.png') . '" /><br />' . t('When the layout 2 is selected, or header background image is selected, header borders are not drawn to make it look better.'),
   );
 
   /* --------------- Responsive sidebar layout settings -------------- */
@@ -763,7 +763,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
       'rc-2' => t('Node only'),
       'rc-3' => t('Both sidebar block and node'),
     ),
-    '#suffix' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/round-corners.png') . '" /><br />',
+    '#suffix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/round-corners.png') . '" /><br />',
   );
 
   $form['style']['menubar_style'] = array(
@@ -774,7 +774,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
       1 => t('1. Normal (based on the colors specified by the color set)'),
       2 => t('2. Gloss black image background.'),
     ),
-    '#suffix' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/menubar-type.png') . '" />',
+    '#suffix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/menubar-type.png') . '" />',
   );
   $form['style']['note'] = array(
     '#type' => 'item',
@@ -824,7 +824,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#size' => 12,
     '#maxlength' => 8,
     '#description' => t('Specify the header height in px.'),
-    '#prefix' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/header-layout.png') . '" /><br />',
+    '#prefix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/header-layout.png') . '" /><br />',
   );
   $form['adv_header']['header_border_width'] = array(
     '#type' => 'textfield',
@@ -937,7 +937,7 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
       5 => t('Star'),
       6 => t('Metal'),
     ),
-    '#suffix' => '<img src="' . url(drupal_get_path('theme', 'mayo') . '/images/watermark-sample.png') . '" /><br />',
+    '#suffix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/watermark-sample.png') . '" /><br />',
   );
 
   /* --------------- Misellanenous settings -------------- */

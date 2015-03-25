@@ -2,45 +2,58 @@
  * @file
  * Adds javascript functions for font resizing.
  */
-jQuery(document).ready(function() {
-  var originalFontSize = jQuery('body').css('font-size');
+(function ($) {
+$(document).ready(function() {
+  var originalFontSize = $('body').css('font-size');
 
   // Reset font size
-  jQuery(".resetFont").click(function() {
+  $(".resetFont").click(function() {
     mayoColumnsResetHeight();
-    jQuery('body').css('font-size', originalFontSize);
+    $('body').css('font-size', originalFontSize);
     mayoColumnsAdjustHeight();
     return false;
   });
 
   // Increase font size
-  jQuery(".increaseFont").click(function() {
-    var currentFontSize = jQuery('body').css('font-size');
+  $(".increaseFont").click(function() {
+    var currentFontSize = $('body').css('font-size');
     var currentFontSizeNum = parseFloat(currentFontSize, 10);
     var newFontSizeNum = currentFontSizeNum + 1;
     if (20 >= newFontSizeNum) { /* max 20px */
       var newFontSize = newFontSizeNum + 'px';
       mayoColumnsResetHeight();
-      jQuery('body').css('font-size', newFontSize);
+      $('body').css('font-size', newFontSize);
       mayoColumnsAdjustHeight();
     }
     return false;
   });
 
   // Decrease font size
-  jQuery(".decreaseFont").click(function() {
-    var currentFontSize = jQuery('body').css('font-size');
+  $(".decreaseFont").click(function() {
+    var currentFontSize = $('body').css('font-size');
     var currentFontSizeNum = parseFloat(currentFontSize, 10);
     var newFontSizeNum = currentFontSizeNum - 1;
     if (10 <= newFontSizeNum) { /* min 10px */
       var newFontSize = newFontSizeNum + 'px';
       mayoColumnsResetHeight();
-      jQuery('body').css('font-size', newFontSize);
+      $('body').css('font-size', newFontSize);
       mayoColumnsAdjustHeight();
     }
     return false;
   });
 });
+})(jQuery);
+
+function mayoEqualHeight(group) {
+  var tallest = 0;
+  group.each(function() {
+    var thisHeight = jQuery(this).height();
+    if (thisHeight > tallest) {
+      tallest = thisHeight;
+    }
+  });
+  group.height(tallest);
+}
 
 function mayoColumnsResetHeight() {
   // reset height of column blocks to 'auto' before chaning font size

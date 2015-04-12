@@ -6,7 +6,11 @@ help='d7-all-drush.sh drush_arguments'
 usage() {
     echo "${help}"
 }
-. /home/assos/bin/print-help-if-required.sh
+
+if [ "$1" = "-h" ] ; then
+    usage()
+    exit 0
+fi
 
 
 . /home/assos/bin/scripts-config.sh

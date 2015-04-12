@@ -14,7 +14,7 @@ fi
 
 
 . /home/assos/bin/scripts-config.sh
-. scripts-utils.sh
+. /home/assos/bin/scripts-utils.sh
 
 
 check_arguments "$#" 1 "${help}"

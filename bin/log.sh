@@ -1,6 +1,7 @@
 #!/bin/sh
 . /home/assos/bin/scripts-config.sh
 
+# Read stdin (so stdout from the command passed in argument)
 log=$(cat)
 command="$1"
 

@@ -21,8 +21,8 @@ done
 shift $((OPTIND-1))
 
 . /home/assos/bin/scripts-config.sh
-param="${site_name}" . scripts-config-site.sh
-. scripts-utils.sh
+param="${site_name}" /home/assos/bin/scripts-config-site.sh
+. /home/assos/bin/scripts-utils.sh
 
 echo 'Awaiting for git status. (may take a while)'
 if ! work_tree_clean ; then

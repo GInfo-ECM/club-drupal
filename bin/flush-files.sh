@@ -40,7 +40,7 @@ fi
 # Check if scripts-utils.sh is imported.
 if [ -z "${scripts_utils}" ] ; then
     echo "Import of scripts-utils.sh required."
-    . scripts-utils.sh
+    . /home/assos/bin/scripts-utils.sh
 fi
 
 

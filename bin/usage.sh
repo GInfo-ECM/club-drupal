@@ -38,7 +38,7 @@ fi
 
 
 . /home/assos/bin/scripts-config.sh
-. scripts-utils.sh
+. /home/assos/bin/scripts-utils.sh
 
 
 if [ "${drupal_version}" = d7 ] ; then
@@ -58,7 +58,7 @@ for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all ! -name language
     cd "${dir}";
 	if [ 1 -le $(drush pml --status="${project_status}" | grep "${project_name}" | wc -l) ] ; then
         echo "${dir}";
-        number_found=$(($number_found + 1))
+        number_found=$((${number_found} + 1))
     fi
     cd -
 done

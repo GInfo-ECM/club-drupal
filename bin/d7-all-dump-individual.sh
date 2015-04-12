@@ -23,13 +23,14 @@ shift $((OPTIND-1))
 
 
 . /home/assos/bin/scripts-config.sh
-. scripts-utils.sh
+. /home/assos/bin/scripts-utils.sh
 
 
 current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 
 cd "${d7_dir_sites}"
 
+# cut -c3- is used to transform directories from ./<dirname> to <dirname>
 for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all | cut -c3-); do
     cd "${dir}"
     drush cc all

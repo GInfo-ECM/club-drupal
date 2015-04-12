@@ -5,7 +5,7 @@
 # Check if scripts-config.sh is imported.
 if [ -z "${scripts_config}" ] ; then
     echo "Import of scripts-config.sh required."
-    . scripts-config.sh
+    . /home/assos/bin/scripts-config.sh
 fi
 
 scripts_utils='imported'

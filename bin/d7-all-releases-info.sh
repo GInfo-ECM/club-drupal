@@ -6,7 +6,7 @@
 # and all versions that are available for same project on drupal.org
 
 # modules
-cd "${d7_dir_sites}/all/modules"
+cd "${d7_dir_all_modules}"
 for dir in $(ls -1) ; do
     if [ -d "${dir}" ] ; then
         drush pm-releases "${dir}"
@@ -14,7 +14,7 @@ for dir in $(ls -1) ; do
 done
 
 # themes
-cd "${d7_dir_sites}/all/themes"
+cd "${d7_dir_all_themes}"
 for dir in $(ls -1) ; do
     if [ -d "${dir}" ] ; then
         drush pm-releases "${dir}"

@@ -8,7 +8,7 @@ usage() {
 . /home/assos/bin/print-help-if-required.sh
 
 if [ -n "$1" ] ; then
-    param="$1" /home/assos/bin/scripts-config-site.sh
+    param="$1" . /home/assos/bin/scripts-config-site.sh
     # default is an exception to the rule
     # find returns the name of the as the absolute path, hence the use of grep
     # and not =

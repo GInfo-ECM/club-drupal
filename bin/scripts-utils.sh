@@ -120,5 +120,5 @@ get_site_name_from_dir_name() {
     # ${1##*/} get the part after the last / ie default in /home/assos/drupal7/sites/default
     # $(tr '.' '\n' | tail -n 1) get the part after the last .
     # ie tvp in assos.centrale-marseille.fr.tvp
-    echo $(echo ${1##*/} | tr '.' '\n' | tail -n 1)
+    echo ${1##*/} | tr '.' '\n' | tail -n 1
 }

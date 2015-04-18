@@ -9,10 +9,7 @@ usage() {
 
 if [ -n "$1" ] ; then
     param="$1" . /home/assos/bin/scripts-config-site.sh
-    # default is an exception to the rule
-    # find returns the name of the as the absolute path, hence the use of grep
-    # and not =
-    if echo "$1" | grep -q default ; then
+    if [ "$1" = 'default' ] ; then
 	cd "${d7_dir_sites}/default"
     else
 	cd "${d7_site_dir}"

@@ -85,7 +85,7 @@ case "$1" in
 esac
 
 # Default is an exception and cannot be treated in the case
-if echo "$1" | grep -q default ; then
+if [ "$1" = 'default' ] ; then
     piwik_id=101
 fi
 

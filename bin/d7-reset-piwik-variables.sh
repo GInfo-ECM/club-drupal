@@ -1,17 +1,19 @@
 #!/bin/sh
 
+site="$1"
+
 ###### Common to all sites
-drush -yq en piwik
-drush -yq vset piwik_url_http "http://piwik.centrale-marseille.fr/"
-drush -yq vset piwik_url_https "https://piwik.centrale-marseille.fr/"
+drush @"${site}" -yq en piwik
+drush @"${site}" -yq vset piwik_url_http "http://piwik.centrale-marseille.fr/"
+drush @"${site}" -yq vset piwik_url_https "https://piwik.centrale-marseille.fr/"
 # Piwik cache.
-drush -yq vset piwik_cache 1
-drush -yq vset piwik_visibility_roles "1"
+drush @"${site}" -yq vset piwik_cache 1
+drush @"${site}" -yq vset piwik_visibility_roles "1"
 # Piwik is enable for everyone except the administrator
-drush -yq vset --format=json piwik_roles '[3]'
-drush -yq vset piwik_page_title_hierarchy 1
+drush @"${site}" -yq vset --format=json piwik_roles '[3]'
+drush @"${site}" -yq vset piwik_page_title_hierarchy 1
 # Activate local search.
-drush -yq vset piwik_site_search 1
+drush @"${site}" -yq vset piwik_site_search 1
 
 ##### Specific
 # Note: you can read the piwik site id from the url in piwik
@@ -79,14 +81,12 @@ case "$1" in
     ftorregrosa)
 	piwik_id=314
 	;;
+    default)
+	piwik_id=101
+	;;
     *)
 	piwik_id=287
 	;;
 esac
 
-# Default is an exception and cannot be treated in the case
-if [ "$1" = 'default' ] ; then
-    piwik_id=101
-fi
-
-drush -yq vset piwik_site_id "${piwik_id}"
+drush @"${site}" -yq vset piwik_site_id "${piwik_id}"

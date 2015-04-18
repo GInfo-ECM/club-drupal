@@ -30,14 +30,15 @@ current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 
 cd "${d7_dir_sites}"
 
-# cut -c3- is used to transform directories from ./<dirname> to <dirname>
-for dir in $(find . -maxdepth 1 -mindepth 1 -type d ! -name all | cut -c3-); do
-    cd "${dir}"
-    drush cc all
+for site in $(sites_list); do
+    drush @"${site}" cc all
+
+    dir=$(get_site_dir_from_name "${site}")
+
     if [ "${mode}" = 'auto' ] ; then
-        drush sql-dump --result-file="${d7_dir_individual_auto_backup}/${dir}/${current_date}.${dir}.sql" --gzip
+        drush @"${site}" sql-dump --result-file="${d7_dir_individual_auto_backup}/${dir}/${current_date}.${dir}.sql" --gzip
     else
-        drush sql-dump --result-file="${d7_dir_individual_manual_backup}/${dir}/${current_date}.${dir}.sql" --gzip
+        drush @"${site}" sql-dump --result-file="${d7_dir_individual_manual_backup}/${dir}/${current_date}.${dir}.sql" --gzip
     fi
     cd -
 done

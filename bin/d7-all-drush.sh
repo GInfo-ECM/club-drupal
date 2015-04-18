@@ -19,9 +19,8 @@ fi
 
 check_arguments "$#" 1 "${help}"
 
-for dir in $(find "${d7_dir_sites}" -maxdepth 1 -mindepth 1 -type d ! -name all | sort) ; do
-    cd "${dir}"
-    echo "${dir}"
-    drush "$@"
+for site in $(sites_list) ; do
+    echo "${site}"
+    drush @"${site}" "$@"
     sleep 5
 done

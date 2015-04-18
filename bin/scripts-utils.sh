@@ -42,10 +42,6 @@ generate_password() {
     echo "$site_password"
 }
 
-count_d7_sites() {
-    find "${d7_dir_sites}" -type d ! -name all -maxdepth 1 | wc -l
-}
-
 check_arguments() {
     # ARGS: number of arguments passed to script, number of arguments required, [help text]
     if [ "$1" -lt "$2"  ] ; then
@@ -116,9 +112,21 @@ site_exists() {
     return 1
 }
 
-get_site_name_from_dir_name() {
-    # ${1##*/} get the part after the last / ie default in /home/assos/drupal7/sites/default
-    # $(tr '.' '\n' | tail -n 1) get the part after the last .
-    # ie tvp in assos.centrale-marseille.fr.tvp
-    echo ${1##*/} | tr '.' '\n' | tail -n 1
+get_site_dir_from_name() {
+    if [ "$1" = 'default' ]; then
+	dir='default'
+    else
+	dir="assos.centrale-marseille.fr.$1"
+    fi
+
+    echo "${dir}"
+}
+
+get_absolute_site_dir_from_name() {
+    dir=$(get_site_dir_from_name "$1")
+    echo "${d7_dir_sites}/${dir}"
+}
+
+sites_list() {
+    drush sa --format=csv --fields="name","uri" | awk '{FS=","; if ($2 != "") { print $1;}}' | sort
 }

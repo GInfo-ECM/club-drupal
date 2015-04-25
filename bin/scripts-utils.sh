@@ -128,5 +128,6 @@ get_absolute_site_dir_from_name() {
 }
 
 sites_list() {
-    drush sa --format=csv --fields="name","uri" | awk '{FS=","; if ($2 != "") { print $1;}}' | sort
+    # grep -v "^self$" is used to remove self that appear if command is launched in one of drupal directories
+    drush sa --format=csv --fields="name","uri" | awk '{FS=","; if ($2 != "") { print $1;}}' | sort | grep -v "^self$"
 }

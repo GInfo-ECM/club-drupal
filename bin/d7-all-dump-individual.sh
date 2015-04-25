@@ -28,8 +28,6 @@ shift $((OPTIND-1))
 
 current_date=$(date "+%Y-%m-%d-%Hh%Mm%Ss")
 
-cd "${d7_dir_sites}"
-
 for site in $(sites_list); do
     drush @"${site}" cc all
 
@@ -40,5 +38,4 @@ for site in $(sites_list); do
     else
         drush @"${site}" sql-dump --result-file="${d7_dir_individual_manual_backup}/${dir}/${current_date}.${dir}.sql" --gzip
     fi
-    cd -
 done

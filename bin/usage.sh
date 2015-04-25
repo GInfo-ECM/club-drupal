@@ -58,7 +58,6 @@ for site in $(sites_list) ; do
         echo "${site}";
         number_found=$((${number_found} + 1))
     fi
-    cd -
 done
 
 echo "Number of sites found for project ${project_name} and status ${project_status} : $number_found";

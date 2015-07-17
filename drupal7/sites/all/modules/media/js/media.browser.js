@@ -30,7 +30,7 @@ Drupal.behaviors.MediaBrowser = {
       }
     };
     var activeTab = Drupal.media.browser.tabFromHash();
-    $('#media-browser-tabset').once('MediaBrowser').tabs({
+    $('#media-browser-tabset').tabs({
       selected: activeTab, // jquery < 1.9
       active: activeTab, // jquery >= 1.9
       show: showFunc, // jquery ui < 1.8
@@ -105,11 +105,6 @@ Drupal.media.browser.submit = function () {
 
 Drupal.media.browser.selectMedia = function (selectedMedia) {
   Drupal.media.browser.selectedMedia = selectedMedia;
-};
-
-Drupal.media.browser.selectMediaAndSubmit = function (selectedMedia) {
-  Drupal.media.browser.selectedMedia = selectedMedia;
-  Drupal.media.browser.submit();
 };
 
 Drupal.media.browser.finalizeSelection = function () {

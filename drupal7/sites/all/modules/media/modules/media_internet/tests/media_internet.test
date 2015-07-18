@@ -22,26 +22,6 @@ class MediaInternetTestHelper extends DrupalWebTestCase {
   }
 
   /**
-   * Retrieves a sample file of the specified type.
-   */
-  function getTestFile($type_name, $size = NULL) {
-    // Get a file to upload.
-    $file = current($this->drupalGetTestFiles($type_name, $size));
-
-    // Add a filesize property to files as would be read by file_load().
-    $file->filesize = filesize($file->uri);
-
-    return $file;
-  }
-
-  /**
-   * Retrieves the fid of the last inserted file.
-   */
-  function getLastFileId() {
-    return (int) db_query('SELECT MAX(fid) FROM {file_managed}')->fetchField();
-  }
-
-  /**
    * Get a file from the database based on its filename.
    *
    * @param $filename
@@ -58,21 +38,6 @@ class MediaInternetTestHelper extends DrupalWebTestCase {
     $returned_file = reset($files);
     return $returned_file;
   }
-
-  protected function createFileType($overrides = array()) {
-    $type = new stdClass();
-    $type->type = 'test';
-    $type->label = "Test";
-    $type->description = '';
-    $type->mimetypes = array('image/jpeg', 'image/gif', 'image/png', 'image/tiff');
-
-    foreach ($overrides as $k => $v) {
-      $type->$k = $v;
-    }
-
-    file_type_save($type);
-    return $type;
-  }
 }
 
 /**
@@ -84,6 +49,7 @@ class MediaInternetBrowserWebTabTestCase extends MediaInternetTestHelper {
       'name' => 'Media browser web tab test',
       'description' => 'Tests the media browser web tab.',
       'group' => 'Media Internet',
+      'dependencies' => array('fake'), // @todo remove when File Entity > alpha3 is released. This test currently fails on drupal.org due to testbot dependency issues.
     );
   }
 
@@ -117,44 +83,45 @@ class MediaInternetBrowserWebTabTestCase extends MediaInternetTestHelper {
 }
 
 /**
- * Test the default MediaInternetFileHandler provider.
+ * Test file creation through the file upload wizard with remote media.
  */
-class MediaInternetRemoteFileTestCase extends MediaInternetTestHelper {
+class MediaInternetCreationTestCase extends MediaInternetTestHelper {
   public static function getInfo() {
     return array(
-      'name' => 'Remote media file handler provider',
-      'description' => 'Test the default remote file handler provider.',
+      'name' => 'Remote media file creation',
+      'description' => 'Test file creation with remote media.',
       'group' => 'Media Internet',
+      'dependencies' => array('fake'), // @todo remove when File Entity > alpha3 is released. This test currently fails on drupal.org due to testbot dependency issues.
     );
   }
 
   function setUp() {
     parent::setUp();
 
-    // Disable the private file system which is automatically enabled by
-    // DrupalTestCase so we can test the upload wizard correctly.
-    variable_del('file_private_path');
-
-    $web_user = $this->drupalCreateUser(array('create files', 'add media from remote sources'));
+    $web_user = $this->drupalCreateUser(array('create files', 'add media from remote sources', 'edit own document files'));
     $this->drupalLogin($web_user);
   }
 
   /**
-   * Tests the default remote file handler.
+   * Tests file creation with remote media.
    */
-  function testRemoteFileHandling() {
-    // Step 1: Add a basic document file by providing a URL to the file.
+  function testRemoteMediaFileCreation() {
+    // Create a file.
     $edit = array();
     $edit['embed_code'] = file_create_url('README.txt');
     $this->drupalPost('file/add/web', $edit, t('Next'));
 
-    // Check that the file exists in the database.
-    $fid = $this->getLastFileId();
-    $file = file_load($fid);
-    $this->assertTrue($file, t('File found in database.'));
+    // Step 2: Scheme selection
+    if ($this->xpath('//input[@name="scheme"]')) {
+      $this->drupalPost(NULL, array(), t('Next'));
+    }
 
-    // Check that the video file has been uploaded.
-    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Document', '%name' => $file->filename)), t('Document file uploaded.'));
+    // Check that the document file has been uploaded.
+    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Document', '%name' => 'README.txt')), t('Document file uploaded.'));
+
+    // Check that the file exists in the database.
+    $file = $this->getFileByFilename('README.txt');
+    $this->assertTrue($file, t('File found in database.'));
   }
 }
 
@@ -167,228 +134,43 @@ class MediaInternetProviderTestCase extends MediaInternetTestHelper {
       'name' => 'Custom media provider test',
       'description' => 'Tests the custom media provider APIs.',
       'group' => 'Media Internet',
+      'dependencies' => array('fake'), // @todo remove when File Entity > alpha3 is released. This test currently fails on drupal.org due to testbot dependency issues.
     );
   }
 
   function setUp() {
     parent::setUp('media_internet_test');
 
-    // Disable the private file system which is automatically enabled by
-    // DrupalTestCase so we can test the upload wizard correctly.
-    variable_del('file_private_path');
-
-    // Enable media_internet_test.module's hook_media_internet_providers()
-    // implementation.
-    variable_set('media_internet_test_media_internet_providers', TRUE);
-
-    $web_user = $this->drupalCreateUser(array('create files', 'view own private files', 'add media from remote sources'));
+    $web_user = $this->drupalCreateUser(array('access media browser', 'create files', 'add media from remote sources', 'edit own video files'));
     $this->drupalLogin($web_user);
   }
 
   /**
-   * Test the basic file upload wizard functionality.
+   * Tests file creation with a custom media provider.
    */
-  function testMediaInternetCustomProviderWizardBasic() {
+  function testFilesBrowserSort() {
     $this->drupalGet('file/add/web');
     $this->assertResponse(200);
 
     // Check that the provider is listed as supported.
-    $this->assertRaw(t('Supported internet media providers: !providers.', array('!providers' => '<strong>' . 'Media Internet Test' . '</strong>')), t('The example media provider is enabled.'));
+    $supported_providers = 'Media Internet Test';
+    $this->assertRaw(t('Supported internet media providers: !providers.', array('!providers' => '<strong>' . $supported_providers . '</strong>')), t('The example media provider is enabled.'));
 
-    // Enable media_internet_test.module's
-    // hook_media_browser_plugin_info_alter_alter() implementation and ensure it
-    // is working as designed.
-    variable_set('media_internet_test_media_internet_providers_alter', TRUE);
-
-    $this->drupalGet('file/add/web');
-    $this->assertRaw(t('Supported internet media providers: !providers.', array('!providers' => '<strong>' . 'Altered provider title' . '</strong>')), t('The example media provider was successfully altered.'));
-
-    // Step 1: Upload a basic video file.
+    // Create a file.
     $edit = array();
     $edit['embed_code'] = 'http://www.example.com/video/123';
     $this->drupalPost('file/add/web', $edit, t('Next'));
 
-    // Check that the file exists in the database.
-    $fid = $this->getLastFileId();
-    $file = file_load($fid);
-    $this->assertTrue($file, t('File found in database.'));
-
-    // Check that the video file has been uploaded.
-    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Video', '%name' => $file->filename)), t('Video file uploaded.'));
-  }
-
-  /**
-   * Test the file upload wizard type step.
-   */
-  function testMediaInternetCustomProviderWizardTypes() {
-    // Create multiple file types with the same mime types.
-    $this->createFileType(array('type' => 'video1', 'label' => 'Video 1', 'mimetypes' => array('video/mediainternettest')));
-    $this->createFileType(array('type' => 'video2', 'label' => 'Video 2', 'mimetypes' => array('video/mediainternettest')));
-
-    // Step 1: Upload a basic video file.
-    $edit = array();
-    $edit['embed_code'] = 'http://www.example.com/video/123';
-    $this->drupalPost('file/add/web', $edit, t('Next'));
-
-    // Step 2: File type selection.
-    $edit = array();
-    $edit['type'] = 'video2';
-    $this->drupalPost(NULL, $edit, t('Next'));
-
-    // Check that the file exists in the database.
-    $fid = $this->getLastFileId();
-    $file = file_load($fid);
-    $this->assertTrue($file, t('File found in database.'));
-
-    // Check that the video file has been uploaded.
-    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Video 2', '%name' => $file->filename)), t('Video 2 file uploaded.'));
-  }
-
-  /**
-   * Test the file upload wizard scheme step.
-   */
-  function testMediaInternetCustomProviderWizardSchemes() {
-    // Enable the private file system.
-    variable_set('file_private_path', $this->private_files_directory);
-
-    // Step 1: Upload a basic video file.
-    $edit = array();
-    $edit['embed_code'] = 'http://www.example.com/video/123';
-    $this->drupalPost('file/add/web', $edit, t('Next'));
-
-    // Step 3: Users should not be able to select a scheme for files with
-    // read-only stream wrappers.
-    $this->assertNoFieldByName('scheme');
-
-    // Check that the file exists in the database.
-    $fid = $this->getLastFileId();
-    $file = file_load($fid);
-    $this->assertTrue($file, t('File found in database.'));
-
-    // Check that the video file has been uploaded.
-    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Video', '%name' => $file->filename)), t('Video file uploaded.'));
-  }
-
-  /**
-   * Test the file upload wizard field step.
-   */
-  function testMediaInternetCustomProviderWizardFields() {
-    $filename = $this->randomName();
-
-    // Add a text field to the video file type.
-    $field_name = drupal_strtolower($this->randomName() . '_field_name');
-    $field = array('field_name' => $field_name, 'type' => 'text');
-    field_create_field($field);
-    $instance = array(
-      'field_name' => $field_name,
-      'entity_type' => 'file',
-      'bundle' => 'video',
-      'label' => $this->randomName() . '_label',
-    );
-    field_create_instance($instance);
-
-    // Step 1: Upload a basic video file.
-    $edit = array();
-    $edit['embed_code'] = 'http://www.example.com/video/123';
-    $this->drupalPost('file/add/web', $edit, t('Next'));
-
-    // Step 4: Attached fields.
-    $edit = array();
-    $edit['filename'] = $filename;
-    $edit[$field_name . '[' . LANGUAGE_NONE . '][0][value]'] = $this->randomName();
-    $this->drupalPost(NULL, $edit, t('Save'));
-
-    // Check that the file exists in the database.
-    $fid = $this->getLastFileId();
-    $file = file_load($fid);
-    $this->assertTrue($file, t('File found in database.'));
-
-    // Check that the video file has been uploaded.
-    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Video', '%name' => $filename)), t('Video file uploaded.'));
-  }
-
-  /**
-   * Test skipping each of the file upload wizard steps.
-   */
-  function testMediaInternetCustomProviderWizardStepSkipping() {
-    $filename = $this->randomName();
-
-    // Ensure that the file is affected by every step.
-    variable_set('file_private_path', $this->private_files_directory);
-
-    $this->createFileType(array('type' => 'video1', 'label' => 'Video 1', 'mimetypes' => array('video/mediainternettest')));
-    $this->createFileType(array('type' => 'video2', 'label' => 'Video 2', 'mimetypes' => array('video/mediainternettest')));
-
-    $field_name = drupal_strtolower($this->randomName() . '_field_name');
-    $field = array('field_name' => $field_name, 'type' => 'text');
-    field_create_field($field);
-    $instance = array(
-      'field_name' => $field_name,
-      'entity_type' => 'file',
-      'bundle' => 'video2',
-      'label' => $this->randomName() . '_label',
-    );
-    field_create_instance($instance);
-
-    // Test skipping each upload wizard step.
-    foreach (array('types', 'schemes', 'fields') as $step) {
-      // Step to skip.
-      switch ($step) {
-        case 'types':
-          variable_set('file_entity_file_upload_wizard_skip_file_type', TRUE);
-          break;
-        case 'schemes':
-          variable_set('file_entity_file_upload_wizard_skip_scheme', TRUE);
-          break;
-        case 'fields':
-          variable_set('file_entity_file_upload_wizard_skip_fields', TRUE);
-          break;
-      }
-
-      // Step 1: Upload a basic video file.
-      $edit = array();
-      $edit['embed_code'] = 'http://www.example.com/video/123';
-      $this->drupalPost('file/add/web', $edit, t('Next'));
-
-      // Step 2: File type selection.
-      if ($step != 'types') {
-        $edit = array();
-        $edit['type'] = 'video2';
-        $this->drupalPost(NULL, $edit, t('Next'));
-      }
-
-      // Step 3: Users should not be able to select a scheme for files with
-      // read-only stream wrappers.
-      $this->assertNoFieldByName('scheme');
-
-      // Step 4: Attached fields.
-      if ($step != 'fields') {
-        // Skipping file type selection essentially skips this step as well
-        // because the file will not be assigned a type so no fields will be
-        // available.
-        if ($step != 'types') {
-          $edit = array();
-          $edit['filename'] = $filename;
-          $edit[$field_name . '[' . LANGUAGE_NONE . '][0][value]'] = $this->randomName();
-          $this->drupalPost(NULL, $edit, t('Save'));
-        }
-      }
-
-      // Check that the file exists in the database.
-      $fid = $this->getLastFileId();
-      $file = file_load($fid);
-      $this->assertTrue($file, t('File found in database.'));
-
-      // Determine the file's file type.
-      $type = file_type_load($file->type);
-
-      // Check that the video file has been uploaded.
-      $this->assertRaw(t('!type %name was uploaded.', array('!type' => $type->label, '%name' => $file->filename)), t('Video file uploaded.'));
-
-      // Reset 'skip' variables.
-      variable_del('file_entity_file_upload_wizard_skip_file_type');
-      variable_del('file_entity_file_upload_wizard_skip_scheme');
-      variable_del('file_entity_file_upload_wizard_skip_fields');
+    // Step 2: Scheme selection
+    if ($this->xpath('//input[@name="scheme"]')) {
+      $this->drupalPost(NULL, array(), t('Next'));
     }
+
+    // Check that the video file has been uploaded.
+    $this->assertRaw(t('!type %name was uploaded.', array('!type' => 'Video', '%name' => 'Drupal')), t('Video file uploaded.'));
+
+    // Check that the file exists in the database.
+    $file = $this->getFileByFilename('Drupal');
+    $this->assertTrue($file, t('File found in database.'));
   }
 }

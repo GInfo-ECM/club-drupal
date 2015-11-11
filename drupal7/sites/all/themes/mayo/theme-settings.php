@@ -817,15 +817,6 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#default_value' => theme_get_setting('header_fontsizer'),
     '#description' => t('Check here if you want to add font resizing controls at side of the header.'),
   );
-  $form['adv_header']['header_height'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Header height'),
-    '#default_value' => theme_get_setting('header_height'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the header height in px.'),
-    '#prefix' => '<img src="' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/header-layout.png') . '" /><br />',
-  );
   $form['adv_header']['header_border_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Header border width'),
@@ -833,54 +824,6 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#size' => 12,
     '#maxlength' => 8,
     '#description' => t('Specify the header border width in px. Note that header border is not drawn when you use header background image or when you use layout style 2.'),
-  );
-  $form['adv_header']['logo_left_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Logo left margin'),
-    '#default_value' => theme_get_setting('logo_left_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the left margin of the logo in px. This setting is used only when the logo option is enabled.'),
-  );
-  $form['adv_header']['logo_top_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Logo top margin'),
-    '#default_value' => theme_get_setting('logo_top_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the top margin of the logo in px. This setting is used only when the logo option is enabled.'),
-  );
-  $form['adv_header']['sitename_left_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Site name left margin'),
-    '#default_value' => theme_get_setting('sitename_left_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the left margin of the site name in px. This setting is used only when the sitename option is enabled.'),
-  );
-  $form['adv_header']['sitename_top_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Site name top margin'),
-    '#default_value' => theme_get_setting('sitename_top_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the top margin of the site name in px. This setting is used only when the sitename option is enabled.'),
-  );
-  $form['adv_header']['searchbox_right_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Search form right margin'),
-    '#default_value' => theme_get_setting('searchbox_right_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the right margin of the search form in px. This setting is used only when the header search form option is enabled.'),
-  );
-  $form['adv_header']['searchbox_top_margin'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Search form top margin'),
-    '#default_value' => theme_get_setting('searchbox_top_margin'),
-    '#size' => 12,
-    '#maxlength' => 8,
-    '#description' => t('Specify the right margin of the search form in px. This setting is used only when the header search form option is enabled.'),
   );
   $form['adv_header']['searchbox_size'] = array(
     '#type' => 'textfield',
@@ -952,6 +895,12 @@ function mayo_form_system_theme_settings_alter(&$form, &$form_state) {
     '#title' => t('Display breadcrumb'),
     '#default_value' => theme_get_setting('display_breadcrumb'),
     '#description' => t('Check here if you want to display breadcrumb.'),
+  );
+    $form['misc']['homeless_breadcrumb'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display Mayo style breadcrumb'),
+    '#default_value' => theme_get_setting('homeless_breadcrumb'),
+    '#description' => t('Check here if you want to display breadcrumb with \'Home\' link removed and \'>\' seperator at end.'),
   );
   $form['misc']['dark_messages'] = array(
     '#type' => 'checkbox',

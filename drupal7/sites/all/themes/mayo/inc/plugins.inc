@@ -31,7 +31,6 @@ function mayo_get_plugins($theme_name) {
             }
           }
         }
-        array_unique($plugins_list);
         $plugins = $plugins_list;
       }
   }

@@ -88,8 +88,6 @@
   }
 
   $header_style = '';
-  $header_height = theme_get_setting('header_height');
-  if (!empty($header_height)) $header_style .= 'height: ' . $header_height . ';';
   $header_bg_file = check_url(theme_get_setting('header_bg_file'));
   if ($header_bg_file) {
     $header_style .= 'filter:;background: url(' . $header_bg_file . ') repeat ';
@@ -110,33 +108,9 @@
     $header_watermark_style = 'background-image: url(' . file_create_url(drupal_get_path('theme', 'mayo') . '/images/pat-' . $header_watermark . '.png') . ');';
   }
 
-  $logo_style = '';
-  $logo_left_margin = theme_get_setting('logo_left_margin');
-  if (empty($logo_left_margin)) $logo_left_margin = '0px';
-  $logo_top_margin = theme_get_setting('logo_top_margin');
-  if (empty($logo_top_margin)) $logo_top_margin = '0px';
-  $logo_style = 'margin-left: ' . $logo_left_margin . '; margin-top: ' . $logo_top_margin . ';';
-
-  $sitename_style = '';
-  $sitename_left_margin = theme_get_setting('sitename_left_margin');
-  if (empty($sitename_left_margin)) $sitename_left_margin = '0px';
-  $sitename_top_margin = theme_get_setting('sitename_top_margin');
-  if (empty($sitename_top_margin)) $sitename_top_margin = '0px';
-  $sitename_style = 'margin-left: ' . $sitename_left_margin . '; margin-top: ' . $sitename_top_margin . ';';
-
-  $searchbox_style = '';
-  $searchbox_right_margin = theme_get_setting('searchbox_right_margin');
-  if (empty($searchbox_right_margin)) $searchbox_right_margin = '0px';
-  $searchbox_top_margin = theme_get_setting('searchbox_top_margin');
-  if (empty($searchbox_top_margin)) $searchbox_top_margin = '0px';
-  $searchbox_style = 'margin-right: ' . $searchbox_right_margin . '; margin-top: ' . $searchbox_top_margin . ';';
-
   $menubar_style = '';
   $menubar_bg_value = theme_get_setting('menubar_bg_value');
   if (theme_get_setting('menubar_background') == 1) $menubar_style = ' style=" background-color: ' . $menubar_bg_value . ';"';
-
-  $fontsizer_top_margin = (intval($searchbox_top_margin) + 3) . 'px';
-  $fontsizer_style = 'margin-top: ' . $fontsizer_top_margin . ';';
 
   if (theme_get_setting('header_fontsizer')) {
     drupal_add_js(drupal_get_path('theme', 'mayo') . '/js/mayo-fontsize.js');
@@ -168,7 +142,7 @@
     <div class="section clearfix">
 
       <?php if ($logo): ?>
-        <div id="logo" style="<?php echo $logo_style; ?>">
+        <div id="logo">
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
           <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
         </a>
@@ -176,7 +150,7 @@
       <?php endif; ?>
 
       <?php if ($site_name || $site_slogan): ?>
-        <div id="name-and-slogan" style="<?php echo $sitename_style; ?>">
+        <div id="name-and-slogan">
           <?php if ($site_name): ?>
             <?php if ($title): ?>
               <div id="site-name"><strong>
@@ -196,13 +170,13 @@
       <?php endif; ?>
 
       <?php if ((theme_get_setting('header_searchbox')) && function_exists('search_box')) { ?>
-        <div id="header-searchbox" style="<?php echo $searchbox_style; ?>">
+        <div id="header-searchbox">
       <?php  $output_form = drupal_get_form('search_block_form'); print render($output_form); ?>
         </div>
       <?php } ?>
 
       <?php if (theme_get_setting('header_fontsizer')) { ?>
-        <div id="header-fontsizer" style="<?php echo $fontsizer_style; ?>">
+        <div id="header-fontsizer">
         <a href="#" class="decreaseFont" title="Decrease text size"></a>
         <a href="#" class="resetFont"    title="Restore default text size"></a>
         <a href="#" class="increaseFont" title="Increase text size"></a>

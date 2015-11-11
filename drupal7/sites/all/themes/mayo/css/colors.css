@@ -39,7 +39,6 @@ body.overlay {
 .tabs ul.secondary li.active a,
 .tabs ul.primary li.active a {
   background-color: #fef8dd;
-  border-color: #e3ddb0;
 }
 
 .tabs ul.secondary li {

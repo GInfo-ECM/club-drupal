@@ -34,7 +34,7 @@ best.
 
 7. Watermark of the header area which is added over the header gradation or header background images.
 
-8. Other miscellaneous options such as toggle to display/not display breadcrumbs.
+8. Miscellaneous options include: Toggle to display/not display breadcrumbs, and if displayed which style. Mayo style without "Home" link or Bartik style.
 
 9 You can add font resizing control to the header (default is OFF)
 

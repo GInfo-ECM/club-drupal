@@ -58,14 +58,7 @@ settings[round_corners] = 'rc-0'
 
 settings[header_searchbox] = 1
 settings[header_fontsizer] = 0
-settings[header_height] = 90px
 settings[header_border_width] = 1px
-settings[logo_top_margin] = 15px
-settings[logo_left_margin] = 20px
-settings[sitename_top_margin] = 15px
-settings[sitename_left_margin] = 20px
-settings[searchbox_top_margin] = 10px
-settings[searchbox_right_margin] = 15px
 settings[searchbox_size] = 12
 settings[header_bg_file] = ''
 settings[header_bg_alignment] = 'top left'
@@ -80,6 +73,7 @@ settings[bigscreen_sidebar_first_width] = 25%
 settings[bigscreen_sidebar_second_width] = 25%
 
 settings[display_breadcrumb] = 1
+settings[homeless_breadcrumb] = 1
 settings[dark_messages] = 0
 
 settings[global_default_layout] = 'smalltouch-portrait'
@@ -146,9 +140,9 @@ settings[standard-pc] = 1
   settings[global_default_layout]         = 'smalltouch-portrait'
   settings[global_default_layout_toggle]  = 0
   settings[global_files_path]             = 'public_files'
-; Information added by Drupal.org packaging script on 2015-03-21
-version = "7.x-2.5"
+; Information added by Drupal.org packaging script on 2015-11-11
+version = "7.x-2.6"
 core = "7.x"
 project = "mayo"
-datestamp = "1426955288"
+datestamp = "1447208341"
 

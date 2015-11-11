@@ -28,16 +28,17 @@
 #header-watermark {
   margin: 0;
   padding: 0;
-  height: 200px;
   background-image: none;
   background-repeat: no-repeat;
   background-position: top center;
 }
 div#logo {
   float: left;
+  padding: 9px 4px 4px 9px;
 }
 #name-and-slogan {
   float: left;
+  padding: 8px 8px;
 }
 #site-name a,
 #header h1 a,
@@ -310,7 +311,6 @@ div.tabs .primary {
 }
 ul.secondary li,
 ul.primary li {
-  padding: 2px 0px;
   margin: 0px;
   line-height: 1em;
 }
@@ -474,6 +474,8 @@ div.tabs ul.secondary li {
 #header-searchbox {
   float: right;
   overflow: hidden;
+  padding: 8px;
+  margin: 0px;
 }
 
 /************************/
@@ -502,7 +504,7 @@ div.tabs ul.secondary li {
   float: right;
   margin: 0;
   margin-right: 20px;
-  padding: 0px;
+  padding: 13px 0 0 0;
   border-width: 0px;
   line-height: 1.2em;
 
@@ -739,6 +741,92 @@ ul.nice-menu li ul li.menuparent li a:hover {
   margin: 0;
   padding: 0px;
 }
+
+/* --------------- System Tabs  --------------- */
+
+.tabs {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 20px;
+}
+.tabs ul.primary {
+  padding: 0 3px;
+  margin: 0;
+  overflow: hidden;
+  border: none;
+  background: transparent url(../images/tabs-border.png) repeat-x left bottom;
+}
+.tabs ul.primary li {
+  display: block;
+  float: left; /* LTR */
+  vertical-align: bottom;
+  margin: 0 5px 0 0; /* LTR */
+}
+.tabs ul.primary li.active a {
+  border-bottom: 1px solid #ffffff;
+}
+.tabs ul.primary li a {
+  color: #000;
+  background-color: #ededed;
+  height: 1.8em;
+  line-height: 1.9;
+  display: block;
+  font-size: 0.929em;
+  float: left; /* not LTR */
+  padding: 0 10px 3px;
+  margin: 0;
+  text-shadow: 0 1px 0 #fff;
+  -khtml-border-radius-topleft: 6px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -khtml-border-radius-topright: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.tabs ul.primary li.active a {
+  background-color: #ffffff;
+}
+.tabs ul.secondary {
+  border-bottom: none;
+  padding: 0.5em 0;
+}
+.tabs ul.secondary li {
+  display: block;
+  float: left; /* LTR */
+}
+.tabs ul.secondary li:last-child {
+  border-right-width: 1px; /* LTR */
+}
+.tabs ul.secondary li:first-child {
+  padding-left: 0; /* LTR */
+}
+.tabs ul.secondary li a {
+  padding: 0.25em 0.5em;
+}
+.tabs ul.secondary li a.active {
+  background: #f2f2f2;
+  border-bottom: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+ul.action-links {
+  list-style: none;
+  margin: 5px;
+  padding: 0.5em 1em;
+}
+ul.action-links li {
+  display: inline-block;
+  margin-left: 10px;
+}
+ul.action-links li a {
+  padding-left: 15px;
+  background: url(../images/add.png) no-repeat left center;
+  margin: 0 10px 0 0;
+}
+
 @import "partials/admin-layout-settings";
 @import "partials/mobile-first";
 @import "partials/responsive-media";

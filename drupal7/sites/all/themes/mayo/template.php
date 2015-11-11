@@ -64,28 +64,41 @@ function mayo_build_columns($columns) {
 }
 
 /**
- * Return a themed breadcrumb links
+ * Implements theme_breadcrumb().
  *
- * @param $breadcrumb
- *  An array containing the breadcrumb links.
- * @return
- *  A string containing the breadcrumb output.
- */
+ * Return themed breadcrumb links.
+ *
+ * @param array $variables
+ *   An array containing the breadcrumb links.
+ *
+ * @return string
+ *   A string containing the breadcrumb output.
+  */
 function mayo_breadcrumb($variables) {
   $breadcrumb = $variables['breadcrumb'];
 
-  // remove 'Home'
-  if (is_array($breadcrumb)) {
-    array_shift($breadcrumb);
+  // Remove 'Home' and add trailing seperator.
+  if (theme_get_setting('homeless_breadcrumb') == 1) {
+    if (is_array($breadcrumb)) {
+      array_shift($breadcrumb);
+    }
+    if (!empty($breadcrumb)) {
+      $breadcrumb_separator = ' > ';
+      $breadcrumb_str = implode($breadcrumb_separator, $breadcrumb);
+      $breadcrumb_str .= $breadcrumb_separator;
+      $out = '<div class="breadcrumb">' . $breadcrumb_str . '</div>';
+      return $out;
+    }
   }
-  if (!empty($breadcrumb)) {
-    $breadcrumb_separator = ' > ';
-    $breadcrumb_str = implode($breadcrumb_separator, $breadcrumb);
-    $breadcrumb_str .= $breadcrumb_separator;
-    $out = '<div class="breadcrumb">' . $breadcrumb_str . '</div>';
-    return $out;
+  // Bartik style breadcrumb.
+  else {
+    if (!empty($breadcrumb)) {
+      $breadcrumb_separator = ' » ';
+      $breadcrumb_str = implode($breadcrumb_separator, $breadcrumb);
+      $out = '<div class="breadcrumb">' . $breadcrumb_str . '</div>';
+      return $out;
+    }
   }
-  return '';
 }
 
 /**
@@ -191,7 +204,7 @@ function mayo_preprocess_html(&$variables) {
   $style = 'font-size: ' . $base_font_size . '; ';
   $base_font_family = theme_get_setting('base_font_family');
   if ($base_font_family == 2) { // Custom
-    $style .= 'font-family: ' . theme_get_setting('base_custom_font_family') . ';';
+    $style .= 'font-family: ' . str_replace(array("&quot;", '\\', '/', '&#039;', '(', ')', ':', ';'), array('"', ''), check_plain(theme_get_setting('base_custom_font_family'))) . ';';
   }
   else {
     $style .= $font_family[$base_font_family];
@@ -200,7 +213,7 @@ function mayo_preprocess_html(&$variables) {
 
   $heading_font_family = theme_get_setting('heading_font_family');
   if ($heading_font_family == 2) { // Custom
-    $style .= 'font-family: ' . theme_get_setting('heading_custom_font_family') . ';';
+    $style .= 'font-family: ' . str_replace(array("&quot;", '\\', '/', '&#039;', '(', ')', ':', ';'), array('"', ''), check_plain(theme_get_setting('heading_custom_font_family'))) . ';';
   }
   else {
     $style = $font_family[$heading_font_family];

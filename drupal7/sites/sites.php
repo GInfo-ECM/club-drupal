@@ -93,3 +93,4 @@ $sites['assos.centrale-marseille.fr.ginfotest'] = 'assos.centrale-marseille.fr.g
 $sites['assos.centrale-marseille.fr.expat'] = 'assos.centrale-marseille.fr.expat';
 $sites['assos.centrale-marseille.fr.cneuvilletest'] = 'assos.centrale-marseille.fr.cneuvilletest';
 $sites['assos.centrale-marseille.fr.scrocquevieille'] = 'assos.centrale-marseille.fr.scrocquevieille';
+$sites['assos.centrale-marseille.fr.mschiano'] = 'assos.centrale-marseille.fr.mschiano';

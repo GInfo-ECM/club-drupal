@@ -11,7 +11,7 @@ d7-all-drush.sh -q cron
 
 d7-all-dump-individual.sh -m auto
 
-d7-all-drush.sh -y upc --no-core --lock=media,file_entity
+d7-all-drush.sh -y upc --no-core
 d7-all-drush.sh -y updb
 
 d7-all-drush.sh -y dis update

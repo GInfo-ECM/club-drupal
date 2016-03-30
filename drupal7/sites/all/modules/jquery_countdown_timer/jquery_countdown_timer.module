@@ -86,9 +86,11 @@ function jquery_countdown_timer_block_view($delta = '', $edit = array()) {
 }
 
 /**
- * Adds javascript to the block.
+ * Adds timer to the page.
+ * @param  mixed $context an optional value to provide context in calls
+ * @return array  an array of items to attach to the current request
  */
-function jquery_countdown_timer_attach() {
+function jquery_countdown_timer_attach($context = NULL) {
   $attach = array();
   $path = drupal_get_path('module', 'jquery_countdown_timer');
   // add external js files
@@ -102,24 +104,27 @@ function jquery_countdown_timer_attach() {
       'scope' => 'footer',
     ),
   );
+  // set the default date and allow other projects to modify contextually
+  $date = variable_get('jquery_countdown_timer_date', date('Y-m-d G:i:s'));
+  drupal_alter('jquery_countdown_timer_date', $date, $context);
   // add js settings
   $settings = array(
-    'jquery_countdown_timer_date' => strtotime(variable_get('jquery_countdown_timer_date', date('Y-m-d G:i:s'))),
+    'jquery_countdown_timer_date' => strtotime($date),
   );
-   $attach['js'][] = array(
-     'data' =>  array('jquery_countdown_timer' => $settings),
-     'type' => 'setting',
-   );
-   //add css
-   $attach['css'] = array(
-     $path . '/css/jquery_countdown_timer.css',
-   );
-   //add inline css
-   $font_size = variable_get('jquery_countdown_timer_font_size', 28);
-   $attach['css'][] = array(
-     'data' => '.countdownHolder {font-size: ' . $font_size . 'px}',
-     'type' => 'inline',
-   );
+  $attach['js'][] = array(
+    'data' =>  array('jquery_countdown_timer' => $settings),
+    'type' => 'setting',
+  );
+  //add css
+  $attach['css'] = array(
+    $path . '/css/jquery_countdown_timer.css',
+  );
+  //add inline css
+  $font_size = variable_get('jquery_countdown_timer_font_size', 28);
+  $attach['css'][] = array(
+    'data' => '.countdownHolder {font-size: ' . $font_size . 'px}',
+    'type' => 'inline',
+  );
   return $attach;
 }
 

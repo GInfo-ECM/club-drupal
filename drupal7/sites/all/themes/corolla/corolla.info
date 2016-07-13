@@ -437,9 +437,9 @@
   settings[menu_bullets]          = 'mb-dd'
   settings[menu_bar_position]     = 'mbp-l'
 
-; Information added by Drupal.org packaging script on 2014-03-23
-version = "7.x-3.0"
+; Information added by Drupal.org packaging script on 2016-07-11
+version = "7.x-3.1"
 core = "7.x"
 project = "corolla"
-datestamp = "1395577158"
+datestamp = "1468236841"
 

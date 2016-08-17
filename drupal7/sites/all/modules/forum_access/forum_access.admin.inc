@@ -62,7 +62,7 @@ function _forum_access_forum_form(&$form, &$form_state, $is_container) {
     );
     $form['forum_access']['update_choice'] = array(
       '#type' => 'radios',
-      '#title' => 'Update the permissions',
+      '#title' => t('Update the permissions'),
       '#description' => t('<em>If</em> you make any node access changes, then each node in this forum needs to be updated. Hover over the radiobuttons for details.'),
       '#options' => NULL,
       0 => array(
@@ -403,7 +403,7 @@ function _forum_access_forum_interference_form($is_container, $na_modules, $fa_p
       $ca_priority = content_access_get_settings('priority', 'forum');
       $is_conflict = ($ca_priority >= $fa_priority && !empty($ca_interferes) || $ca_priority > $fa_priority);
       $variables += array(
-        '!link'     => l(t('@Content_Access configuration for the %content_type type', $variables), 'admin/content/node-type/forum/access', array('html' => TRUE)),
+        '!link'     => l(t('@Content_Access configuration for the %content_type type', $variables), 'admin/structure/types/manage/forum/access', array('html' => TRUE)),
         '%Advanced' => $tr('Advanced'),
       );
       $specifically = ($ca_priority == $fa_priority ? t('Specifically, any grants given by !Content_Access cannot be taken back by !Forum_Access.', $variables) : '');
@@ -795,9 +795,7 @@ function _forum_access_forum_overview(&$form, &$form_state) {
  * Add warnings on Content Access admin forms where CA wants
  * to control the same content types as we do.
  */
-function _forum_access_content_access_admin_form() {
-  return;
-  //TODO Fix when CA is released!
+function _forum_access_content_access_admin_form($bundle) {
   $tr = 't';
   $l = 'l';
   $variables = array(
@@ -809,15 +807,14 @@ function _forum_access_content_access_admin_form() {
     '%Advanced' => $tr('Advanced'),
   );
   $dsm = 'drupal_set_message';
-  if (arg(3) == 'forum') {
+  if ($bundle->type == 'forum') {
     $dsm(t('Note: In Drupal, access can only be granted, not taken away. Whatever access you grant here will not be reflected in the !Forum_Access_link settings, but !Forum_Access can only allow <i>more</i> access, not less.', $variables)
       . '<br /><span class="error">' . t('Specifically, any rights granted to the %anonymous_user and/or the %authenticated_user will <b>override</b> the settings of !Forum_Access!', $variables) . '</span>'
       . '<br />' . t('To avoid conflicts with !Forum_Access settings, you may want to lower the priority of !Content_Access (under %Advanced below) below the priority of !Forum_Access for the content types that you want to be controlled by !Forum_Access.', $variables), 'warning');
   }
   else {
-    $vid = _forum_access_get_vid();
-    $vocabulary = taxonomy_vocabulary_load($vid);
-    if (isset($vocabulary->nodes[arg(3)])) {
+    $instances = field_info_instances('node', $bundle->type);
+    if (isset($instances['taxonomy_forums'])) {
       $dsm(t('Note: Nodes of this content type can be put inside forums, where access to them will also be controlled by !Forum_Access.<br />In Drupal, access can only be granted, not taken away. Whatever access you grant here will not be reflected on the !Forum_Access_link settings, and vice versa, but any node access module can only allow <i>more</i> access, not less.', $variables), 'warning');
     }
   }

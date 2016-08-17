@@ -15,6 +15,7 @@
  * Remind the user to upgrade to Chain Menu Access API 2.x.
  */
 function forum_access_requirements($phase) {
+  require_once DRUPAL_ROOT . '/includes/install.inc';
   $result = array();
   switch ( $phase ) {
     case 'update':
@@ -110,6 +111,9 @@ function _forum_access_comment_access_callback($comment, $op) {
 
   if (is_numeric($comment)) {
     $comment = comment_load($comment);
+    if (empty($comment)) {
+      return FALSE;
+    }
   }
   $node = node_load($comment->nid);
 
@@ -275,7 +279,7 @@ function forum_access_form_alter(&$form, &$form_state, $form_id) {
   }
   elseif ($form_id == 'content_access_admin_settings' && empty($_POST)) {
     _forum_access_module_load_include('admin.inc');
-    _forum_access_content_access_admin_form();
+    _forum_access_content_access_admin_form($form_state['build_info']['args'][0]);
   }
 }
 
@@ -454,22 +458,19 @@ function forum_access_custom_theme() {
  * Saves the tid on the forum-specific pages.
  */
 function forum_access_menu_get_item_alter(&$router_item, $path, $original_map) {
-  switch ($original_map[0]) {
-
-    case 'forum':
-      if (empty($original_map[1])) {
-        forum_access_current_tid(0);
-      }
-      elseif (is_numeric($original_map[1])) {
-        forum_access_current_tid($original_map[1]);
-      }
-      break;
-
-    case 'node':
-      if (isset($original_map[1]) && is_numeric($nid = $original_map[1]) && ($node = node_load($nid)) && ($tid = _forum_access_get_tid($node))) {
-        forum_access_current_tid($tid);
-      }
-      break;
+  if (forum_access_current_tid() == 0) {
+    switch ($original_map[0]) {
+      case 'forum':
+        if (isset($original_map[1]) && is_numeric($original_map[1])) {
+          forum_access_current_tid($original_map[1]);
+        }
+        break;
+      case 'node':
+        if (isset($original_map[1]) && is_numeric($nid = $original_map[1]) && ($node = node_load($nid)) && ($tid = _forum_access_get_tid($node))) {
+          forum_access_current_tid($tid);
+        }
+        break;
+    }
   }
 }
 
@@ -498,7 +499,7 @@ function forum_access_preprocess_forum_list(&$variables) {
     foreach ($variables['forums'] as $tid => $forum) {
       $forum->forum_access_moderators = NULL;
       if ($uids = forum_access_get_moderator_uids($tid)) {
-        $forum->forum_access_moderators = user_load_multiple(uids);
+        $forum->forum_access_moderators = user_load_multiple($uids);
       }
     }
   }
@@ -523,19 +524,6 @@ function forum_access_comment_view_alter(&$build) {
   if ($tid = _forum_access_get_tid($build['#node'])) {
     _forum_access_module_load_include('node.inc');
     _forum_access_comment_view_alter($build, $tid);
-  }
-}
-
-/**
- * Implements $modulename_preprocess_$hook() for comment.
- *
- * Recreate comment links (they've already been themed), and
- * remove those that aren't accessible to the user.
- */
-function forum_access_preprocess_comment(&$variables) {
-  if (isset($variables['node']->tid)) {
-    _forum_access_module_load_include('node.inc');
-    _forum_access_preprocess_comment($variables);
   }
 }
 

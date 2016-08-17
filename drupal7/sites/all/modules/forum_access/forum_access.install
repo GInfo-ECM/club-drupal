@@ -172,7 +172,7 @@ function forum_access_update_6106() {
  */
 function forum_access_update_7001() {
   // We don't need the Forum Moderator temporary role anymore.
-  if ($moderator_rid = variable_get('forum_access_moderator_rid', NULL)) {
+  if ($moderator_rid = (int) variable_get('forum_access_moderator_rid', NULL)) {
     user_role_delete($moderator_rid);
     variable_del('forum_access_moderator_rid');
   }

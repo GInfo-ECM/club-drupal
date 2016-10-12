@@ -128,6 +128,14 @@ get_absolute_site_dir_from_name() {
 }
 
 sites_list() {
+    # The commands output assos.centrale-marseille.fr/<site-name> or assos.centrale-marseille.fr (default).
+    # Since we want only the site name (and default for default), we replace assos.centrale-marseille.fr by
+    # assos.centrale-marseille.fr/default so it si like other site. We then use awk to split the strip on /
+    # and get only the site name.
     # grep -v "^self$" is used to remove self that appear if command is launched in one of drupal directories
-    drush sa --format=csv --fields="name","uri" | awk '{FS=","; if ($2 != "") { print $1;}}' | sort | grep -v "^self$"
+    drush sa --format=csv --fields="name","uri" |
+        sed 's#^assos.centrale-marseille.fr$#asoss.centrale-marseille.fr/default#' |
+        awk '{if ($1 != "") { split($1, a, "/"); print a[2];}}' |
+        sort |
+        grep -v "^self$"
 }

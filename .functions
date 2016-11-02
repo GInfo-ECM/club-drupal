@@ -1,4 +1,6 @@
 my-unlog() {
     . /home/assos/unlog/bin/activate
+    export PYTHONPATH=/home/assos/unlog/unlog
     unlog "$@"
+    deactivate
 }

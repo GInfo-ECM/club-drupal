@@ -17,7 +17,7 @@ for settings in $(find "${d7_dir_sites}" -mindepth 2 -maxdepth 2 -name settings.
 
     echo "Changing ${settings}"
     chmod 600 "${settings}"
-    sed "s/\%\%DBUSER\%\%/$db_user/ ; s/\%\%DBNAME\%\%/$db_name/ ; s/\%\%DBPASS\%\%/$db_password/ ; s#\%\%BASE_URL\%\%#$base_url#" < "${d7_settings_local_template}" > "${settings}"
+    sed "s/\%\%DBUSER\%\%/$db_user/ ; s/\%\%DBNAME\%\%/$db_name/ ; s/\%\%DBPASS\%\%/$db_password/ ; s#^\$base_url.*#\$base_url = '$base_url';#" < "${d7_settings_local_template}" > "${settings}"
     chmod 400 "${settings}"
     echo Done
 done

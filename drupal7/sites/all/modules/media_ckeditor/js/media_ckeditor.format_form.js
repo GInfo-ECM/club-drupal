@@ -20,11 +20,10 @@ Drupal.media.formatForm.getOptions = function () {
   var ret = {};
 
   $.each($('#media-wysiwyg-format-form .fieldset-wrapper *').serializeArray(), function (i, field) {
-    // For all fields, since they WILL be in JSON, encode them.
-    ret[field.name] = encodeURIComponent(field.value);
-
     // When a field uses a WYSIWYG format, the value needs to be extracted.
     if (field.name.match(/\[format\]/i)) {
+      // Only fields containing HTML need to be encoded.
+      ret[field.name] = encodeURIComponent(field.value);
       field.name = field.name.replace(/\[format\]/i, '[value]');
       field.key  = 'edit-' + field.name.replace(/[_\[]/g, '-').replace(/[\]]/g, '');
 
@@ -35,9 +34,13 @@ Drupal.media.formatForm.getOptions = function () {
         }
       }
     }
+    else {
+      ret[field.name] = field.value;
+    }
   });
 
   return ret;
+
 };
 
 })(jQuery);

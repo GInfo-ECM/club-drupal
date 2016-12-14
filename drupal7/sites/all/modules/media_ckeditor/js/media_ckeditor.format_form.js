@@ -12,35 +12,17 @@ if (typeof Drupal.media === 'undefined' ||
 }
 
 /**
- * This overrides, and is mostly a copy of, a function from the following file:
- * media/modules/media_wysiwyg/js/media_wysiwyg.format_form.js
+ * This overrides the function of the same name from media/modules/media_wysiwyg/js/media_wysiwyg.format_form.js
+ * It provides an implementation of that function that knows how to extract content from CKEditor instances.
  */
-Drupal.media.formatForm.getOptions = function () {
-  // Get all the values
-  var ret = {};
-
-  $.each($('#media-wysiwyg-format-form .fieldset-wrapper *').serializeArray(), function (i, field) {
-    // When a field uses a WYSIWYG format, the value needs to be extracted.
-    if (field.name.match(/\[format\]/i)) {
-      // Only fields containing HTML need to be encoded.
-      ret[field.name] = encodeURIComponent(field.value);
-      field.name = field.name.replace(/\[format\]/i, '[value]');
-      field.key  = 'edit-' + field.name.replace(/[_\[]/g, '-').replace(/[\]]/g, '');
-
-      if (typeof CKEDITOR !== 'undefined') {
-        if (CKEDITOR.instances[field.key]) {
-          ret[field.name] = CKEDITOR.instances[field.key].getData();
-          ret[field.name] = encodeURIComponent(ret[field.name]);
-        }
-      }
-    }
-    else {
-      ret[field.name] = field.value;
-    }
-  });
-
-  return ret;
-
+Drupal.media.formatForm.getEditorContent = function(fieldKey) {
+  if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances[fieldKey]) {
+    return CKEDITOR.instances[fieldKey].getData();
+  }
+  else {
+    // Default case => no CKEditor instance for this field.
+    return null;
+  }
 };
 
 })(jQuery);

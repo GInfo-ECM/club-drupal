@@ -132,6 +132,16 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
 
   $vars['items_per_slide'] = $items_per_slide;
 
+  //drupal_set_message(var_export($vars['options']['widgets'],TRUE));
+  $widgets = $vars['options']['widgets'];
+  if (isset($options['top']['views_slideshow_pager']['enabled']) && $options['top']['views_slideshow_pager']['enabled']) {
+    $aria = "aria-labelledby='views_slideshow_pager_field_item_top_${vss_id}_";
+  }
+  else {
+    $aria = "aria-labelledby='views_slideshow_pager_field_item_bottom_${vss_id}_";
+  }
+
+
   $items = array();
   $slideshow_count = 0;
   $rendered_rows = '';
@@ -143,6 +153,7 @@ function template_preprocess_views_slideshow_cycle_main_frame(&$vars) {
         'items' => $items,
         'count' => $slideshow_count,
         'view' => $vars['view'],
+        'aria' => $aria . $slideshow_count . "'",
       ));
       $items = array();
       $slideshow_count++;
@@ -174,7 +185,7 @@ function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
       'item_count' => $item_count,
       'count' => $vars['count'],
       'view' => $vars['view'],
-      'length' => count($vars['view']->result),
+      'length' => count($vars['items']),
     ));
   }
 }
@@ -183,8 +194,8 @@ function template_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
  * Implements hook_preprocess_views_slideshow_cycle_main_frame_row_item().
  */
 function template_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
-  $vars['classes_array'][] = 'views-row views-row-' . $vars['count'];
-  $vars['classes_array'][] = ($vars['count'] % 2) ? 'views-row-even' : 'views-row-odd';
+  $vars['classes_array'][] = 'views-row views-row-' . $vars['item_count'];
+  $vars['classes_array'][] = ($vars['item_count'] % 2) ? 'views-row-even' : 'views-row-odd';
   if ($vars['count'] == 0) {
     $vars['classes_array'][] = 'views-row-first';
   }
@@ -244,4 +255,31 @@ function views_slideshow_cycle_preprocess_views_slideshow_slide_counter(&$vars) 
     $vars['slide_count'] = $vars['slide_count'] / $vars['view']->style_options['views_slideshow_cycle']['items_per_slide'];
     $vars['slide_count'] = ceil($vars['slide_count']);
   }
+}
+
+/**
+ * Backwards compatability wrapper.
+ *
+ * @see template_preprocess_views_slideshow_cycle_main_frame().
+ */
+function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame(&$vars) {
+  template_preprocess_views_slideshow_cycle_main_frame($vars);
+}
+
+/**
+ * Backwards compatability wrapper.
+ *
+ * @see template_preprocess_views_slideshow_cycle_main_frame_row().
+ */
+function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row(&$vars) {
+  template_preprocess_views_slideshow_cycle_main_frame_row($vars);
+}
+
+/**
+ * Backwards compatability wrapper.
+ *
+ * @see template_preprocess_views_slideshow_cycle_main_frame_row_item().
+ */
+function _views_slideshow_cycle_preprocess_views_slideshow_cycle_main_frame_row_item(&$vars) {
+  template_preprocess_views_slideshow_cycle_main_frame_row_item($vars);
 }

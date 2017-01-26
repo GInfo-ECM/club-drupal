@@ -51,6 +51,7 @@ function views_slideshow_cycle_views_slideshow_option_definition() {
       // Action.
       'pause' => array('default' => 1),
       'pause_on_click' => array('default' => 0),
+      'play_on_hover' => array('default' => 0),
       'action_advanced' => array('default' => 0),
       'start_paused' => array('default' => 0),
       'remember_slide' => array('default' => 0),
@@ -219,6 +220,22 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
     '#title' => t('Pause on hover'),
     '#default_value' => $view->options['views_slideshow_cycle']['pause'],
     '#description' => t('Pause when hovering on the slideshow image.'),
+    '#states' => array(
+      'enabled' => array(
+        ':input[name="style_options[views_slideshow_cycle][play_on_hover]"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  $form['views_slideshow_cycle']['play_on_hover'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Play on hover'),
+    '#default_value' => $view->options['views_slideshow_cycle']['play_on_hover'],
+    '#description' => t('Play when hovering on the slideshow image.'),
+    '#states' => array(
+      'enabled' => array(
+        ':input[name="style_options[views_slideshow_cycle][pause]"]' => array('checked' => FALSE),
+      ),
+    ),
   );
   $form['views_slideshow_cycle']['pause_on_click'] = array(
     '#type' => 'checkbox',
@@ -442,7 +459,9 @@ function views_slideshow_cycle_views_slideshow_slideshow_type_form(&$form, &$for
       'after' => 'after',
       'allowPagerClickBubble' => 'allowPagerClickBubble',
       'animIn' => 'animIn',
+      'animInDelay' => 'animInDelay',
       'animOut' => 'animOut',
+      'animOutDelay' => 'animOutDelay',
       'autostop' => 'autostop',
       'autostopCount' => 'autostopCount',
       'backwards' => 'backwards',

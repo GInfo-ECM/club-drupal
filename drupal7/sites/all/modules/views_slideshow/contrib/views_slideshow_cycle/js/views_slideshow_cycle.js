@@ -120,6 +120,24 @@
             $('#views_slideshow_cycle_teaser_section_' + settings.vss_id).hover(mouseIn, mouseOut);
           }
         }
+        
+        // Play on hover.
+        if (settings.play_on_hover) {
+          var mouseIn = function() {
+            Drupal.viewsSlideshow.action({ "action": 'play', "slideshowID": settings.slideshowId, "force": true });
+          }
+
+          var mouseOut = function() {
+            Drupal.viewsSlideshow.action({ "action": 'pause', "slideshowID": settings.slideshowId });
+          }
+
+          if (jQuery.fn.hoverIntent) {
+            $('#views_slideshow_cycle_teaser_section_' + settings.vss_id).hoverIntent(mouseIn, mouseOut);
+          }
+          else {
+            $('#views_slideshow_cycle_teaser_section_' + settings.vss_id).hover(mouseIn, mouseOut);
+          }
+        }
 
         // Pause on clicking of the slide.
         if (settings.pause_on_click) {
@@ -197,7 +215,9 @@
 
               // These process options that look like {top:50, bottom:20}
               case "animIn":
+              case "animInDelay":
               case "animOut":
+              case "animOutDelay":
               case "cssBefore":
               case "cssAfter":
               case "shuffle":

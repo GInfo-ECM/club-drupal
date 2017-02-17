@@ -21,6 +21,7 @@
 ~*^assos.centrale-marseille.fr/ercm/.*$	/ercm;
 ~*^assos.centrale-marseille.fr/eluseleves/.*$	/eluseleves;
 ~*^assos.centrale-marseille.fr/election/.*$	/election;
+~*^assos.centrale-marseille.fr/echangesphotest/.*$	/echangesphotest;
 ~*^assos.centrale-marseille.fr/echangesphoceens/.*$	/echangesphoceens;
 ~*^assos.centrale-marseille.fr/djulientest/.*$	/djulientest;
 ~*^assos.centrale-marseille.fr/cneuvilletest/.*$	/cneuvilletest;

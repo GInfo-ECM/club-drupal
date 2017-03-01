@@ -8,8 +8,8 @@
   display: none;
 }
 
-.jquery-once-1-processed .views-slideshow-controls-bottom,
-.jquery-once-1-processed .views-slideshow-controls-top {
+.views-slideshow-cycle-processed .views-slideshow-controls-bottom,
+.views-slideshow-cycle-processed .views-slideshow-controls-top {
   display: block;
 }
 
